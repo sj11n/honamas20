@@ -10,9 +10,10 @@ Lies vor jeder Änderung vollständig:
 
 1. `PROJECT.md`
 2. `CREATIVE_BRIEF.md`
-3. `AGENTS.md`
-4. vorhandene Analyse- und Migrationsdokumente
-5. den bestehenden Repository-Inhalt
+3. `HONAMAS_CONTENT.md`
+4. `AGENTS.md`
+5. vorhandene Analyse- und Migrationsdokumente
+6. den bestehenden Repository-Inhalt
 
 Diese Dokumente sind verbindlich. Bei Widersprüchen gilt die strengere Anforderung.
 

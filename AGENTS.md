@@ -2,7 +2,12 @@
 
 ## 1. Verbindliche Projektregeln
 
-Vor jeder Änderung müssen `PROJECT.md`, `CREATIVE_BRIEF.md` und diese Datei vollständig gelesen werden.
+Vor jeder Änderung müssen `PROJECT.md`, `CREATIVE_BRIEF.md`,
+`HONAMAS_CONTENT.md` und diese Datei vollständig gelesen werden.
+
+`HONAMAS_CONTENT.md` ist die verbindliche redaktionelle und chronologische
+Arbeitsgrundlage für den Relaunch. Inhalte dürfen nur mit fachlicher Prüfung
+über diesen Bestand hinaus erweitert oder abweichend interpretiert werden.
 
 Das Repository ist die technische Quelle der Wahrheit für:
 
