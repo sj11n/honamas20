@@ -349,6 +349,11 @@ Usage rules:
 
 Use local or privacy-compliant web fonts only.
 
+For the public HONAMAS website, use Montserrat as the primary typeface. Ship the
+required font files with the theme and declare them through `@font-face`; do not
+load typography from a third-party runtime service. Use a restrained weight set
+(400, 500, 600, 700 and 800) and preserve comfortable reading sizes on mobile.
+
 Recommended direction:
 
 - Headlines: strong grotesk, condensed sans or wide athletic sans.
@@ -356,6 +361,25 @@ Recommended direction:
 - Numbers and dates: tabular numerals where useful.
 
 Do not use more than two font families.
+
+### Story fidelity
+
+The HONAMAS story is factual editorial content, not campaign copy. The existing
+content at `https://honamas.com/` is the canonical source until a newer approved
+source is supplied.
+
+- Preserve every essential event, attribution, chronology and context from the
+  original story when restructuring or improving the language.
+- Never invent motivations, people, dates, outcomes, quotes or historical
+  details.
+- Do not reduce the story to broad claims when the original provides material
+  detail, including the Australia observation, the 2006 team process, the
+  visibility at the home World Cup, the years after 2006, the 2015 retelling and
+  the formal trademark handover in 2021.
+- Clearly mark any new editorial text that has not yet been checked against the
+  canonical source for review before publication.
+- Write German with proper umlauts (`ä`, `ö`, `ü`, `ß`) rather than ASCII
+  substitutions.
 
 ### Imagery
 
@@ -611,4 +635,3 @@ Codex must never:
 - Deploy approved theme.
 - Verify production.
 - Remove Kubio only when safe.
-

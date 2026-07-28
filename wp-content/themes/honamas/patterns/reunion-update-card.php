@@ -14,7 +14,7 @@
 	<h3><?php esc_html_e( 'Aktueller Stand', 'honamas' ); ?></h3>
 	<!-- /wp:heading -->
 	<!-- wp:paragraph -->
-	<p><?php esc_html_e( 'Der neueste Hinweis fuer die gemeinsame Planung.', 'honamas' ); ?></p>
+	<p><?php esc_html_e( 'Der neueste Hinweis für die gemeinsame Planung.', 'honamas' ); ?></p>
 	<!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->

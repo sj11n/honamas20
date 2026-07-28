@@ -5,8 +5,8 @@
  * Categories: honamas-sections
  */
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"backgroundColor":"honamas-off-white","layout":{"type":"constrained"}} -->
-<div id="20-jahre" class="wp-block-group alignfull has-honamas-off-white-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
+<!-- wp:group {"align":"full","className":"honamas-section-accent","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"backgroundColor":"honamas-off-white","layout":{"type":"constrained"}} -->
+<div id="20-jahre" class="wp-block-group alignfull honamas-section-accent has-honamas-off-white-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
 	<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|70"}}}} -->
 	<div class="wp-block-columns alignwide">
 		<!-- wp:column {"width":"34%"} -->

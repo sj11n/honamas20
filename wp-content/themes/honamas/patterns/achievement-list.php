@@ -13,14 +13,17 @@
 		<p class="honamas-kicker has-honamas-gold-color has-text-color"><?php esc_html_e( 'Erfolge', 'honamas' ); ?></p>
 		<!-- /wp:paragraph -->
 		<!-- wp:heading -->
-		<h2><?php esc_html_e( 'Reduziert, klar, typografisch.', 'honamas' ); ?></h2>
+		<h2><?php esc_html_e( 'Die Erfolge der HONAMAS.', 'honamas' ); ?></h2>
 		<!-- /wp:heading -->
 		<!-- wp:list {"className":"honamas-meta","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
 		<ul class="honamas-meta" style="margin-top:var(--wp--preset--spacing--60)">
 			<li><?php esc_html_e( '2006 - Weltmeister', 'honamas' ); ?></li>
-			<li><?php esc_html_e( '2010 - Marke registriert', 'honamas' ); ?></li>
-			<li><?php esc_html_e( '2021 - Rechte an den DHB uebertragen', 'honamas' ); ?></li>
-			<li><?php esc_html_e( '2026 - 20 Jahre HONAMAS', 'honamas' ); ?></li>
+			<li><?php esc_html_e( '2008 - Olympiasieger', 'honamas' ); ?></li>
+			<li><?php esc_html_e( '2011 - Europameister', 'honamas' ); ?></li>
+			<li><?php esc_html_e( '2012 - Olympiasieger', 'honamas' ); ?></li>
+			<li><?php esc_html_e( '2013 - Europameister', 'honamas' ); ?></li>
+			<li><?php esc_html_e( '2023 - Weltmeister', 'honamas' ); ?></li>
+			<li><?php esc_html_e( '2025 - Europameister', 'honamas' ); ?></li>
 		</ul>
 		<!-- /wp:list -->
 	</div>

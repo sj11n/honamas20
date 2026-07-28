@@ -14,7 +14,7 @@
 	<p class="has-x-large-font-size"><?php esc_html_e( '28. August 2026, 18:00 Uhr', 'honamas' ); ?></p>
 	<!-- /wp:paragraph -->
 	<!-- wp:paragraph -->
-	<p><?php esc_html_e( 'Wir zaehlen die Tage bis zum Wiedersehen.', 'honamas' ); ?></p>
+	<p><?php esc_html_e( 'Wir zählen die Tage bis zum Wiedersehen.', 'honamas' ); ?></p>
 	<!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->

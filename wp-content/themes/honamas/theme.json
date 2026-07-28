@@ -54,13 +54,13 @@
       "fontFamilies": [
         {
           "slug": "heading",
-          "name": "Heading",
-          "fontFamily": "\"Arial Narrow\", \"Helvetica Neue Condensed\", \"Roboto Condensed\", Arial, sans-serif"
+          "name": "Montserrat",
+          "fontFamily": "Montserrat, Arial, sans-serif"
         },
         {
           "slug": "body",
-          "name": "Body",
-          "fontFamily": "\"Helvetica Neue\", Arial, sans-serif"
+          "name": "Montserrat",
+          "fontFamily": "Montserrat, Arial, sans-serif"
         }
       ],
       "fontSizes": [

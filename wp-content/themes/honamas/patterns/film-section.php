@@ -13,8 +13,11 @@
 		<p class="honamas-kicker has-honamas-pink-soft-color has-text-color"><?php esc_html_e( 'Film', 'honamas' ); ?></p>
 		<!-- /wp:paragraph -->
 		<!-- wp:heading -->
-		<h2><?php esc_html_e( 'Die Geschichte als bewegtes Bild.', 'honamas' ); ?></h2>
+		<h2><?php esc_html_e( 'Der Weg zum Titel.', 'honamas' ); ?></h2>
 		<!-- /wp:heading -->
+		<!-- wp:paragraph {"fontSize":"large"} -->
+		<p class="has-large-font-size"><?php esc_html_e( 'Der Film begleitet die deutsche Mannschaft durch die Heim-WM 2006 und erzählt, wie auf diesem Weg die HONAMAS entstanden.', 'honamas' ); ?></p>
+		<!-- /wp:paragraph -->
 		<!-- wp:embed {"providerNameSlug":"youtube","responsive":true,"className":"wp-embed-aspect-16-9 wp-has-aspect-ratio"} -->
 		<figure class="wp-block-embed is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper"></div></figure>
 		<!-- /wp:embed -->

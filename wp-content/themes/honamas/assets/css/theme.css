@@ -1,3 +1,43 @@
+@font-face {
+	font-display: swap;
+	font-family: "Montserrat";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/montserrat-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "Montserrat";
+	font-style: normal;
+	font-weight: 500;
+	src: url("../fonts/montserrat-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "Montserrat";
+	font-style: normal;
+	font-weight: 600;
+	src: url("../fonts/montserrat-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "Montserrat";
+	font-style: normal;
+	font-weight: 700;
+	src: url("../fonts/montserrat-latin-700-normal.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "Montserrat";
+	font-style: normal;
+	font-weight: 800;
+	src: url("../fonts/montserrat-latin-800-normal.woff2") format("woff2");
+}
+
 :root {
 	--honamas-outline: 2px solid var(--wp--preset--color--honamas-pink);
 }
@@ -7,6 +47,7 @@ html {
 }
 
 body {
+	background: var(--wp--preset--color--honamas-white);
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 }
@@ -29,7 +70,11 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-site-header {
-	border-bottom: 1px solid var(--wp--preset--color--honamas-line);
+	background: rgba(255, 255, 255, 0.92);
+	border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 20;
 }
 
 .honamas-site-footer {
@@ -49,17 +94,82 @@ a:where(:hover, :focus-visible) {
 	max-width: 5rem;
 }
 
-.honamas-board {
+.honamas-section-accent {
+	background:
+		linear-gradient(90deg, rgba(214, 163, 19, 0.14), transparent 48%),
+		var(--wp--preset--color--honamas-white);
+}
+
+.honamas-section-grid {
 	background-image:
-		linear-gradient(90deg, rgba(17, 17, 17, 0.08) 1px, transparent 1px),
-		linear-gradient(rgba(17, 17, 17, 0.08) 1px, transparent 1px);
+		linear-gradient(90deg, rgba(17, 17, 17, 0.045) 1px, transparent 1px),
+		linear-gradient(rgba(17, 17, 17, 0.045) 1px, transparent 1px);
+	background-size: 120px 120px;
+}
+
+.honamas-board,
+.honamas-video-hero {
+	background-image:
+		linear-gradient(90deg, rgba(245, 242, 234, 0.12) 1px, transparent 1px),
+		linear-gradient(rgba(245, 242, 234, 0.12) 1px, transparent 1px);
 	background-size: 72px 72px;
+	overflow: hidden;
+	position: relative;
+}
+
+.honamas-video-hero::before {
+	background:
+		linear-gradient(90deg, rgba(17, 17, 17, 0.92) 0%, rgba(17, 17, 17, 0.68) 48%, rgba(17, 17, 17, 0.24) 100%),
+		radial-gradient(circle at 76% 24%, rgba(200, 16, 46, 0.34), transparent 0 23rem);
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 1;
+}
+
+.honamas-video-hero::after {
+	border: 1px solid rgba(255, 255, 255, 0.38);
+	border-radius: 999px;
+	content: "";
+	height: min(54vw, 680px);
+	position: absolute;
+	right: -10vw;
+	top: 18%;
+	width: min(54vw, 680px);
+	z-index: 2;
+}
+
+.honamas-video-hero .wp-block-cover__image-background,
+.honamas-video-hero video.wp-block-cover__video-background {
+	filter: saturate(0.92) contrast(1.08);
+}
+
+.honamas-video-hero .wp-block-cover__inner-container {
+	position: relative;
+	z-index: 3;
+}
+
+.honamas-hero-content {
+	display: grid;
+	gap: var(--wp--preset--spacing--50);
+}
+
+.honamas-hero-content h1 {
+	font-size: clamp(4rem, 13vw, 11.5rem);
+	letter-spacing: 0;
+	max-width: 100%;
+	text-wrap: balance;
+}
+
+.honamas-hero-content p:not(.honamas-kicker) {
+	max-width: 640px;
 }
 
 .honamas-kicker {
 	font-family: var(--wp--preset--font-family--heading);
 	font-size: var(--wp--preset--font-size--small);
-	font-weight: 800;
+	font-weight: 700;
+	letter-spacing: 0.08em;
 	line-height: 1.2;
 	text-transform: uppercase;
 }
@@ -69,13 +179,14 @@ a:where(:hover, :focus-visible) {
 	font-family: var(--wp--preset--font-family--heading);
 	font-size: var(--wp--preset--font-size--small);
 	font-variant-numeric: tabular-nums;
-	font-weight: 800;
+	font-weight: 700;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 }
 
 .honamas-timeline {
-	border-left: 2px solid var(--wp--preset--color--honamas-line);
-	padding-left: var(--wp--preset--spacing--50);
+	border-left: 1px solid var(--wp--preset--color--honamas-line);
+	padding-left: var(--wp--preset--spacing--60);
 }
 
 .honamas-timeline > * {
@@ -84,20 +195,57 @@ a:where(:hover, :focus-visible) {
 
 .honamas-timeline > *::before {
 	background: var(--wp--preset--color--honamas-red);
-	border: 3px solid var(--wp--preset--color--honamas-off-white);
+	border: 4px solid var(--wp--preset--color--honamas-white);
 	border-radius: 999px;
 	content: "";
 	height: 0.8rem;
-	left: calc(-1 * var(--wp--preset--spacing--50) - 0.45rem);
+	left: calc(-1 * var(--wp--preset--spacing--60) - 0.45rem);
 	position: absolute;
 	top: 0.45rem;
 	width: 0.8rem;
+}
+
+.honamas-timeline > *:nth-child(4n + 3)::before {
+	background: var(--wp--preset--color--honamas-gold);
 }
 
 .wp-block-button__link:hover {
 	background: var(--wp--preset--color--honamas-pink);
 	border-color: var(--wp--preset--color--honamas-pink);
 	color: var(--wp--preset--color--honamas-white);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	background: transparent;
+	border-color: currentColor;
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover {
+	background: var(--wp--preset--color--honamas-white);
+	border-color: var(--wp--preset--color--honamas-white);
+	color: var(--wp--preset--color--honamas-black);
+}
+
+.honamas-story-origin .wp-block-column:last-child,
+.honamas-timeline-section .wp-block-group.alignwide {
+	max-width: 1180px;
+}
+
+.honamas-story-origin .wp-block-column:last-child {
+	border-left: 1px solid var(--wp--preset--color--honamas-line);
+	padding-left: var(--wp--preset--spacing--70);
+}
+
+.honamas-timeline-section {
+	background: var(--wp--preset--color--honamas-white);
+}
+
+.honamas-timeline h3 {
+	margin-top: var(--wp--preset--spacing--50);
+}
+
+.honamas-timeline h3:first-child {
+	margin-top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -114,5 +262,12 @@ a:where(:hover, :focus-visible) {
 @media (max-width: 700px) {
 	.wp-site-blocks {
 		overflow-wrap: anywhere;
+	}
+
+	.honamas-story-origin .wp-block-column:last-child {
+		border-left: 0;
+		border-top: 1px solid var(--wp--preset--color--honamas-line);
+		padding-left: 0;
+		padding-top: var(--wp--preset--spacing--50);
 	}
 }
