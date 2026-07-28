@@ -1,0 +1,219 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1180px"
+    },
+    "color": {
+      "custom": false,
+      "customGradient": false,
+      "defaultDuotone": false,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "palette": [
+        { "slug": "honamas-black", "name": "HONAMAS Black", "color": "#111111" },
+        { "slug": "honamas-charcoal", "name": "HONAMAS Charcoal", "color": "#242424" },
+        { "slug": "honamas-off-white", "name": "HONAMAS Off White", "color": "#F5F2EA" },
+        { "slug": "honamas-white", "name": "HONAMAS White", "color": "#FFFFFF" },
+        { "slug": "honamas-red", "name": "HONAMAS Red", "color": "#C8102E" },
+        { "slug": "honamas-gold", "name": "HONAMAS Gold", "color": "#D6A313" },
+        { "slug": "honamas-pink", "name": "HONAMAS Pink", "color": "#E6007E" },
+        { "slug": "honamas-pink-soft", "name": "HONAMAS Pink Soft", "color": "#F7D5E8" },
+        { "slug": "honamas-grey", "name": "HONAMAS Grey", "color": "#727272" },
+        { "slug": "honamas-line", "name": "HONAMAS Line", "color": "#D9D5CC" }
+      ]
+    },
+    "spacing": {
+      "spacingScale": {
+        "operator": "*",
+        "increment": 1.5,
+        "steps": 7,
+        "mediumStep": 1.5,
+        "unit": "rem"
+      },
+      "spacingSizes": [
+        { "slug": "20", "name": "2XS", "size": "0.5rem" },
+        { "slug": "30", "name": "XS", "size": "0.75rem" },
+        { "slug": "40", "name": "S", "size": "1rem" },
+        { "slug": "50", "name": "M", "size": "1.5rem" },
+        { "slug": "60", "name": "L", "size": "2.25rem" },
+        { "slug": "70", "name": "XL", "size": "3.5rem" },
+        { "slug": "80", "name": "2XL", "size": "5rem" },
+        { "slug": "90", "name": "3XL", "size": "7rem" }
+      ],
+      "units": [ "px", "rem", "em", "%", "vh", "vw" ]
+    },
+    "typography": {
+      "customFontSize": false,
+      "dropCap": false,
+      "fluid": true,
+      "fontFamilies": [
+        {
+          "slug": "heading",
+          "name": "Heading",
+          "fontFamily": "\"Arial Narrow\", \"Helvetica Neue Condensed\", \"Roboto Condensed\", Arial, sans-serif"
+        },
+        {
+          "slug": "body",
+          "name": "Body",
+          "fontFamily": "\"Helvetica Neue\", Arial, sans-serif"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small", "name": "Small", "size": "0.875rem", "fluid": false },
+        { "slug": "medium", "name": "Medium", "size": "1rem", "fluid": false },
+        { "slug": "large", "name": "Large", "size": "1.25rem", "fluid": { "min": "1.125rem", "max": "1.375rem" } },
+        { "slug": "x-large", "name": "X Large", "size": "2rem", "fluid": { "min": "1.5rem", "max": "2.5rem" } },
+        { "slug": "display", "name": "Display", "size": "4.75rem", "fluid": { "min": "2.75rem", "max": "6.5rem" } }
+      ]
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": true
+        }
+      },
+      "core/navigation": {
+        "typography": {
+          "fontSize": true
+        }
+      }
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|honamas-off-white",
+      "text": "var:preset|color|honamas-black"
+    },
+    "spacing": {
+      "blockGap": "var:preset|spacing|50",
+      "padding": {
+        "right": "var:preset|spacing|50",
+        "left": "var:preset|spacing|50"
+      }
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|body",
+      "fontSize": "var:preset|font-size|medium",
+      "lineHeight": "1.65"
+    },
+    "elements": {
+      "button": {
+        "border": {
+          "radius": "4px",
+          "width": "1px"
+        },
+        "color": {
+          "background": "var:preset|color|honamas-black",
+          "text": "var:preset|color|honamas-white"
+        },
+        "spacing": {
+          "padding": {
+            "top": "0.85rem",
+            "right": "1.2rem",
+            "bottom": "0.85rem",
+            "left": "1.2rem"
+          }
+        },
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading",
+          "fontSize": "var:preset|font-size|small",
+          "fontWeight": "700",
+          "letterSpacing": "0",
+          "textTransform": "uppercase"
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading",
+          "fontSize": "var:preset|font-size|display",
+          "fontWeight": "800",
+          "letterSpacing": "0",
+          "lineHeight": "0.95",
+          "textTransform": "uppercase"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading",
+          "fontSize": "var:preset|font-size|x-large",
+          "fontWeight": "800",
+          "letterSpacing": "0",
+          "lineHeight": "1.05",
+          "textTransform": "uppercase"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading",
+          "fontSize": "var:preset|font-size|large",
+          "fontWeight": "800",
+          "letterSpacing": "0",
+          "lineHeight": "1.15",
+          "textTransform": "uppercase"
+        }
+      },
+      "link": {
+        "color": {
+          "text": "var:preset|color|honamas-red"
+        },
+        "typography": {
+          "textDecoration": "underline"
+        }
+      }
+    },
+    "blocks": {
+      "core/group": {
+        "spacing": {
+          "blockGap": "var:preset|spacing|50"
+        }
+      },
+      "core/navigation": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading",
+          "fontSize": "var:preset|font-size|small",
+          "fontWeight": "700",
+          "letterSpacing": "0",
+          "textTransform": "uppercase"
+        }
+      },
+      "core/post-title": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading",
+          "fontWeight": "800",
+          "lineHeight": "1"
+        }
+      },
+      "core/query-title": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading",
+          "fontWeight": "800",
+          "lineHeight": "1"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "blank",
+      "title": "Blank",
+      "postTypes": [ "page", "post" ]
+    }
+  ]
+}

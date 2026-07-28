@@ -1,0 +1,118 @@
+:root {
+	--honamas-outline: 2px solid var(--wp--preset--color--honamas-pink);
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	text-underline-offset: 0.18em;
+}
+
+a:where(:hover, :focus-visible) {
+	color: var(--wp--preset--color--honamas-pink);
+}
+
+:where(a, button, input, textarea, select, summary, .wp-block-button__link):focus-visible {
+	outline: var(--honamas-outline);
+	outline-offset: 3px;
+}
+
+.wp-site-blocks {
+	min-height: 100vh;
+}
+
+.honamas-site-header {
+	border-bottom: 1px solid var(--wp--preset--color--honamas-line);
+}
+
+.honamas-site-footer {
+	border-top: 1px solid var(--wp--preset--color--honamas-line);
+}
+
+.honamas-rule {
+	position: relative;
+}
+
+.honamas-rule::before {
+	background: currentColor;
+	content: "";
+	display: block;
+	height: 2px;
+	margin-bottom: 1rem;
+	max-width: 5rem;
+}
+
+.honamas-board {
+	background-image:
+		linear-gradient(90deg, rgba(17, 17, 17, 0.08) 1px, transparent 1px),
+		linear-gradient(rgba(17, 17, 17, 0.08) 1px, transparent 1px);
+	background-size: 72px 72px;
+}
+
+.honamas-kicker {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 800;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.honamas-meta {
+	color: var(--wp--preset--color--honamas-grey);
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--small);
+	font-variant-numeric: tabular-nums;
+	font-weight: 800;
+	text-transform: uppercase;
+}
+
+.honamas-timeline {
+	border-left: 2px solid var(--wp--preset--color--honamas-line);
+	padding-left: var(--wp--preset--spacing--50);
+}
+
+.honamas-timeline > * {
+	position: relative;
+}
+
+.honamas-timeline > *::before {
+	background: var(--wp--preset--color--honamas-red);
+	border: 3px solid var(--wp--preset--color--honamas-off-white);
+	border-radius: 999px;
+	content: "";
+	height: 0.8rem;
+	left: calc(-1 * var(--wp--preset--spacing--50) - 0.45rem);
+	position: absolute;
+	top: 0.45rem;
+	width: 0.8rem;
+}
+
+.wp-block-button__link:hover {
+	background: var(--wp--preset--color--honamas-pink);
+	border-color: var(--wp--preset--color--honamas-pink);
+	color: var(--wp--preset--color--honamas-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+@media (max-width: 700px) {
+	.wp-site-blocks {
+		overflow-wrap: anywhere;
+	}
+}
