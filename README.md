@@ -32,6 +32,18 @@ README.md
 
 The public HONAMAS website must not link to or mention the reunion microsite.
 
+## Static Theme Preview
+
+A quick visual demo is available without WordPress:
+
+```bash
+python3 -m http.server 8080 --directory preview
+```
+
+Then open `http://localhost:8080`.
+
+This preview mirrors the theme direction, not the final WordPress rendering.
+
 ## Deployment
 
 Deployment must happen through staging first. Production releases require manual approval and a rollback path.
