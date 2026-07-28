@@ -1,15 +1,30 @@
 # Migrationsplan – HONAMAS.COM
 
 **Stand:** 29. Juli 2026  
-**Status:** Vorbereitete Bestandsaufnahme – noch keine Migration erfolgt
+**Status:** Bestandsaufnahme läuft – noch keine Migration erfolgt
 
 ## 1. Ziel und Grenzen
 
-Dieser Plan migriert die vorhandenen Inhalte von `honamas.com` in die neue öffentliche WordPress-Staging-Installation, ohne den bestehenden Kubio-Auftritt zu verändern. Grundlage ist `HONAMAS_CONTENT.md`; der tatsächliche Medienbestand wird erst mit WordPress-Zugang gegen diese Liste geprüft.
+Dieser Plan migriert die vorhandenen Inhalte von `honamas.com` in die neue öffentliche WordPress-Staging-Installation, ohne den bestehenden Kubio-Auftritt zu verändern. Grundlage ist `HONAMAS_CONTENT.md`; die erste Sichtprüfung des Medienbestands erfolgte am 29. Juli 2026.
 
 Der Plan enthält weder Zugangsdaten noch einen Produktions-Deploy. Er ersetzt keine fachliche Freigabe von Texten, Quellen oder Bildrechten.
 
-## 2. Migrationsprinzipien
+## 2. Verifizierter Produktionsbestand
+
+Die erste Sichtprüfung erfolgte ausschließlich lesend im bestehenden WordPress. Dabei wurden keine Seiten, Medien, Einstellungen oder Kommentare verändert.
+
+| Bereich | Verifizierter Stand | Konsequenz |
+| --- | --- | --- |
+| WordPress | Version 6.8.3, Theme Vertice mit Kubio-Bestand | nicht verändern; nur als Inhalts- und Medienquelle behandeln |
+| Seiten | neun veröffentlichte Seiten sichtbar | bestehende Slugs vor Staging-Migration einzeln abgleichen |
+| Mediathek | 183 Dateien auf zehn Seiten, Datumsarchive Oktober und November 2025 | vollständige Listeninventur mit IDs, Credits und Rechten folgt |
+| Mannschaftsfoto | Medien-ID 416, `Team_Honamas.jpg` | für Teamseite vormerken; Credit, Jahr und Freigabe ergänzen |
+| Einzelporträts | zahlreiche benannte PNG-Dateien vorhanden, darunter Bubi, Buddy, Jambo, Meini, Mo, Nici, Piwi, Scharo, Schüti, Tibs, Ulln, Wesa, Witti, Zello und Zells | alle 21 Namen gegen Medien-IDs und einheitliche Darstellung abgleichen |
+| Legacy-URLs | die Mediathek zeigt teilweise HTTP-Download-URLs | nicht übernehmen; Staging erzeugt neue HTTPS-Medien-URLs |
+
+Die Staging-Installation ist separat und derzeit leer. Sie enthält noch kein HONAMAS-Theme, keine HONAMAS-Plugins und keine migrierten Medien.
+
+## 3. Migrationsprinzipien
 
 - Originaldateien, Originaldokumente und vorhandene Texte haben Vorrang.
 - Jede Quelle wird vor dem Umzug einem Zielabschnitt und, wenn passend, einem Archivobjekt zugeordnet.
@@ -19,7 +34,7 @@ Der Plan enthält weder Zugangsdaten noch einen Produktions-Deploy. Er ersetzt k
 - Die öffentliche Seite enthält keine Reunion-Verweise.
 - Der produktive Kubio-Auftritt wird bis zur ausdrücklichen Freigabe nicht verändert.
 
-## 3. Ablauf
+## 4. Ablauf
 
 ### Schritt 1: Zugriff und Export
 
@@ -52,7 +67,7 @@ Der Plan enthält weder Zugangsdaten noch einen Produktions-Deploy. Er ersetzt k
 4. Linkcheck, Datenschutzcheck, Performancecheck und Redirect-Plan prüfen.
 5. Nutzerin gibt Staging frei; erst danach wird ein Produktionsplan erstellt.
 
-## 4. Seitenzuordnung
+## 5. Seitenzuordnung
 
 | Bestehender Inhalt | Zielroute | Zielstruktur | Status |
 | --- | --- | --- | --- |
@@ -69,7 +84,7 @@ Der Plan enthält weder Zugangsdaten noch einen Produktions-Deploy. Er ersetzt k
 | Der Film | `/der-film/` | Filmkontext und Zwei-Klick-Einbettung | neu anzulegen |
 | Kontakt, Impressum, Datenschutz | feste Routen | Service- und Pflichtseiten | Inhalte fehlen teilweise |
 
-## 5. Asset-Register: bekannte Bestandsgruppen
+## 6. Asset-Register: bekannte Bestandsgruppen
 
 | ID | Assetgruppe | Vermutete Quelle | Ziel | Archivkategorie | Status |
 | --- | --- | --- | --- | --- | --- |
@@ -86,10 +101,10 @@ Der Plan enthält weder Zugangsdaten noch einen Produktions-Deploy. Er ersetzt k
 | A-11 | Instagram-/Medienbelege | bestehende WordPress-Mediathek oder externe Plattform | Kapitel 4 | Presse | Permalinks, Rechte, Consent offen |
 | A-12 | Markenschutzunterlagen | bestehende WordPress-Mediathek | Kapitel 5 | Dokumente | Datenschutz und Vollständigkeit prüfen |
 | A-13 | Film und Poster | YouTube und/oder WordPress-Mediathek | Der Film, Startseite | – | Video-ID, Poster, Rechte, Untertitel offen |
-| A-14 | Mannschaftsfoto von 2006 | bestehende WordPress-Mediathek | Die Ur-HONAMAS | Fotos | Personen, Jahr, Credit prüfen |
-| A-15 | Einzelporträts der 21 Ur-HONAMAS | bestehende WordPress-Mediathek | Die Ur-HONAMAS | Fotos | Bestand, Freigaben und Zuschnitt offen |
+| A-14 | Mannschaftsfoto von 2006 | bestehende WordPress-Mediathek, ID 416, `Team_Honamas.jpg` | Die Ur-HONAMAS | Fotos | Personen, Jahr, Credit und Freigabe prüfen |
+| A-15 | Einzelporträts der 21 Ur-HONAMAS | bestehende WordPress-Mediathek, Bestand teilweise verifiziert | Die Ur-HONAMAS | Fotos | alle Medien-IDs, Freigaben und einheitlichen Zuschnitt erfassen |
 
-## 6. Teamdaten: bekannter Bestand
+## 7. Teamdaten: bekannter Bestand
 
 Die folgenden Namen und Spitznamen stammen aus `HONAMAS_CONTENT.md`. Sie werden erst nach dem Abgleich mit dem WordPress-Bestand und der fachlichen Freigabe als Teamprofile angelegt:
 
@@ -117,7 +132,7 @@ Die folgenden Namen und Spitznamen stammen aus `HONAMAS_CONTENT.md`. Sie werden 
 | Philipp Zeller | Zello | offen | offen |
 | Christopher Zeller | Zells | offen | offen |
 
-## 7. Nicht migrieren
+## 8. Nicht migrieren
 
 - Kubio-Layouts, -Blöcke, -Shortcodes oder Designabhängigkeiten.
 - nicht bestätigte Tracking- oder Marketing-Skripte.
@@ -125,7 +140,7 @@ Die folgenden Namen und Spitznamen stammen aus `HONAMAS_CONTENT.md`. Sie werden 
 - unklare Medienrechte oder nicht freigegebene Porträts.
 - Reunion-Inhalte, -Navigation oder -SEO-Einstellungen in die öffentliche Präsenz.
 
-## 8. Abnahmekriterien
+## 9. Abnahmekriterien
 
 Eine Migrationswelle gilt nur als abgeschlossen, wenn:
 
@@ -137,6 +152,6 @@ Eine Migrationswelle gilt nur als abgeschlossen, wenn:
 - keine Reunion-Verweise und keine Kubio-Abhängigkeiten verbleiben,
 - die Nutzerin die Staging-Ansicht fachlich freigegeben hat.
 
-## 9. Aktueller Blocker
+## 10. Aktueller Blocker
 
-Die Planung ist vollständig vorbereitet. Die tatsächliche Inventarisierung und Migration benötigen Zugriff auf die WordPress-Mediathek und das Staging. Bis dahin bleiben alle Medien-IDs, Dateiformate, Credits, Rechte und externen Ziel-URLs bewusst als offen markiert.
+Die Zugänge zu WordPress und Staging sind vorhanden. Offen bleiben die vollständige Medieninventur, Credits, Rechte, externe Film- und Social-URLs sowie die technische Übertragung von Theme, Plugin und Medien nach Staging.
