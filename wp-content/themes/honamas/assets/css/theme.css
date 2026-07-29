@@ -144,6 +144,33 @@ a:where(:hover, :focus-visible) {
 	z-index: 0;
 }
 
+.honamas-film-teaser {
+	overflow: hidden;
+	position: relative;
+}
+
+.honamas-film-teaser::before {
+	background: rgba(17, 17, 20, 0.56);
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 1;
+}
+
+.honamas-film-teaser__video {
+	height: 100%;
+	left: 0;
+	object-fit: cover;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.honamas-film-teaser > .wp-block-group {
+	position: relative;
+	z-index: 2;
+}
+
 .honamas-hero-content {
 	display: grid;
 	gap: var(--wp--preset--spacing--50);
@@ -210,9 +237,6 @@ a:where(:hover, :focus-visible) {
 
 .honamas-site-header .wp-block-navigation-item__content { white-space: nowrap; }
 .honamas-site-header .wp-block-site-title { letter-spacing: .03em; }
-.wp-block-post-title.alignwide {
-	max-width: 1180px;
-}
 .honamas-chapter-navigation {
 	display: flex;
 	flex-wrap: wrap;
@@ -244,13 +268,6 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-chapter-navigation__link--next { margin-left: auto; }
-.honamas-source-note {
-	border-top: 1px solid var(--wp--preset--color--honamas-line);
-	margin-top: var(--wp--preset--spacing--70);
-	padding-top: var(--wp--preset--spacing--40);
-}
-.honamas-source-note p { margin: 0; }
-.honamas-source-note p + p { margin-top: 0.25rem; }
 .honamas-archive-intro { margin-bottom: var(--wp--preset--spacing--70); }
 .honamas-story-origin h2 { max-width: 16ch; }
 .honamas-story-origin { border-top: 1px solid var(--wp--preset--color--honamas-line); }
@@ -299,6 +316,7 @@ a:where(:hover, :focus-visible) {
 	}
 
 	.honamas-video-hero .wp-block-cover__video-background { display: none; }
+	.honamas-film-teaser__video { display: none; }
 }
 
 @media (max-width: 700px) {
