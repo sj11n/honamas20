@@ -27,6 +27,13 @@
 			<!-- wp:paragraph -->
 			<p><?php esc_html_e( 'Vor der Heim-WM 2006 stellte er die Idee der Mannschaft in einem Trainingslager in Mönchengladbach vor. In der Runde im Whirlpool entstand aus der scherzhaft erwähnten „FuBaNaMa“ die Abkürzung HOckey NAtional MAnnSchaft: HONAMAS.', 'honamas' ); ?></p>
 			<!-- /wp:paragraph -->
+			<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
+			<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--50)">
+				<!-- wp:button -->
+				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/die-idee/"><?php esc_html_e( 'Die Geschichte lesen', 'honamas' ); ?></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
 		</div>
 		<!-- /wp:column -->
 	</div>
