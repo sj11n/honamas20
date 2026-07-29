@@ -38,9 +38,7 @@
 	src: url("../fonts/montserrat-latin-800-normal.woff2") format("woff2");
 }
 
-:root {
-	--honamas-outline: 2px solid var(--wp--preset--color--honamas-pink);
-}
+:root { --honamas-outline: 2px solid var(--wp--preset--color--honamas-gold); }
 
 html {
 	scroll-behavior: smooth;
@@ -94,18 +92,9 @@ a:where(:hover, :focus-visible) {
 	max-width: 5rem;
 }
 
-.honamas-section-accent {
-	background:
-		linear-gradient(90deg, rgba(214, 163, 19, 0.14), transparent 48%),
-		var(--wp--preset--color--honamas-white);
-}
+.honamas-section-accent { background: var(--wp--preset--color--honamas-off-white); }
 
-.honamas-section-grid {
-	background-image:
-		linear-gradient(90deg, rgba(17, 17, 17, 0.045) 1px, transparent 1px),
-		linear-gradient(rgba(17, 17, 17, 0.045) 1px, transparent 1px);
-	background-size: 120px 120px;
-}
+.honamas-section-grid { background-image: none; }
 
 .honamas-board,
 .honamas-video-hero {
@@ -118,26 +107,14 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-video-hero::before {
-	background:
-		linear-gradient(90deg, rgba(17, 17, 17, 0.92) 0%, rgba(17, 17, 17, 0.68) 48%, rgba(17, 17, 17, 0.24) 100%),
-		radial-gradient(circle at 76% 24%, rgba(200, 16, 46, 0.34), transparent 0 23rem);
+	background: rgba(17, 17, 20, 0.62);
 	content: "";
 	inset: 0;
 	position: absolute;
 	z-index: 1;
 }
 
-.honamas-video-hero::after {
-	border: 1px solid rgba(255, 255, 255, 0.38);
-	border-radius: 999px;
-	content: "";
-	height: min(54vw, 680px);
-	position: absolute;
-	right: -10vw;
-	top: 18%;
-	width: min(54vw, 680px);
-	z-index: 2;
-}
+.honamas-video-hero::after { display: none; }
 
 .honamas-video-hero .wp-block-cover__image-background,
 .honamas-video-hero video.wp-block-cover__video-background {
@@ -194,7 +171,7 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-timeline > *::before {
-	background: var(--wp--preset--color--honamas-red);
+	background: var(--wp--preset--color--honamas-gold);
 	border: 4px solid var(--wp--preset--color--honamas-white);
 	border-radius: 999px;
 	content: "";
@@ -205,15 +182,18 @@ a:where(:hover, :focus-visible) {
 	width: 0.8rem;
 }
 
-.honamas-timeline > *:nth-child(4n + 3)::before {
-	background: var(--wp--preset--color--honamas-gold);
-}
+.honamas-timeline > *:nth-child(4n + 3)::before { background: var(--wp--preset--color--honamas-black); }
 
 .wp-block-button__link:hover {
-	background: var(--wp--preset--color--honamas-pink);
-	border-color: var(--wp--preset--color--honamas-pink);
+	background: var(--wp--preset--color--honamas-charcoal);
+	border-color: var(--wp--preset--color--honamas-charcoal);
 	color: var(--wp--preset--color--honamas-white);
 }
+
+.honamas-site-header .wp-block-navigation-item__content { white-space: nowrap; }
+.honamas-site-header .wp-block-site-title { letter-spacing: .03em; }
+.honamas-story-origin h2 { max-width: 16ch; }
+.honamas-story-origin { border-top: 1px solid var(--wp--preset--color--honamas-line); }
 
 .wp-block-button.is-style-outline .wp-block-button__link {
 	background: transparent;

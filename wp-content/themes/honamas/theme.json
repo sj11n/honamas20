@@ -5,8 +5,8 @@
     "appearanceTools": true,
     "useRootPaddingAwareAlignments": true,
     "layout": {
-      "contentSize": "760px",
-      "wideSize": "1180px"
+      "contentSize": "720px",
+      "wideSize": "1280px"
     },
     "color": {
       "custom": false,
@@ -15,16 +15,16 @@
       "defaultGradients": false,
       "defaultPalette": false,
       "palette": [
-        { "slug": "honamas-black", "name": "HONAMAS Black", "color": "#111111" },
-        { "slug": "honamas-charcoal", "name": "HONAMAS Charcoal", "color": "#242424" },
-        { "slug": "honamas-off-white", "name": "HONAMAS Off White", "color": "#F5F2EA" },
+        { "slug": "honamas-black", "name": "HONAMAS Black", "color": "#111114" },
+        { "slug": "honamas-charcoal", "name": "HONAMAS Charcoal", "color": "#2A2A2E" },
+        { "slug": "honamas-off-white", "name": "HONAMAS Off White", "color": "#F6F4F0" },
         { "slug": "honamas-white", "name": "HONAMAS White", "color": "#FFFFFF" },
         { "slug": "honamas-red", "name": "HONAMAS Red", "color": "#C8102E" },
-        { "slug": "honamas-gold", "name": "HONAMAS Gold", "color": "#D6A313" },
+        { "slug": "honamas-gold", "name": "HONAMAS Gold", "color": "#C9A227" },
         { "slug": "honamas-pink", "name": "HONAMAS Pink", "color": "#E6007E" },
         { "slug": "honamas-pink-soft", "name": "HONAMAS Pink Soft", "color": "#F7D5E8" },
-        { "slug": "honamas-grey", "name": "HONAMAS Grey", "color": "#727272" },
-        { "slug": "honamas-line", "name": "HONAMAS Line", "color": "#D9D5CC" }
+        { "slug": "honamas-grey", "name": "HONAMAS Grey", "color": "#6C6C72" },
+        { "slug": "honamas-line", "name": "HONAMAS Line", "color": "#DEDCD7" }
       ]
     },
     "spacing": {
@@ -133,8 +133,8 @@
           "fontSize": "var:preset|font-size|display",
           "fontWeight": "800",
           "letterSpacing": "0",
-          "lineHeight": "0.95",
-          "textTransform": "uppercase"
+          "lineHeight": "1",
+          "textTransform": "none"
         }
       },
       "h2": {
@@ -144,7 +144,7 @@
           "fontWeight": "800",
           "letterSpacing": "0",
           "lineHeight": "1.05",
-          "textTransform": "uppercase"
+          "textTransform": "none"
         }
       },
       "h3": {
@@ -159,7 +159,7 @@
       },
       "link": {
         "color": {
-          "text": "var:preset|color|honamas-red"
+          "text": "var:preset|color|honamas-black"
         },
         "typography": {
           "textDecoration": "underline"
@@ -178,7 +178,7 @@
           "fontSize": "var:preset|font-size|small",
           "fontWeight": "700",
           "letterSpacing": "0",
-          "textTransform": "uppercase"
+          "textTransform": "none"
         }
       },
       "core/post-title": {

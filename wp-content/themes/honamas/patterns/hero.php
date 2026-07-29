@@ -17,15 +17,12 @@
 		<h1><?php esc_html_e( 'HONAMAS', 'honamas' ); ?></h1>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"fontSize":"large"} -->
-		<p class="has-large-font-size"><?php esc_html_e( 'Eine Mannschaft gab sich einen Namen, baute eine Identität und wurde Weltmeister.', 'honamas' ); ?></p>
+		<p class="has-large-font-size"><?php esc_html_e( 'Wie aus einer Mannschaftsidee ein Name für den deutschen Hockeysport wurde.', 'honamas' ); ?></p>
 		<!-- /wp:paragraph -->
 		<!-- wp:buttons -->
 		<div class="wp-block-buttons">
 			<!-- wp:button -->
-			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#story"><?php esc_html_e( 'Story lesen', 'honamas' ); ?></a></div>
-			<!-- /wp:button -->
-			<!-- wp:button {"className":"is-style-outline"} -->
-			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#film"><?php esc_html_e( 'Film ansehen', 'honamas' ); ?></a></div>
+			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/die-idee/"><?php esc_html_e( 'Die Geschichte entdecken', 'honamas' ); ?></a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->

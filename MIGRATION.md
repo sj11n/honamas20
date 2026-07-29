@@ -1,7 +1,7 @@
 # Migrationsplan – HONAMAS.COM
 
 **Stand:** 29. Juli 2026  
-**Status:** Bestandsaufnahme läuft – noch keine Migration erfolgt
+**Status:** Technische Migrationswelle abgeschlossen – redaktionelle Zuordnung und Freigabe offen
 
 ## 1. Ziel und Grenzen
 
@@ -22,7 +22,9 @@ Die erste Sichtprüfung erfolgte ausschließlich lesend im bestehenden WordPress
 | Einzelporträts | zahlreiche benannte PNG-Dateien vorhanden, darunter Bubi, Buddy, Jambo, Meini, Mo, Nici, Piwi, Scharo, Schüti, Tibs, Ulln, Wesa, Witti, Zello und Zells | alle 21 Namen gegen Medien-IDs und einheitliche Darstellung abgleichen |
 | Legacy-URLs | die Mediathek zeigt teilweise HTTP-Download-URLs | nicht übernehmen; Staging erzeugt neue HTTPS-Medien-URLs |
 
-Die Staging-Installation ist separat und derzeit leer. Sie enthält noch kein HONAMAS-Theme, keine HONAMAS-Plugins und keine migrierten Medien.
+Die Staging-Installation ist separat. Am 29. Juli 2026 wurden das HONAMAS-Block-Theme und das Plugin `HONAMAS Core` installiert und aktiviert. Alle 183 Dateien aus der öffentlich erreichbaren Produktions-Mediathek wurden in die Staging-Mediathek übertragen. Die Übertragung ersetzt keine Rechte-, Credit- oder Freigabeprüfung.
+
+Der bestehende Kubio-Auftritt auf `honamas.com` blieb während dieser Arbeiten unverändert.
 
 ## 3. Migrationsprinzipien
 
@@ -53,9 +55,9 @@ Die Staging-Installation ist separat und derzeit leer. Sie enthält noch kein HO
 
 ### Schritt 3: Staging-Inhalte
 
-1. Theme und Plugin auf Staging aktivieren.
+1. Theme und Plugin auf Staging aktivieren. **Erledigt.**
 2. Seiten mit vereinbarten Slugs anlegen.
-3. Originalmedien in die Staging-Mediathek übertragen und dort sauber beschriften.
+3. Originalmedien in die Staging-Mediathek übertragen und dort sauber beschriften. **Übertragung erledigt; Beschriftung und Zuordnung offen.**
 4. Kapitel, Team, Film, Erfolge und Archivobjekte einpflegen.
 5. Navigation, Footer, interne Links, Metadaten und externe Einbindungen konfigurieren.
 
@@ -152,6 +154,8 @@ Eine Migrationswelle gilt nur als abgeschlossen, wenn:
 - keine Reunion-Verweise und keine Kubio-Abhängigkeiten verbleiben,
 - die Nutzerin die Staging-Ansicht fachlich freigegeben hat.
 
-## 10. Aktueller Blocker
+## 10. Aktueller Stand und offene Punkte
 
-Die Zugänge zu WordPress und Staging sind vorhanden. Offen bleiben die vollständige Medieninventur, Credits, Rechte, externe Film- und Social-URLs sowie die technische Übertragung von Theme, Plugin und Medien nach Staging.
+Die Zugänge zu WordPress und Staging sind vorhanden. Theme, Plugin und 183 Medien sind auf Staging aktiv beziehungsweise übertragen. Offen bleiben die vollständige Medieninventur, Credits, Rechte, externe Film- und Social-URLs, die redaktionelle Seitenerstellung und die Zuordnung der Medien zu den jeweiligen Abschnitten.
+
+Staging ist derzeit über HTTP erreichbar. Vor einer externen Prüfung oder Veröffentlichung muss HTTPS verbindlich eingerichtet und erzwungen werden.
