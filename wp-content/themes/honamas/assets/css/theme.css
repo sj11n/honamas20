@@ -107,11 +107,19 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-video-hero::before {
-	background: rgba(17, 17, 20, 0.62);
+	background: linear-gradient(90deg, rgba(17, 17, 20, 0.5) 0%, rgba(17, 17, 20, 0.24) 58%, rgba(17, 17, 20, 0.38) 100%);
 	content: "";
 	inset: 0;
 	position: absolute;
 	z-index: 1;
+}
+
+.honamas-video-hero {
+	min-height: calc(100svh - 5.9rem) !important;
+}
+
+.honamas-video-hero > .wp-block-cover__background {
+	opacity: 0 !important;
 }
 
 .honamas-video-hero::after { display: none; }

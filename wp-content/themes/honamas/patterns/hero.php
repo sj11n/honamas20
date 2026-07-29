@@ -11,7 +11,7 @@ $cover_attributes = array(
 	'dimRatio'           => 72,
 	'overlayColor'       => 'honamas-black',
 	'isUserOverlayColor' => true,
-	'minHeight'          => 88,
+	'minHeight'          => 100,
 	'minHeightUnit'      => 'vh',
 	'contentPosition'    => 'center center',
 	'align'              => 'full',
@@ -35,7 +35,7 @@ if ( $hero_video_url ) {
 }
 ?>
 <!-- wp:cover <?php echo wp_json_encode( $cover_attributes ); ?> -->
-<div class="wp-block-cover alignfull honamas-video-hero" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50);min-height:88vh"><span aria-hidden="true" class="wp-block-cover__background has-honamas-black-background-color has-background-dim-70 has-background-dim"></span>
+<div class="wp-block-cover alignfull honamas-video-hero" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50);min-height:100vh"><span aria-hidden="true" class="wp-block-cover__background has-honamas-black-background-color has-background-dim-70 has-background-dim"></span>
 	<?php if ( $hero_video_url ) : ?>
 		<video aria-hidden="true" autoplay class="wp-block-cover__video-background intrinsic-ignore" loop muted playsinline preload="metadata" src="<?php echo esc_url( $hero_video_url ); ?>"></video>
 	<?php endif; ?>
