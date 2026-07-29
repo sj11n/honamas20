@@ -13,7 +13,7 @@
 		<p class="honamas-kicker has-honamas-red-color has-text-color"><?php esc_html_e( 'Die Original-HONAMAS', 'honamas' ); ?></p>
 		<!-- /wp:paragraph -->
 		<!-- wp:heading -->
-		<h2><?php esc_html_e( 'Ein Kader, eine Haltung.', 'honamas' ); ?></h2>
+		<h2><?php esc_html_e( 'Die Mannschaft, die sich einen Namen gab.', 'honamas' ); ?></h2>
 		<!-- /wp:heading -->
 		<!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|60"},"blockGap":{"left":"var:preset|spacing|40"}}}} -->
 		<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--60)">

@@ -235,6 +235,23 @@ function honamas_core_render_archive_metadata(): string {
 }
 add_shortcode( 'honamas_archive_metadata', 'honamas_core_render_archive_metadata' );
 
+function honamas_core_render_archive_navigation(): string {
+	$archive_url = get_post_type_archive_link( 'honamas_archive_item' );
+	$previous    = get_previous_post();
+	$next        = get_next_post();
+
+	ob_start();
+	?>
+	<nav aria-label="<?php esc_attr_e( 'Archivnavigation', 'honamas-core' ); ?>" class="honamas-archive-navigation">
+		<?php if ( $previous ) : ?><a href="<?php echo esc_url( get_permalink( $previous ) ); ?>"><?php esc_html_e( '← Vorheriges Objekt', 'honamas-core' ); ?></a><?php endif; ?>
+		<a class="honamas-archive-navigation__overview" href="<?php echo esc_url( $archive_url ); ?>"><?php esc_html_e( 'Zum Archiv', 'honamas-core' ); ?></a>
+		<?php if ( $next ) : ?><a class="honamas-archive-navigation__next" href="<?php echo esc_url( get_permalink( $next ) ); ?>"><?php esc_html_e( 'Nächstes Objekt →', 'honamas-core' ); ?></a><?php endif; ?>
+	</nav>
+	<?php
+	return (string) ob_get_clean();
+}
+add_shortcode( 'honamas_archive_navigation', 'honamas_core_render_archive_navigation' );
+
 function honamas_core_ensure_archive_categories(): void {
 	foreach ( array( 'dokumente' => 'Dokumente', 'kleidung' => 'Kleidung', 'fotos' => 'Fotos', 'presse' => 'Presse' ) as $slug => $name ) {
 		if ( ! term_exists( $slug, 'honamas_archive_category' ) ) {
