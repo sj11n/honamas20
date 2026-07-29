@@ -211,8 +211,6 @@ a:where(:hover, :focus-visible) {
 .honamas-site-header .wp-block-navigation-item__content { white-space: nowrap; }
 .honamas-site-header .wp-block-site-title { letter-spacing: .03em; }
 .wp-block-post-title.alignwide {
-	font-size: 3.25rem !important;
-	line-height: 1.05;
 	max-width: 1180px;
 }
 .honamas-chapter-navigation {
@@ -322,5 +320,4 @@ a:where(:hover, :focus-visible) {
 
 	.honamas-chapter-navigation__link--next { margin-left: 0; }
 
-	.wp-block-post-title.alignwide { font-size: 2.5rem !important; }
 }
