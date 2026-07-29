@@ -56,7 +56,7 @@ Der bestehende Kubio-Auftritt auf `honamas.com` blieb während dieser Arbeiten u
 ### Schritt 3: Staging-Inhalte
 
 1. Theme und Plugin auf Staging aktivieren. **Erledigt.**
-2. Seiten mit vereinbarten Slugs anlegen.
+2. Seiten mit vereinbarten Slugs anlegen. **Die fünf Kapitel sind auf Staging veröffentlicht.**
 3. Originalmedien in die Staging-Mediathek übertragen und dort sauber beschriften. **Übertragung erledigt; Beschriftung und Zuordnung offen.**
 4. Kapitel, Team, Film, Erfolge und Archivobjekte einpflegen.
 5. Navigation, Footer, interne Links, Metadaten und externe Einbindungen konfigurieren.
@@ -74,11 +74,11 @@ Der bestehende Kubio-Auftritt auf `honamas.com` blieb während dieser Arbeiten u
 | Bestehender Inhalt | Zielroute | Zielstruktur | Status |
 | --- | --- | --- | --- |
 | Startseite | `/` | kompakter Hero, Definition, Meilensteine, Kapitel, Film, Team, Erfolge, Archivteaser | vorzubereiten |
-| Die Idee | `/die-idee/` | Kapitel 1 mit drei Bildern, Text, Quellen und Weiterführung | vorzubereiten |
-| 2006 – Von der Idee zur Umsetzung | `/2006-von-der-idee-zur-umsetzung/` | Kapitel 2 mit Logo, Team Identity und Kleidung | vorzubereiten |
-| Die Jahre danach | `/die-jahre-danach/` | Kapitel 3 mit Kontext und 2015-Beleg | vorzubereiten |
-| Wie aus dem Namen eine Marke wurde | `/wie-aus-dem-namen-eine-marke-wurde/` | Kapitel 4 mit Reece-, Medien- und Sporthilfe-Belegen | vorzubereiten |
-| Markenschutz – eine späte Anerkennung | `/markenschutz-eine-spaete-anerkennung/` | Kapitel 5 mit Markenunterlagen | vorzubereiten |
+| Die Idee | `/die-idee/` | Kapitel 1 mit Text, Quellenhinweis und Weiterführung | auf Staging veröffentlicht; Bilder und Credits offen |
+| 2006 – Von der Idee zur Umsetzung | `/2006-von-der-idee-zur-umsetzung/` | Kapitel 2 mit Text, Quellenhinweis und Kapitelnavigation | auf Staging veröffentlicht; Logo, Bilder und Credits offen |
+| Die Jahre danach | `/die-jahre-danach/` | Kapitel 3 mit Text, Quellenhinweis und Kapitelnavigation | auf Staging veröffentlicht; Bild und Credit offen |
+| Wie aus dem Namen eine Marke wurde | `/wie-aus-dem-namen-eine-marke-wurde/` | Kapitel 4 mit Text, Quellenhinweis und Kapitelnavigation | auf Staging veröffentlicht; Reece-, Medien- und Sporthilfe-Belege offen |
+| Markenschutz – eine späte Anerkennung | `/markenschutz-eine-spaete-anerkennung/` | Kapitel 5 mit Text, Quellenhinweis und Zurück-Navigation | auf Staging veröffentlicht; Markenunterlagen und Prüfung offen |
 | Die Ur-HONAMAS | `/die-ur-honamas/` | Mannschaftsfoto und Teamraster aus Teamdaten | vorzubereiten |
 | Der Honama | `/der-honama/` | Definition, Team Identity und Originaldokument | neu anzulegen |
 | Erfolge | `/erfolge/` | kuratierte Chronik mit Quellen | neu anzulegen |
@@ -156,6 +156,6 @@ Eine Migrationswelle gilt nur als abgeschlossen, wenn:
 
 ## 10. Aktueller Stand und offene Punkte
 
-Die Zugänge zu WordPress und Staging sind vorhanden. Theme, Plugin und 183 Medien sind auf Staging aktiv beziehungsweise übertragen. Offen bleiben die vollständige Medieninventur, Credits, Rechte, externe Film- und Social-URLs, die redaktionelle Seitenerstellung und die Zuordnung der Medien zu den jeweiligen Abschnitten.
+Die Zugänge zu WordPress und Staging sind vorhanden. Theme, Plugin und 183 Medien sind auf Staging aktiv beziehungsweise übertragen. Die fünf Story-Kapitel wurden mit den vorhandenen Texten, Originalzitaten, Quellenhinweisen und Kapitellinks veröffentlicht. Offen bleiben die vollständige Medieninventur, Credits, Rechte, externe Film- und Social-URLs sowie die Zuordnung der Medien zu den jeweiligen Abschnitten.
 
 Staging ist derzeit über HTTP erreichbar. Vor einer externen Prüfung oder Veröffentlichung muss HTTPS verbindlich eingerichtet und erzwungen werden.

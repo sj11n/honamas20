@@ -17,6 +17,7 @@ Bekannte Inhalte werden nicht durch allgemeine Marketingtexte ersetzt. Redaktion
 | Vorhanden | in `HONAMAS_CONTENT.md` oder im bestehenden WordPress beschrieben |
 | Zu prüfen | Inhalt vorhanden, aber Quelle, Rechte, Genauigkeit oder technische Umsetzung offen |
 | Fehlend | für die Zielseite nötig, im bekannten Bestand aber nicht belegt |
+| In Staging | als editierbarer Inhalt angelegt, aber noch nicht fachlich und rechtlich freigegeben |
 | Freigegeben | nach fachlicher und rechtlicher Prüfung bereit für Staging |
 
 ## 3. Seiten und Texte
@@ -27,11 +28,11 @@ Bekannte Inhalte werden nicht durch allgemeine Marketingtexte ersetzt. Redaktion
 | `/` | Kurzdefinition in maximal 45 Wörtern | Zu prüfen | aus bestätigtem Inhalt verdichten, keine neue Aussage |
 | `/` | vier Meilensteine | Zu prüfen | finale Jahresauswahl und Quellennachweise |
 | `/` | Kapitel-, Film-, Team-, Erfolge- und Archivteaser | Vorhanden | Texte auf Kürze und Ziel-Links prüfen |
-| `/die-idee/` | Australien, Begriffe, Trainingslager, FuBaNaMa, HONAMAS | Vorhanden | Bilder, Zitatquelle und finale Textfassung |
-| `/2006-von-der-idee-zur-umsetzung/` | Name, Logo, Team Identity, Kleidung, 1.500 Shirts, WM-Start | Vorhanden | Originaldokumente, Bildcredits, Datums- und Mengenangabe prüfen |
-| `/die-jahre-danach/` | Einordnung nach 2006 und Wiederentdeckung 2015 | Vorhanden | genaue Chronologie, Bildquelle und Kontext prüfen |
-| `/wie-aus-dem-namen-eine-marke-wurde/` | Reece 2017, Kommunikation und Sporthilfe | Vorhanden | Rechte an Designs, Cover und Medienbelegen prüfen |
-| `/markenschutz-eine-spaete-anerkennung/` | Anmeldung 2010 und DHB-Übernahme 2021 | Vorhanden | Registerdokumente, Formulierungen und Rechte prüfen |
+| `/die-idee/` | Australien, Begriffe, Trainingslager, FuBaNaMa, HONAMAS | In Staging | Bilder, Zitatquelle und finale Textfassung |
+| `/2006-von-der-idee-zur-umsetzung/` | Name, Logo, Team Identity, Kleidung, 1.500 Shirts, WM-Start | In Staging | Originaldokumente, Bildcredits, Datums- und Mengenangabe prüfen |
+| `/die-jahre-danach/` | Einordnung nach 2006 und Wiederentdeckung 2015 | In Staging | genaue Chronologie, Bildquelle und Kontext prüfen |
+| `/wie-aus-dem-namen-eine-marke-wurde/` | Reece 2017, Kommunikation und Sporthilfe | In Staging | Rechte an Designs, Cover und Medienbelegen prüfen |
+| `/markenschutz-eine-spaete-anerkennung/` | Anmeldung 2010 und DHB-Übernahme 2021 | In Staging | Registerdokumente, Formulierungen und Rechte prüfen |
 | `/der-honama/` | Definition, Aussprache, Akronym, Team Identity, Tower of Power, S.V.A.T. | Vorhanden | Formulierungen mit Originaldokument abgleichen |
 | `/die-ur-honamas/` | Team von 2006 und 21 Namen mit Spitznamen | Vorhanden | Rückennummern, Positionen, Vereine, Porträts und Freigaben fehlen teilweise |
 | `/erfolge/` | Titel 2006, 2008, 2011, 2012, 2013, 2023, 2025 | Vorhanden | Austragungsorte, Finalgegner, Ergebnisse und Kennzeichnung der Ur-HONAMAS fehlen |
@@ -135,4 +136,3 @@ Die erste Staging-Version benötigt nicht die vollständige Sammlung. Sie brauch
 3. Redaktion prüft Kapiteltexte, Teaser und Links.
 4. Rechtliche Texte, Consent und externe Einbindungen werden finalisiert.
 5. Erst danach erhalten Seiten und Archivobjekte den Status `Freigegeben`.
-
