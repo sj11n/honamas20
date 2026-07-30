@@ -53,6 +53,8 @@ body {
 .reunion-hero { background: #ffdc4a; padding: clamp(4rem, 12vw, 10rem) var(--wp--preset--spacing--50); text-align: center; }
 .reunion-logo { margin: 0 auto var(--wp--preset--spacing--60); max-width: min(31rem, 86vw); }
 .reunion-logo img { display: block; height: auto; width: 100%; }
+.reunion-header-logo { display: block; height: 48px; overflow: hidden; position: relative; width: 80px; }
+.reunion-header-logo img { height: auto; left: 50%; max-width: none; position: absolute; top: 50%; transform: translate(-50%, -48%) scale(1.45); width: 100%; }
 .reunion-kicker { color: #e63953; font-family: var(--wp--preset--font-family--heading); font-size: var(--wp--preset--font-size--small); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .reunion-hero h1 { font-size: clamp(3.1rem, 8vw, 7.5rem); margin-inline: auto; max-width: 14ch; }
 .reunion-hero p:not(.reunion-kicker) { margin-inline: auto; max-width: 38rem; }
