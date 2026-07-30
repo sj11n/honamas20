@@ -50,7 +50,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-.reunion-hero { background: #ffdc4a; padding: clamp(4rem, 12vw, 10rem) var(--wp--preset--spacing--50); text-align: center; }
+.honamas-site-header { background: rgba(255, 255, 255, 0.78); backdrop-filter: blur(14px); position: fixed; width: 100%; }
+.reunion-hero { background: #ffdc4a; padding: clamp(4rem, 12vw, 10rem) var(--wp--preset--spacing--50); padding-top: calc(4.5rem + clamp(4rem, 12vw, 10rem)); text-align: center; }
 .reunion-logo { margin: 0 auto var(--wp--preset--spacing--60); max-width: min(31rem, 86vw); }
 .reunion-logo img { display: block; height: auto; width: 100%; }
 .reunion-header-logo { display: block; flex: 0 0 auto; height: 56px; width: 56px; }
