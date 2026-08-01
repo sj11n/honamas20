@@ -20,8 +20,15 @@ document.querySelectorAll( '[data-countdown-target]' ).forEach( (countdown) => {
 		Object.entries( values ).forEach( ( [ key, value ] ) => {
 			units[ key ].textContent = String( value ).padStart( 2, '0' );
 		} );
+
+		return remaining > 0;
 	};
 
-	update();
-	window.setInterval( update, 1000 );
+	if ( update() ) {
+		const interval = window.setInterval( () => {
+			if ( ! update() ) {
+				window.clearInterval( interval );
+			}
+		}, 1000 );
+	}
 } );

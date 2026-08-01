@@ -63,9 +63,9 @@ body {
 .reunion-countdown div { border-top: 2px solid #111114; padding-top: .6rem; }
 .reunion-countdown span { display: block; font-family: var(--wp--preset--font-family--heading); font-size: clamp(1.8rem, 7vw, 3.5rem); font-weight: 800; line-height: 1; }
 .reunion-countdown small { font-family: var(--wp--preset--font-family--heading); font-size: .7rem; font-weight: 700; text-transform: uppercase; }
-.reunion-facts { background: #0fa9a1; color: #fff; padding: var(--wp--preset--spacing--60) var(--wp--preset--spacing--50); }
-.reunion-facts p { margin: 0; min-width: 12rem; }
-.reunion-facts .reunion-countdown { margin-bottom: 0; }
+.reunion-facts { background: #0fa9a1; color: #fff; padding: var(--wp--preset--spacing--60) var(--wp--preset--spacing--50); text-align: center; }
+.reunion-countdown-heading { font-size: clamp(1.45rem, 4vw, 2.25rem); margin: 0 auto; }
+.reunion-facts .reunion-countdown { margin-bottom: 0; margin-top: var(--wp--preset--spacing--50); }
 .reunion-facts .reunion-countdown div { border-color: rgba(255, 255, 255, 0.72); }
 .reunion-updates { background: #fff; padding: var(--wp--preset--spacing--80) var(--wp--preset--spacing--50); }
 .reunion-update { border-top: 1px solid #dedcd7; padding: var(--wp--preset--spacing--50) 0; }
