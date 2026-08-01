@@ -65,6 +65,8 @@ body {
 .reunion-countdown small { font-family: var(--wp--preset--font-family--heading); font-size: .7rem; font-weight: 700; text-transform: uppercase; }
 .reunion-facts { background: #0fa9a1; color: #fff; padding: var(--wp--preset--spacing--60) var(--wp--preset--spacing--50); }
 .reunion-facts p { margin: 0; min-width: 12rem; }
+.reunion-facts .reunion-countdown { margin-bottom: 0; }
+.reunion-facts .reunion-countdown div { border-color: rgba(255, 255, 255, 0.72); }
 .reunion-updates { background: #fff; padding: var(--wp--preset--spacing--80) var(--wp--preset--spacing--50); }
 .reunion-update { border-top: 1px solid #dedcd7; padding: var(--wp--preset--spacing--50) 0; }
 .reunion-update h3 { font-size: var(--wp--preset--font-size--x-large); margin: .25rem 0; text-transform: none; }
