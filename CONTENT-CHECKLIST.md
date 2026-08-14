@@ -37,9 +37,9 @@ Bekannte Inhalte werden nicht durch allgemeine Marketingtexte ersetzt. Redaktion
 | `/die-ur-honamas/` | Team von 2006 und 21 Namen mit Spitznamen | Vorhanden | Rückennummern, Positionen, Vereine, Porträts und Freigaben fehlen teilweise |
 | `/erfolge/` | Titel 2006, 2008, 2011, 2012, 2013, 2023, 2025 | Vorhanden | Austragungsorte, Finalgegner, Ergebnisse und Kennzeichnung der Ur-HONAMAS fehlen |
 | `/der-film/` | Kontext zum Film und externer Filmzugang | Vorhanden | Video-ID, Rechte, Poster, Untertitel und Zwei-Klick-Text |
-| `/kontakt/` | Kontaktweg | Fehlend | Ansprechpartnerin, Adresse und gewünschter Kontaktkanal |
-| `/impressum/` | Pflichtangaben | Fehlend | rechtlich geprüfter finaler Text |
-| `/datenschutz/` | Datenschutz und externe Dienste | Fehlend | rechtlich geprüfter finaler Text nach Hosting- und Videoentscheidung |
+| `/kontakt/` | Kontaktweg | In Staging | E-Mail-Kontakt und Vereinsanschrift hinterlegt; kein Formular vorgesehen |
+| `/impressum/` | Pflichtangaben | In Staging | Angaben des Eintrikot e.V. hinterlegt; finalen Text vor Livegang rechtlich prüfen |
+| `/datenschutz/` | Datenschutz und externe Dienste | In Staging | Hosting, lokaler Font, E-Mail und Zwei-Klick-Video beschrieben; vor Livegang rechtlich und technisch final prüfen |
 
 ## 4. Quellen und Fakten
 
