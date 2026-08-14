@@ -96,6 +96,28 @@ a:where(:hover, :focus-visible) {
 
 .honamas-section-grid { background-image: none; }
 
+.honamas-team-start .wp-block-columns { align-items: center; }
+.honamas-team-start__image { margin: 0; overflow: hidden; }
+.honamas-team-start__image img,
+.honamas-team-start__placeholder {
+	aspect-ratio: 4 / 3;
+	display: block;
+	height: auto;
+	object-fit: cover;
+	object-position: center 54%;
+	width: 100%;
+}
+.honamas-team-start__placeholder { background: var(--wp--preset--color--honamas-line); }
+.honamas-team-start__number {
+	color: var(--wp--preset--color--honamas-red);
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(5rem, 10vw, 9rem);
+	font-weight: 800;
+	line-height: 0.8;
+	margin: 0 0 1.1rem;
+}
+.honamas-team-start h2 { max-width: 12ch; }
+
 .honamas-board,
 .honamas-video-hero {
 	background-image:

@@ -252,6 +252,41 @@ function honamas_core_render_archive_navigation(): string {
 }
 add_shortcode( 'honamas_archive_navigation', 'honamas_core_render_archive_navigation' );
 
+/**
+ * Render the team photograph selected on the Ur-HONAMAS page.
+ *
+ * Keeping the image on the page itself makes the start-page teaser
+ * editorially manageable without introducing another settings screen.
+ */
+function honamas_core_render_team_start_image(): string {
+	$team_page = get_page_by_path( 'die-ur-honamas' );
+	$image_id  = $team_page ? get_post_thumbnail_id( $team_page ) : 0;
+
+	if ( ! $image_id ) {
+		return '<div class="honamas-team-start__placeholder" aria-hidden="true"></div>';
+	}
+
+	$alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+	if ( '' === $alt ) {
+		$alt = __( 'Mannschaftsfoto der Ur-HONAMAS von 2006.', 'honamas-core' );
+	}
+
+	return sprintf(
+		'<figure class="honamas-team-start__image">%s</figure>',
+		wp_get_attachment_image(
+			$image_id,
+			'full',
+			false,
+			array(
+				'alt'      => $alt,
+				'loading'  => 'lazy',
+				'decoding' => 'async',
+			)
+		)
+	);
+}
+add_shortcode( 'honamas_team_start_image', 'honamas_core_render_team_start_image' );
+
 function honamas_core_ensure_archive_categories(): void {
 	foreach ( array( 'dokumente' => 'Dokumente', 'kleidung' => 'Kleidung', 'fotos' => 'Fotos', 'presse' => 'Presse' ) as $slug => $name ) {
 		if ( ! term_exists( $slug, 'honamas_archive_category' ) ) {
