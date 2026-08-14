@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.0
+ * Version: 0.1.3
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -48,7 +48,7 @@ function honamas_core_register_content_types(): void {
 			'rewrite' => array( 'slug' => 'die-ur-honamas', 'with_front' => false ),
 			'show_in_rest' => true,
 			'menu_icon' => 'dashicons-groups',
-			'supports' => array( 'title', 'editor', 'thumbnail', 'revisions' ),
+			'supports' => array( 'title', 'editor', 'thumbnail', 'revisions', 'page-attributes' ),
 		)
 	);
 }
@@ -130,6 +130,60 @@ function honamas_core_save_archive_meta( int $post_id ): void {
 	}
 }
 add_action( 'save_post_honamas_archive_item', 'honamas_core_save_archive_meta' );
+
+/**
+ * Add the editorial fields needed for each team motif.
+ */
+function honamas_core_add_team_meta_box(): void {
+	add_meta_box(
+		'honamas-team-details',
+		__( 'Teamdaten', 'honamas-core' ),
+		'honamas_core_render_team_meta_box',
+		'honamas_team_member',
+		'normal',
+		'high'
+	);
+}
+add_action( 'add_meta_boxes_honamas_team_member', 'honamas_core_add_team_meta_box' );
+
+function honamas_core_render_team_meta_box( WP_Post $post ): void {
+	wp_nonce_field( 'honamas_team_details', 'honamas_team_details_nonce' );
+	$nickname      = get_post_meta( $post->ID, 'honamas_nickname', true );
+	$jersey_number = get_post_meta( $post->ID, 'honamas_jersey_number', true );
+	?>
+	<p><label for="honamas_nickname"><strong><?php esc_html_e( 'Spitzname', 'honamas-core' ); ?></strong></label><br><input class="widefat" id="honamas_nickname" name="honamas_nickname" type="text" value="<?php echo esc_attr( $nickname ); ?>" placeholder="Emmel"></p>
+	<p><label for="honamas_jersey_number"><strong><?php esc_html_e( 'Rückennummer 2006', 'honamas-core' ); ?></strong></label><br><input class="small-text" id="honamas_jersey_number" min="0" name="honamas_jersey_number" type="number" value="<?php echo esc_attr( $jersey_number ); ?>" placeholder="7"></p>
+	<p class="description"><?php esc_html_e( 'Für die öffentliche Teamseite reichen Name, Spitzname, Motiv und optional die Rückennummer. Weitere biografische Angaben sollten nur ergänzt werden, wenn sie redaktionell wirklich gebraucht werden.', 'honamas-core' ); ?></p>
+	<?php
+}
+
+function honamas_core_save_team_meta( int $post_id ): void {
+	if ( ! isset( $_POST['honamas_team_details_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['honamas_team_details_nonce'] ) ), 'honamas_team_details' ) ) {
+		return;
+	}
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE || ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	$fields = array(
+		'nickname'      => 'sanitize_text_field',
+		'jersey_number' => 'absint',
+	);
+
+	foreach ( $fields as $field => $sanitize_callback ) {
+		if ( ! isset( $_POST[ 'honamas_' . $field ] ) ) {
+			continue;
+		}
+		$value = wp_unslash( $_POST[ 'honamas_' . $field ] );
+		$value = 'absint' === $sanitize_callback ? absint( $value ) : sanitize_text_field( $value );
+		if ( '' === $value || 0 === $value ) {
+			delete_post_meta( $post_id, 'honamas_' . $field );
+		} else {
+			update_post_meta( $post_id, 'honamas_' . $field, $value );
+		}
+	}
+}
+add_action( 'save_post_honamas_team_member', 'honamas_core_save_team_meta' );
 
 /**
  * Render the filterable archive collection without binding the editorial
@@ -286,6 +340,208 @@ function honamas_core_render_team_start_image(): string {
 	);
 }
 add_shortcode( 'honamas_team_start_image', 'honamas_core_render_team_start_image' );
+
+function honamas_core_render_team_collection(): string {
+	$members = new WP_Query(
+		array(
+			'post_type'      => 'honamas_team_member',
+			'posts_per_page' => 50,
+			'orderby'        => array(
+				'menu_order' => 'ASC',
+				'title'      => 'ASC',
+			),
+			'order'          => 'ASC',
+		)
+	);
+
+	if ( ! $members->have_posts() ) {
+		return '<p>' . esc_html__( 'Die Team-Motive werden vorbereitet.', 'honamas-core' ) . '</p>';
+	}
+
+	ob_start();
+	?>
+	<section aria-label="<?php esc_attr_e( 'Teammitglieder der Ur-HONAMAS', 'honamas-core' ); ?>" class="honamas-team-collection">
+		<?php while ( $members->have_posts() ) : $members->the_post(); ?>
+			<?php
+			$member_id     = get_the_ID();
+			$nickname      = get_post_meta( $member_id, 'honamas_nickname', true );
+			$jersey_number = (int) get_post_meta( $member_id, 'honamas_jersey_number', true );
+			$initials      = honamas_core_get_initials( get_the_title() );
+			?>
+			<article class="honamas-team-card">
+				<figure class="honamas-team-card__media">
+					<?php if ( has_post_thumbnail() ) : ?>
+						<?php
+						echo wp_get_attachment_image(
+							get_post_thumbnail_id( $member_id ),
+							'large',
+							false,
+							array(
+								'alt'     => sprintf(
+									/* translators: %s: team member name. */
+									__( 'Motiv von %s.', 'honamas-core' ),
+									get_the_title()
+								),
+								'loading' => 'lazy',
+							)
+						);
+						?>
+					<?php else : ?>
+						<span aria-hidden="true"><?php echo esc_html( $initials ); ?></span>
+					<?php endif; ?>
+				</figure>
+				<div class="honamas-team-card__body">
+					<p class="honamas-team-card__number"><?php echo $jersey_number ? esc_html( '#' . $jersey_number ) : esc_html__( 'Nr. offen', 'honamas-core' ); ?></p>
+					<h2><?php the_title(); ?></h2>
+					<?php if ( $nickname ) : ?><p><?php echo esc_html( $nickname ); ?></p><?php endif; ?>
+				</div>
+			</article>
+		<?php endwhile; ?>
+	</section>
+	<?php
+	wp_reset_postdata();
+	return (string) ob_get_clean();
+}
+add_shortcode( 'honamas_team_collection', 'honamas_core_render_team_collection' );
+
+function honamas_core_get_initials( string $name ): string {
+	$parts    = preg_split( '/\s+/', trim( $name ) );
+	$initials = '';
+	foreach ( $parts as $part ) {
+		if ( '' !== $part ) {
+			$initials .= substr( $part, 0, 1 );
+		}
+	}
+	return strtoupper( substr( $initials, 0, 2 ) );
+}
+
+function honamas_core_get_roster(): array {
+	return array(
+		array( 'name' => 'Ulrich Bubolz', 'nickname' => 'Bubi', 'keywords' => array( 'Bubi' ) ),
+		array( 'name' => 'Sebastian Biederlack', 'nickname' => 'Buddy', 'keywords' => array( 'Buddy' ) ),
+		array( 'name' => 'Carlos Nevado', 'nickname' => 'Carlito', 'keywords' => array( 'Carlos', 'Carlito' ) ),
+		array( 'name' => 'Sebastian Draghun', 'nickname' => 'Dragon', 'keywords' => array( 'Dragon' ) ),
+		array( 'name' => 'Björn Emmerling', 'nickname' => 'Emmel', 'keywords' => array( 'Emmel' ) ),
+		array( 'name' => 'Tim Jessulat', 'nickname' => 'Enti', 'keywords' => array( 'Enti' ) ),
+		array( 'name' => 'Eike Duckwitz', 'nickname' => 'General', 'keywords' => array( 'General' ) ),
+		array( 'name' => 'Philipp Crone', 'nickname' => 'Hupe', 'keywords' => array( 'Hupe' ) ),
+		array( 'name' => 'Jan-Marco Montag', 'nickname' => 'Jambo', 'keywords' => array( 'Jambo' ) ),
+		array( 'name' => 'Niklas Meinert', 'nickname' => 'Meini', 'keywords' => array( 'Meini' ) ),
+		array( 'name' => 'Moritz Fürste', 'nickname' => 'Mo', 'keywords' => array( 'Mo' ) ),
+		array( 'name' => 'Nicolás Emmerling', 'nickname' => 'Nici', 'keywords' => array( 'Nici' ) ),
+		array( 'name' => 'Philipp Witte', 'nickname' => 'Piwi', 'keywords' => array( 'Piwi' ) ),
+		array( 'name' => 'Justus Scharowski', 'nickname' => 'Scharo', 'keywords' => array( 'Scharo' ) ),
+		array( 'name' => 'Christian Schulte', 'nickname' => 'Schüti', 'keywords' => array( 'Schueti', 'Schüti' ) ),
+		array( 'name' => 'Tibor Weißenborn', 'nickname' => 'Tibs', 'keywords' => array( 'Tibs' ) ),
+		array( 'name' => 'Oliver Hentschel', 'nickname' => 'Ulln', 'keywords' => array( 'Ulln' ) ),
+		array( 'name' => 'Timo Wess', 'nickname' => 'Wesa', 'keywords' => array( 'Wesa' ) ),
+		array( 'name' => 'Matthias Witthaus', 'nickname' => 'Witti', 'keywords' => array( 'Witti' ) ),
+		array( 'name' => 'Philipp Zeller', 'nickname' => 'Zello', 'keywords' => array( 'Zello' ) ),
+		array( 'name' => 'Christopher Zeller', 'nickname' => 'Zells', 'keywords' => array( 'Zells' ) ),
+	);
+}
+
+function honamas_core_seed_team_members(): void {
+	if ( '1' === get_option( 'honamas_core_team_seeded' ) ) {
+		return;
+	}
+
+	$index = 0;
+	foreach ( honamas_core_get_roster() as $member ) {
+		$slug    = sanitize_title( $member['name'] );
+		$posts   = get_posts(
+			array(
+				'name'           => $slug,
+				'post_type'      => 'honamas_team_member',
+				'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+				'posts_per_page' => 1,
+			)
+		);
+		$post_id = $posts ? (int) $posts[0]->ID : 0;
+
+		if ( ! $post_id ) {
+			$post_id = wp_insert_post(
+				array(
+					'post_type'    => 'honamas_team_member',
+					'post_status'  => 'publish',
+					'post_title'   => $member['name'],
+					'post_name'    => $slug,
+					'post_content' => '',
+					'menu_order'   => $index,
+				),
+				true
+			);
+			if ( is_wp_error( $post_id ) ) {
+				continue;
+			}
+		} else {
+			wp_update_post(
+				array(
+					'ID'         => $post_id,
+					'menu_order' => $index,
+				)
+			);
+		}
+
+		if ( ! get_post_meta( $post_id, 'honamas_nickname', true ) ) {
+			update_post_meta( $post_id, 'honamas_nickname', $member['nickname'] );
+		}
+
+		if ( ! get_post_thumbnail_id( $post_id ) ) {
+			$portrait_id = honamas_core_find_team_portrait_id( $member['keywords'] );
+			if ( $portrait_id ) {
+				set_post_thumbnail( $post_id, $portrait_id );
+			}
+		}
+
+		$index++;
+	}
+
+	update_option( 'honamas_core_team_seeded', '1', false );
+}
+add_action( 'admin_init', 'honamas_core_seed_team_members' );
+
+function honamas_core_find_team_portrait_id( array $keywords ): int {
+	$attachments = get_posts(
+		array(
+			'post_type'      => 'attachment',
+			'post_mime_type' => 'image',
+			'post_status'    => 'inherit',
+			'posts_per_page' => 500,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		)
+	);
+
+	foreach ( $attachments as $attachment ) {
+		$metadata = wp_get_attachment_metadata( $attachment->ID );
+		$filename = isset( $metadata['file'] ) ? wp_basename( $metadata['file'] ) : '';
+		$haystack = honamas_core_normalize_lookup_text( $attachment->post_title . ' ' . $attachment->post_name . ' ' . $filename );
+
+		foreach ( $keywords as $keyword ) {
+			$needle = honamas_core_normalize_lookup_text( $keyword );
+			if ( '' === $needle ) {
+				continue;
+			}
+			if ( strlen( $needle ) <= 2 ) {
+				if ( preg_match( '/(^|[^a-z0-9])' . preg_quote( $needle, '/' ) . '([^a-z0-9]|$)/', $haystack ) ) {
+					return (int) $attachment->ID;
+				}
+				continue;
+			}
+			if ( str_contains( $haystack, $needle ) ) {
+				return (int) $attachment->ID;
+			}
+		}
+	}
+
+	return 0;
+}
+
+function honamas_core_normalize_lookup_text( string $text ): string {
+	$text = strtolower( remove_accents( $text ) );
+	return preg_replace( '/[^a-z0-9]+/', ' ', $text ) ?: '';
+}
 
 function honamas_core_ensure_archive_categories(): void {
 	foreach ( array( 'dokumente' => 'Dokumente', 'kleidung' => 'Kleidung', 'fotos' => 'Fotos', 'presse' => 'Presse' ) as $slug => $name ) {

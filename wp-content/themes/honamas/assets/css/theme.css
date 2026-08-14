@@ -118,6 +118,76 @@ a:where(:hover, :focus-visible) {
 }
 .honamas-team-start h2 { max-width: 12ch; }
 
+.honamas-team-collection {
+	display: grid;
+	gap: clamp(1rem, 2vw, 1.5rem);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+	margin-top: var(--wp--preset--spacing--60);
+}
+
+.honamas-team-card {
+	background: var(--wp--preset--color--honamas-white);
+	border: 1px solid rgba(17, 17, 20, 0.1);
+	display: grid;
+	grid-template-rows: auto 1fr;
+	overflow: hidden;
+}
+
+.honamas-team-card__media {
+	aspect-ratio: 4 / 5;
+	background: var(--wp--preset--color--honamas-off-white);
+	display: grid;
+	margin: 0;
+	overflow: hidden;
+	place-items: center;
+}
+
+.honamas-team-card__media img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	object-position: center top;
+	width: 100%;
+}
+
+.honamas-team-card__media span {
+	color: var(--wp--preset--color--honamas-red);
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 3rem;
+	font-weight: 800;
+	line-height: 1;
+}
+
+.honamas-team-card__body {
+	display: grid;
+	gap: 0.4rem;
+	padding: 1rem;
+}
+
+.honamas-team-card__body h2 {
+	font-size: 1.05rem;
+	line-height: 1.18;
+	margin: 0;
+}
+
+.honamas-team-card__body p {
+	margin: 0;
+}
+
+.honamas-team-card__number {
+	align-self: start;
+	background: var(--wp--preset--color--honamas-black);
+	color: var(--wp--preset--color--honamas-white);
+	display: inline-flex;
+	font-size: 0.72rem;
+	font-weight: 800;
+	justify-self: start;
+	letter-spacing: 0;
+	line-height: 1;
+	padding: 0.42rem 0.5rem;
+	text-transform: uppercase;
+}
+
 .honamas-board,
 .honamas-video-hero {
 	background-image:
