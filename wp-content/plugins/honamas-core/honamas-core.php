@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.3
+ * Version: 0.1.4
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -391,7 +391,7 @@ function honamas_core_render_team_collection(): string {
 					<?php endif; ?>
 				</figure>
 				<div class="honamas-team-card__body">
-					<p class="honamas-team-card__number"><?php echo $jersey_number ? esc_html( '#' . $jersey_number ) : esc_html__( 'Nr. offen', 'honamas-core' ); ?></p>
+					<?php if ( $jersey_number ) : ?><p class="honamas-team-card__number"><?php echo esc_html( '#' . $jersey_number ); ?></p><?php endif; ?>
 					<h2><?php the_title(); ?></h2>
 					<?php if ( $nickname ) : ?><p><?php echo esc_html( $nickname ); ?></p><?php endif; ?>
 				</div>
@@ -542,6 +542,115 @@ function honamas_core_normalize_lookup_text( string $text ): string {
 	$text = strtolower( remove_accents( $text ) );
 	return preg_replace( '/[^a-z0-9]+/', ' ', $text ) ?: '';
 }
+
+function honamas_core_get_initial_archive_items(): array {
+	return array(
+		array(
+			'title'    => 'Team-Identity-Originaldokument 2006',
+			'slug'     => 'team-identity-originaldokument-2006',
+			'category' => 'dokumente',
+			'date'     => '2006',
+			'origin'   => 'Team HONAMAS / Projektarchiv',
+			'excerpt'  => 'Das Originaldokument zur Team Identity von 2006 als zentraler Beleg für Sprache, Werte und Selbstverständnis der Ur-HONAMAS.',
+			'content'  => '<p>Dieses Archivobjekt ist als Belegstelle für die Team Identity der HONAMAS angelegt. Es soll das Originaldokument von 2006 aufnehmen und die Entwicklung von Name, Logo, gemeinsamen Werten und sportlichem Selbstverständnis nachvollziehbar machen.</p><p><strong>Noch zu ergänzen:</strong> Originaldatei, Seitenzahl, Herkunft, Rechtehinweis, sichtbarer Credit und gegebenenfalls eine lesbare Vorschau.</p>',
+		),
+		array(
+			'title'    => 'Erstes HONAMAS-Trainingsteil',
+			'slug'     => 'erstes-honamas-trainingsteil',
+			'category' => 'kleidung',
+			'date'     => '2006',
+			'origin'   => 'Team HONAMAS / Projektarchiv',
+			'excerpt'  => 'Frühe Trainingskleidung mit HONAMAS-Logo aus dem Umfeld der Heim-WM 2006.',
+			'content'  => '<p>Dieses Archivobjekt sammelt die frühen Kleidungsstücke, auf denen der Name HONAMAS vor und während der Heim-WM 2006 sichtbar wurde.</p><p><strong>Noch zu ergänzen:</strong> konkretes Kleidungsstück, Bildauswahl, Zeitraum, Herkunft, Rechtehinweis und Credit.</p>',
+		),
+		array(
+			'title'    => '1.500 HONAMAS-Shirts vor der WM 2006',
+			'slug'     => '1500-honamas-shirts-vor-der-wm-2006',
+			'category' => 'kleidung',
+			'date'     => '2006',
+			'origin'   => 'Team HONAMAS / Projektarchiv',
+			'excerpt'  => 'Vier Tage vor WM-Beginn wurden 1.500 HONAMAS-Shirts produziert und der Name damit sichtbar in die Arena getragen.',
+			'content'  => '<p>Vier Tage vor Beginn der Heim-WM 2006 wurden 1.500 HONAMAS-Shirts produziert. Dieses Archivobjekt belegt den Moment, in dem der Name nicht mehr nur intern existierte, sondern sichtbar nach außen getragen wurde.</p><p><strong>Noch zu ergänzen:</strong> Foto oder Dokument, genaue Datierung, Herkunft, Rechtehinweis und Credit.</p>',
+		),
+		array(
+			'title'    => 'Mannschaftsfoto der Ur-HONAMAS 2006',
+			'slug'     => 'mannschaftsfoto-der-ur-honamas-2006',
+			'category' => 'fotos',
+			'date'     => '2006',
+			'origin'   => 'Team HONAMAS / Projektarchiv',
+			'excerpt'  => 'Das Mannschaftsfoto des WM-Teams von 2006 als zentrales Bilddokument der Ur-HONAMAS.',
+			'content'  => '<p>Das Mannschaftsfoto ist das zentrale Bilddokument der Ur-HONAMAS. Es gehört als eigener Archivbeleg zur Teamseite und zur Geschichte des Namens.</p><p><strong>Noch zu ergänzen:</strong> Ort, Datum, Personen, Fotograf, Rechtehinweis, Credit und finale Bildunterschrift.</p>',
+		),
+		array(
+			'title'    => 'Reece-Trikotdesign 2017',
+			'slug'     => 'reece-trikotdesign-2017',
+			'category' => 'dokumente',
+			'date'     => '2017',
+			'origin'   => 'Reece Australia / Projektarchiv',
+			'excerpt'  => 'Entwürfe beziehungsweise Ansichten des ersten offiziellen HONAMAS-Trikots von 2017.',
+			'content'  => '<p>Als Vertriebsleiter des DHB-Ausrüsters Reece Australia gehörte Jan-Marco Montag zu den Designern des ersten richtigen HONAMAS-Trikots. Dieses Archivobjekt hält die Entwürfe beziehungsweise Ansichten aus dem Jahr 2017 fest.</p><p><strong>Noch zu ergänzen:</strong> konkrete Bildauswahl, Designrechte, Herkunft, Rechtehinweis und Credit.</p>',
+		),
+		array(
+			'title'    => 'Markenanmeldung 2010 und DHB-Eintragung 2021',
+			'slug'     => 'markenanmeldung-2010-dhb-eintragung-2021',
+			'category' => 'dokumente',
+			'date'     => '2010 / 2021',
+			'origin'   => 'Projektarchiv',
+			'excerpt'  => 'Dokumente zur Sicherung der Marke HONAMAS 2010 und zur offiziellen Eintragung beim DHB 2021.',
+			'content'  => '<p>Dieses Archivobjekt bündelt die Unterlagen zur Markensicherung: die persönliche Anmeldung durch Björn Emmerling am 30. März 2010 und die offizielle Eintragung beim DHB am 16. Juni 2021.</p><p><strong>Noch zu ergänzen:</strong> finale Dokumentenauswahl, Datenschutzprüfung, Rechtehinweis, Herkunft und Credit.</p>',
+		),
+	);
+}
+
+function honamas_core_seed_initial_archive_items(): void {
+	if ( '1' === get_option( 'honamas_core_initial_archive_seeded' ) ) {
+		return;
+	}
+
+	honamas_core_ensure_archive_categories();
+
+	foreach ( honamas_core_get_initial_archive_items() as $item ) {
+		$existing = get_posts(
+			array(
+				'name'           => $item['slug'],
+				'post_type'      => 'honamas_archive_item',
+				'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+				'posts_per_page' => 1,
+			)
+		);
+
+		if ( $existing ) {
+			continue;
+		}
+
+		$post_id = wp_insert_post(
+			array(
+				'post_type'    => 'honamas_archive_item',
+				'post_status'  => 'publish',
+				'post_title'   => $item['title'],
+				'post_name'    => $item['slug'],
+				'post_excerpt' => $item['excerpt'],
+				'post_content' => $item['content'],
+			),
+			true
+		);
+
+		if ( is_wp_error( $post_id ) ) {
+			continue;
+		}
+
+		$term = term_exists( $item['category'], 'honamas_archive_category' );
+		if ( $term ) {
+			wp_set_object_terms( $post_id, (int) $term['term_id'], 'honamas_archive_category' );
+		}
+
+		update_post_meta( $post_id, 'honamas_asset_date', $item['date'] );
+		update_post_meta( $post_id, 'honamas_origin', $item['origin'] );
+	}
+
+	update_option( 'honamas_core_initial_archive_seeded', '1', false );
+}
+add_action( 'admin_init', 'honamas_core_seed_initial_archive_items' );
 
 function honamas_core_ensure_archive_categories(): void {
 	foreach ( array( 'dokumente' => 'Dokumente', 'kleidung' => 'Kleidung', 'fotos' => 'Fotos', 'presse' => 'Presse' ) as $slug => $name ) {

@@ -90,12 +90,13 @@ Die erste Staging-Version benötigt nicht die vollständige Sammlung. Sie brauch
 
 | Priorität | Objektgruppe | Zielkategorie | Mindestmetadaten |
 | --- | --- | --- | --- |
-| 1 | Team-Identity-Originaldokument | Dokumente | Titel, Jahr, Herkunft, Seiten/Datei, Credit |
-| 1 | frühe HONAMAS-Kleidung oder Trainingsstück | Kleidung | Titel, Zeitraum, Herkunft, Bild, Rechte |
-| 1 | Bild aus dem Umfeld der WM 2006 | Fotos | Jahr, Personen/Ort soweit bekannt, Credit |
-| 2 | Reece-Entwurf 2017 | Dokumente oder Fotos | Jahr, Herkunft, Designrechte, Kontext |
+| 1 | Team-Identity-Originaldokument | Dokumente | In Staging als Archivobjekt angelegt; Originaldatei, Seiten/Datei und Credit fehlen |
+| 1 | frühe HONAMAS-Kleidung oder Trainingsstück | Kleidung | In Staging als Archivobjekt angelegt; Bild, Zeitraum, Herkunft, Rechte und Credit fehlen |
+| 1 | Bild aus dem Umfeld der WM 2006 | Fotos | In Staging als Mannschaftsfoto-Archivobjekt angelegt; Ort, Personen, Credit und Freigabe fehlen |
+| 1 | 1.500 HONAMAS-Shirts vor der WM 2006 | Kleidung | In Staging als Archivobjekt angelegt; Foto/Dokument, genaue Datierung und Credit fehlen |
+| 2 | Reece-Entwurf 2017 | Dokumente oder Fotos | In Staging als Archivobjekt angelegt; Designrechte, Bildauswahl, Herkunft und Credit fehlen |
 | 2 | Sporthilfe-Beleg | Presse | Ausgabe, Datum, Quelle, Nutzungsrecht |
-| 2 | Markenunterlage | Dokumente | Datum, Herkunft, Datenschutzprüfung, Rechte |
+| 2 | Markenunterlage | Dokumente | In Staging als Archivobjekt angelegt; Datenschutzprüfung, Dokumentenauswahl und Rechte fehlen |
 
 ## 7. Metadaten und Vorschauen
 
