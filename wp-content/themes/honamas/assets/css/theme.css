@@ -96,11 +96,25 @@ a:where(:hover, :focus-visible) {
 
 .honamas-section-grid { background-image: none; }
 
-.honamas-team-start .wp-block-columns { align-items: center; }
-.honamas-team-start__image { margin: 0; overflow: hidden; }
+.honamas-team-start__inner {
+	position: relative;
+}
+
+.honamas-team-start__stage {
+	display: grid;
+	margin-top: var(--wp--preset--spacing--50);
+	position: relative;
+}
+
+.honamas-team-start__image {
+	grid-area: 1 / 1;
+	margin: 0;
+	overflow: hidden;
+}
+
 .honamas-team-start__image img,
 .honamas-team-start__placeholder {
-	aspect-ratio: 4 / 3;
+	aspect-ratio: 16 / 9;
 	display: block;
 	height: auto;
 	object-fit: cover;
@@ -108,15 +122,53 @@ a:where(:hover, :focus-visible) {
 	width: 100%;
 }
 .honamas-team-start__placeholder { background: var(--wp--preset--color--honamas-line); }
+
+.honamas-team-start__panel {
+	align-self: end;
+	background: rgba(255, 255, 255, 0.94);
+	border: 1px solid rgba(17, 17, 20, 0.1);
+	box-shadow: 0 1.5rem 4rem rgba(17, 17, 20, 0.12);
+	display: grid;
+	gap: 0.8rem;
+	grid-area: 1 / 1;
+	justify-self: end;
+	margin: 0 0 clamp(-4rem, -5vw, -2rem);
+	max-width: min(34rem, 92%);
+	padding: clamp(1.35rem, 3vw, 2.5rem);
+}
+
 .honamas-team-start__number {
 	color: var(--wp--preset--color--honamas-red);
 	font-family: var(--wp--preset--font-family--heading);
-	font-size: clamp(5rem, 10vw, 9rem);
+	font-size: clamp(5rem, 13vw, 11rem);
 	font-weight: 800;
 	line-height: 0.8;
-	margin: 0 0 1.1rem;
+	margin: 0;
 }
-.honamas-team-start h2 { max-width: 12ch; }
+.honamas-team-start h2 {
+	font-size: clamp(2rem, 4.2vw, 4.8rem);
+	line-height: 0.95;
+	margin: 0;
+	max-width: 11ch;
+}
+
+.honamas-team-start__panel p {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+@media (max-width: 760px) {
+	.honamas-team-start__image img,
+	.honamas-team-start__placeholder {
+		aspect-ratio: 4 / 5;
+	}
+
+	.honamas-team-start__panel {
+		margin: -2rem auto 0;
+		max-width: calc(100% - 1.5rem);
+		position: relative;
+	}
+}
 
 .honamas-team-collection {
 	display: grid;
