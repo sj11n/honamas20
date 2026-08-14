@@ -175,6 +175,18 @@ a:where(:hover, :focus-visible) {
 }
 
 @media (max-width: 760px) {
+	.honamas-team-start__inner,
+	.honamas-team-start__stage {
+		margin-left: calc(50% - 50vw) !important;
+		margin-right: calc(50% - 50vw) !important;
+		max-width: 100vw !important;
+		width: 100vw;
+	}
+
+	.honamas-team-start__stage {
+		gap: 0;
+	}
+
 	.honamas-team-start__image img,
 	.honamas-team-start__placeholder {
 		aspect-ratio: 4 / 5;
@@ -185,7 +197,7 @@ a:where(:hover, :focus-visible) {
 	}
 
 	.honamas-team-start__panel {
-		margin: 0;
+		margin: 0 var(--wp--preset--spacing--40);
 	}
 
 	.honamas-team-start__stage {

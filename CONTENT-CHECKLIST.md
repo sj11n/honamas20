@@ -71,17 +71,17 @@ Für jedes migrierte Asset sind diese Felder Pflicht:
 | HONAMAS-Logo | Vorhanden | Originaldatei, Varianten, Urheberrecht und Einsatzregeln |
 | Hero-Bild oder -Film | Zu prüfen | Quelldatei, Poster, Schnitt, Tonfreiheit, Rechte, Untertitel |
 | Bilder zu „Die Idee“ | Vorhanden: drei Bilder beschrieben | Medien-IDs, Inhalte, Credits, Alt-Texte |
-| Team-Identity-Dokument | Vorhanden | lesbare Originaldatei, Seitenzahl, Quelle und Rechte |
-| Trainingskleidung und Ausrüstung | Vorhanden | Einzelmotive, Credits und Objektmetadaten |
+| Team-Identity-Dokument | In Staging | Beitragsbild und PDF zugeordnet; Seitenzahl, Quelle und Rechte final prüfen |
+| Trainingskleidung und Ausrüstung | In Staging | HONAMAS-Trikotmotiv zugeordnet; genaue Einordnung, Credits und Objektmetadaten prüfen |
 | Unterwäsche mit Logo | Vorhanden | Bildrechte, Kontext und sensible Bildauswahl |
-| Fan-Shirts | Vorhanden | Originalbild, Menge/Datum, Rechte |
+| Fan-Shirts | In Staging | 2006er Shirtmotiv zugeordnet; Menge/Datum, Rechte und Credit prüfen |
 | Bild von 2015 | Vorhanden | Medien-ID, Caption, Credit und Bezug zum Kapitel |
-| Reece-Entwürfe von 2017 | Vorhanden | Designrechte, Quelle und Kontext |
+| Reece-Entwürfe von 2017 | In Staging | Reece-Designbogen zugeordnet; Designrechte, Quelle und Kontext prüfen |
 | Sporthilfe-Magazin | Vorhanden | Coverrechte, Ausgabe, Datum und Quellenlink |
 | Instagram-/Medienbelege | Vorhanden | Plattform, Permalink, Einbettungs- und Datenschutzentscheidung |
-| Markenschutzunterlagen | Vorhanden | Vollständigkeit, Lesbarkeit und personenbezogene Daten prüfen |
+| Markenschutzunterlagen | Vorhanden | Kein eindeutiges Dokumentbild in der Mediathek gefunden; Vollständigkeit, Lesbarkeit und personenbezogene Daten prüfen |
 | Film und Poster | Vorhanden | Plattform, Video-ID, Rechte, Untertitel, Vorschaubild |
-| Mannschaftsfoto | Vorhanden | Jahr, Personen, Credit und Freigabe |
+| Mannschaftsfoto | In Staging | Mannschaftsfoto zugeordnet; Jahr, Personen, Credit und Freigabe prüfen |
 | 21 Einzelporträts | Teilweise unklar | Verfügbarkeit, einheitlicher Zuschnitt, Credit und Freigabe je Person |
 
 ## 6. Archivobjekte der ersten Veröffentlichung
@@ -90,11 +90,11 @@ Die erste Staging-Version benötigt nicht die vollständige Sammlung. Sie brauch
 
 | Priorität | Objektgruppe | Zielkategorie | Mindestmetadaten |
 | --- | --- | --- | --- |
-| 1 | Team-Identity-Originaldokument | Dokumente | In Staging als Archivobjekt angelegt; Originaldatei, Seiten/Datei und Credit fehlen |
-| 1 | frühe HONAMAS-Kleidung oder Trainingsstück | Kleidung | In Staging als Archivobjekt angelegt; Bild, Zeitraum, Herkunft, Rechte und Credit fehlen |
-| 1 | Bild aus dem Umfeld der WM 2006 | Fotos | In Staging als Mannschaftsfoto-Archivobjekt angelegt; Ort, Personen, Credit und Freigabe fehlen |
-| 1 | 1.500 HONAMAS-Shirts vor der WM 2006 | Kleidung | In Staging als Archivobjekt angelegt; Foto/Dokument, genaue Datierung und Credit fehlen |
-| 2 | Reece-Entwurf 2017 | Dokumente oder Fotos | In Staging als Archivobjekt angelegt; Designrechte, Bildauswahl, Herkunft und Credit fehlen |
+| 1 | Team-Identity-Originaldokument | Dokumente | In Staging als Archivobjekt angelegt; Beitragsbild und PDF zugeordnet; Seiten/Datei und Credit prüfen |
+| 1 | frühe HONAMAS-Kleidung oder Trainingsstück | Kleidung | In Staging als Archivobjekt angelegt; Kleidungsbild zugeordnet; Zeitraum, Herkunft, Rechte und Credit prüfen |
+| 1 | Bild aus dem Umfeld der WM 2006 | Fotos | In Staging als Mannschaftsfoto-Archivobjekt angelegt; Beitragsbild zugeordnet; Ort, Personen, Credit und Freigabe prüfen |
+| 1 | 1.500 HONAMAS-Shirts vor der WM 2006 | Kleidung | In Staging als Archivobjekt angelegt; Shirt-Foto zugeordnet; genaue Datierung und Credit prüfen |
+| 2 | Reece-Entwurf 2017 | Dokumente oder Fotos | In Staging als Archivobjekt angelegt; Designbogen zugeordnet; Designrechte, Herkunft und Credit prüfen |
 | 2 | Sporthilfe-Beleg | Presse | Ausgabe, Datum, Quelle, Nutzungsrecht |
 | 2 | Markenunterlage | Dokumente | In Staging als Archivobjekt angelegt; Datenschutzprüfung, Dokumentenauswahl und Rechte fehlen |
 

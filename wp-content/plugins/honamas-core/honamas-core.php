@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.4
+ * Version: 0.1.5
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -502,16 +502,23 @@ function honamas_core_seed_team_members(): void {
 add_action( 'admin_init', 'honamas_core_seed_team_members' );
 
 function honamas_core_find_team_portrait_id( array $keywords ): int {
-	$attachments = get_posts(
-		array(
-			'post_type'      => 'attachment',
-			'post_mime_type' => 'image',
-			'post_status'    => 'inherit',
-			'posts_per_page' => 500,
-			'orderby'        => 'date',
-			'order'          => 'DESC',
-		)
+	return honamas_core_find_attachment_id( $keywords, 'image' );
+}
+
+function honamas_core_find_attachment_id( array $keywords, string $mime_type = '' ): int {
+	$args = array(
+		'post_type'      => 'attachment',
+		'post_status'    => 'inherit',
+		'posts_per_page' => 700,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
 	);
+
+	if ( '' !== $mime_type ) {
+		$args['post_mime_type'] = $mime_type;
+	}
+
+	$attachments = get_posts( $args );
 
 	foreach ( $attachments as $attachment ) {
 		$metadata = wp_get_attachment_metadata( $attachment->ID );
@@ -651,6 +658,65 @@ function honamas_core_seed_initial_archive_items(): void {
 	update_option( 'honamas_core_initial_archive_seeded', '1', false );
 }
 add_action( 'admin_init', 'honamas_core_seed_initial_archive_items' );
+
+function honamas_core_assign_initial_archive_assets(): void {
+	if ( '2026-08-14-1' === get_option( 'honamas_core_initial_archive_assets_assigned' ) ) {
+		return;
+	}
+
+	$assignments = array(
+		'team-identity-originaldokument-2006' => array(
+			'image' => array( '253 TEAM IDENTITY 1', '253-team-identity-1' ),
+			'file'  => array( '257 2006 07 13 Honamas Team Identity', 'Honamas Team Identity pdf' ),
+		),
+		'erstes-honamas-trainingsteil'        => array(
+			'image' => array( '345 Bild Trikot Honamas Logo2', '345-bild_trikot_honamas-logo2' ),
+		),
+		'1500-honamas-shirts-vor-der-wm-2006' => array(
+			'image' => array( '310 100 1206 scaled', '310-100_1206-scaled' ),
+		),
+		'mannschaftsfoto-der-ur-honamas-2006' => array(
+			'image' => array( '416 Team Honamas', '416-team_honamas' ),
+		),
+		'reece-trikotdesign-2017'             => array(
+			'image' => array( '347 Reece Australia Design Honamas Home', '347-reece-australia-design-honamas-home' ),
+		),
+	);
+
+	foreach ( $assignments as $slug => $assets ) {
+		$posts = get_posts(
+			array(
+				'name'           => $slug,
+				'post_type'      => 'honamas_archive_item',
+				'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+				'posts_per_page' => 1,
+			)
+		);
+
+		if ( ! $posts ) {
+			continue;
+		}
+
+		$post_id = (int) $posts[0]->ID;
+
+		if ( empty( get_post_thumbnail_id( $post_id ) ) && ! empty( $assets['image'] ) ) {
+			$image_id = honamas_core_find_attachment_id( $assets['image'], 'image' );
+			if ( $image_id ) {
+				set_post_thumbnail( $post_id, $image_id );
+			}
+		}
+
+		if ( empty( get_post_meta( $post_id, 'honamas_file_id', true ) ) && ! empty( $assets['file'] ) ) {
+			$file_id = honamas_core_find_attachment_id( $assets['file'], 'application/pdf' );
+			if ( $file_id ) {
+				update_post_meta( $post_id, 'honamas_file_id', $file_id );
+			}
+		}
+	}
+
+	update_option( 'honamas_core_initial_archive_assets_assigned', '2026-08-14-1', false );
+}
+add_action( 'admin_init', 'honamas_core_assign_initial_archive_assets', 25 );
 
 function honamas_core_ensure_archive_categories(): void {
 	foreach ( array( 'dokumente' => 'Dokumente', 'kleidung' => 'Kleidung', 'fotos' => 'Fotos', 'presse' => 'Presse' ) as $slug => $name ) {
