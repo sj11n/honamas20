@@ -72,7 +72,7 @@ Für jedes migrierte Asset sind diese Felder Pflicht:
 | Hero-Bild oder -Film | Zu prüfen | Quelldatei, Poster, Schnitt, Tonfreiheit, Rechte, Untertitel |
 | Bilder zu „Die Idee“ | Vorhanden: drei Bilder beschrieben | Medien-IDs, Inhalte, Credits, Alt-Texte |
 | Team-Identity-Dokument | In Staging | Beitragsbild und PDF zugeordnet; Seitenzahl, Quelle und Rechte final prüfen |
-| Trainingskleidung und Ausrüstung | In Staging | HONAMAS-Trikotmotiv zugeordnet; genaue Einordnung, Credits und Objektmetadaten prüfen |
+| Trainingskleidung und Ausrüstung | In Staging | Falsches Reece-Trikotmotiv entfernt; echtes TK-Trainingsteil-Motiv, genaue Einordnung, Credits und Objektmetadaten fehlen |
 | Unterwäsche mit Logo | Vorhanden | Bildrechte, Kontext und sensible Bildauswahl |
 | Fan-Shirts | In Staging | 2006er Shirtmotiv zugeordnet; Menge/Datum, Rechte und Credit prüfen |
 | Bild von 2015 | Vorhanden | Medien-ID, Caption, Credit und Bezug zum Kapitel |
@@ -91,7 +91,7 @@ Die erste Staging-Version benötigt nicht die vollständige Sammlung. Sie brauch
 | Priorität | Objektgruppe | Zielkategorie | Mindestmetadaten |
 | --- | --- | --- | --- |
 | 1 | Team-Identity-Originaldokument | Dokumente | In Staging als Archivobjekt angelegt; Beitragsbild und PDF zugeordnet; Seiten/Datei und Credit prüfen |
-| 1 | frühe HONAMAS-Kleidung oder Trainingsstück | Kleidung | In Staging als Archivobjekt angelegt; Kleidungsbild zugeordnet; Zeitraum, Herkunft, Rechte und Credit prüfen |
+| 1 | frühe HONAMAS-Kleidung oder Trainingsstück | Kleidung | In Staging als Archivobjekt angelegt; echtes TK-Trainingsteil-Motiv, Zeitraum, Herkunft, Rechte und Credit fehlen |
 | 1 | Bild aus dem Umfeld der WM 2006 | Fotos | In Staging als Mannschaftsfoto-Archivobjekt angelegt; Beitragsbild zugeordnet; Ort, Personen, Credit und Freigabe prüfen |
 | 1 | 1.500 HONAMAS-Shirts vor der WM 2006 | Kleidung | In Staging als Archivobjekt angelegt; Shirt-Foto zugeordnet; genaue Datierung und Credit prüfen |
 | 2 | Reece-Entwurf 2017 | Dokumente oder Fotos | In Staging als Archivobjekt angelegt; Designbogen zugeordnet; Designrechte, Herkunft und Credit prüfen |

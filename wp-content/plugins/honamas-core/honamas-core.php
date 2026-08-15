@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.5
+ * Version: 0.1.6
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -660,7 +660,7 @@ function honamas_core_seed_initial_archive_items(): void {
 add_action( 'admin_init', 'honamas_core_seed_initial_archive_items' );
 
 function honamas_core_assign_initial_archive_assets(): void {
-	if ( '2026-08-14-1' === get_option( 'honamas_core_initial_archive_assets_assigned' ) ) {
+	if ( '2026-08-15-1' === get_option( 'honamas_core_initial_archive_assets_assigned' ) ) {
 		return;
 	}
 
@@ -670,7 +670,7 @@ function honamas_core_assign_initial_archive_assets(): void {
 			'file'  => array( '257 2006 07 13 Honamas Team Identity', 'Honamas Team Identity pdf' ),
 		),
 		'erstes-honamas-trainingsteil'        => array(
-			'image' => array( '345 Bild Trikot Honamas Logo2', '345-bild_trikot_honamas-logo2' ),
+			'clear_image' => true,
 		),
 		'1500-honamas-shirts-vor-der-wm-2006' => array(
 			'image' => array( '310 100 1206 scaled', '310-100_1206-scaled' ),
@@ -699,7 +699,11 @@ function honamas_core_assign_initial_archive_assets(): void {
 
 		$post_id = (int) $posts[0]->ID;
 
-		if ( empty( get_post_thumbnail_id( $post_id ) ) && ! empty( $assets['image'] ) ) {
+		if ( ! empty( $assets['clear_image'] ) ) {
+			delete_post_thumbnail( $post_id );
+		}
+
+		if ( ! empty( $assets['image'] ) ) {
 			$image_id = honamas_core_find_attachment_id( $assets['image'], 'image' );
 			if ( $image_id ) {
 				set_post_thumbnail( $post_id, $image_id );
@@ -714,7 +718,7 @@ function honamas_core_assign_initial_archive_assets(): void {
 		}
 	}
 
-	update_option( 'honamas_core_initial_archive_assets_assigned', '2026-08-14-1', false );
+	update_option( 'honamas_core_initial_archive_assets_assigned', '2026-08-15-1', false );
 }
 add_action( 'admin_init', 'honamas_core_assign_initial_archive_assets', 25 );
 
