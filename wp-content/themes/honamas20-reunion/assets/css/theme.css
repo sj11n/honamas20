@@ -71,6 +71,17 @@ body {
 	position: absolute;
 	z-index: 1;
 }
+.reunion-hero::after {
+	animation: reunionHeroBackgroundLoop 32s infinite;
+	background-image: url("../images/hero/team-line.png");
+	background-position: center 42%;
+	background-size: cover;
+	content: "";
+	inset: 0;
+	position: absolute;
+	transform: scale(1.04);
+	z-index: 0;
+}
 .reunion-hero > :not(.reunion-hero__media) {
 	position: relative;
 	z-index: 2;
@@ -483,7 +494,40 @@ a:where(:hover, :focus-visible) {
 		opacity: 0;
 		transform: none;
 	}
+	.reunion-hero::after {
+		animation: none;
+		background-image: url("../images/hero/team-line.png");
+		transform: none;
+	}
 	.reunion-hero__slide--team { opacity: 1; }
+}
+
+@keyframes reunionHeroBackgroundLoop {
+	0%, 22% {
+		background-image: url("../images/hero/team-line.png");
+		background-position: center 42%;
+		transform: scale(1.04);
+	}
+	25%, 47% {
+		background-image: url("../images/hero/team-celebration.png");
+		background-position: center 36%;
+		transform: scale(1.08);
+	}
+	50%, 72% {
+		background-image: url("../images/hero/world-cup-trophy.jpg");
+		background-position: center 48%;
+		transform: scale(1.06);
+	}
+	75%, 97% {
+		background-image: url("../images/hero/zandvoort-sunset.png");
+		background-position: center 52%;
+		transform: scale(1.08);
+	}
+	100% {
+		background-image: url("../images/hero/team-line.png");
+		background-position: center 42%;
+		transform: scale(1.04);
+	}
 }
 
 @keyframes reunionHeroLoop {
