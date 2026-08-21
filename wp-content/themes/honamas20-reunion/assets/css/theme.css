@@ -299,7 +299,7 @@ body {
 
 .reunion-schedule__dot {
 	align-self: start;
-	background: currentColor;
+	background: var(--schedule-tone);
 	border: 4px solid #fff;
 	border-radius: 50%;
 	box-shadow: 0 0 0 2px rgba(9, 40, 90, 0.08);
@@ -312,7 +312,7 @@ body {
 
 .reunion-schedule__time {
 	align-self: start;
-	background: currentColor;
+	background: var(--schedule-tone);
 	border-radius: 8px;
 	color: #fff;
 	font-family: var(--wp--preset--font-family--heading);
@@ -339,11 +339,11 @@ body {
 	margin: 0.35rem 0 0;
 }
 
-.reunion-schedule__item--blue { color: #1287d5; }
-.reunion-schedule__item--red { color: #e93d51; }
-.reunion-schedule__item--navy { color: #09285a; }
-.reunion-schedule__item--gold { color: #f4b425; }
-.reunion-schedule__item--green { color: #08a66f; }
+.reunion-schedule__item--blue { --schedule-tone: #1287d5; color: #1287d5; }
+.reunion-schedule__item--red { --schedule-tone: #e93d51; color: #e93d51; }
+.reunion-schedule__item--navy { --schedule-tone: #09285a; color: #09285a; }
+.reunion-schedule__item--gold { --schedule-tone: #f4b425; color: #f4b425; }
+.reunion-schedule__item--green { --schedule-tone: #08a66f; color: #08a66f; }
 
 .reunion-schedule__mic {
 	color: #09285a;
