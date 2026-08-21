@@ -51,14 +51,73 @@ body {
 }
 
 .honamas-site-header { background: rgba(255, 255, 255, 0.78); backdrop-filter: blur(14px); position: fixed; width: 100%; }
-.reunion-hero { background: #ffdc4a; padding: clamp(4rem, 12vw, 10rem) var(--wp--preset--spacing--50); padding-top: calc(4.5rem + clamp(4rem, 12vw, 10rem)); text-align: center; }
+.reunion-hero {
+	background: #111114;
+	color: #fff;
+	isolation: isolate;
+	min-height: min(880px, 100svh);
+	overflow: hidden;
+	padding: clamp(5.5rem, 13vw, 11rem) var(--wp--preset--spacing--50);
+	padding-top: calc(4.5rem + clamp(5.5rem, 13vw, 11rem));
+	position: relative;
+	text-align: center;
+}
+.reunion-hero::before {
+	background:
+		linear-gradient(180deg, rgba(17, 17, 20, 0.28) 0%, rgba(17, 17, 20, 0.46) 54%, rgba(17, 17, 20, 0.72) 100%),
+		radial-gradient(circle at 50% 42%, rgba(255, 220, 74, 0.2), transparent 48%);
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 1;
+}
+.reunion-hero > :not(.reunion-hero__media) {
+	position: relative;
+	z-index: 2;
+}
+.reunion-hero__media {
+	inset: 0;
+	position: absolute;
+	z-index: 0;
+}
+.reunion-hero__slide {
+	animation: reunionHeroLoop 32s infinite;
+	display: block;
+	height: 100%;
+	inset: 0;
+	object-fit: cover;
+	object-position: center;
+	opacity: 0;
+	position: absolute;
+	transform: scale(1.04);
+	width: 100%;
+}
+.reunion-hero__slide--team { animation-delay: 0s; object-position: center 42%; }
+.reunion-hero__slide--celebration { animation-delay: 8s; object-position: center 36%; }
+.reunion-hero__slide--trophy { animation-delay: 16s; object-position: center 48%; }
+.reunion-hero__slide--sunset { animation-delay: 24s; object-position: center 52%; }
 .reunion-logo { margin: 0 auto var(--wp--preset--spacing--60); max-width: min(31rem, 86vw); }
 .reunion-logo img { display: block; height: auto; width: 100%; }
 .reunion-header-logo { display: block; flex: 0 0 auto; height: 56px; width: 56px; }
 .reunion-header-logo img { display: block; height: 100%; object-fit: contain; width: 100%; }
 .reunion-kicker { color: #e63953; font-family: var(--wp--preset--font-family--heading); font-size: var(--wp--preset--font-size--small); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-.reunion-hero h1 { font-size: clamp(3.1rem, 8vw, 7.5rem); margin-inline: auto; max-width: 14ch; }
+.reunion-hero .reunion-kicker {
+	color: #fff;
+	text-shadow: 0 2px 18px rgba(0, 0, 0, 0.38);
+}
+.reunion-hero h1 { font-size: clamp(3.1rem, 8vw, 7.5rem); margin-inline: auto; max-width: 14ch; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.42); }
 .reunion-hero p:not(.reunion-kicker) { margin-inline: auto; max-width: 38rem; }
+.reunion-hero .wp-block-button__link {
+	background: #fff;
+	border-color: #fff;
+	color: #111114;
+}
+.reunion-hero .wp-block-button__link:hover,
+.reunion-hero .wp-block-button__link:focus-visible {
+	background: #ffdc4a;
+	border-color: #ffdc4a;
+	color: #111114;
+}
 .reunion-countdown { display: grid; gap: 0.5rem; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--wp--preset--spacing--60) auto; max-width: 36rem; }
 .reunion-countdown div { border-top: 2px solid #111114; padding-top: .6rem; }
 .reunion-countdown span { display: block; font-family: var(--wp--preset--font-family--heading); font-size: clamp(1.8rem, 7vw, 3.5rem); font-weight: 800; line-height: 1; }
@@ -419,6 +478,20 @@ a:where(:hover, :focus-visible) {
 
 	.honamas-video-hero .wp-block-cover__video-background { display: none; }
 	.honamas-film-teaser__video { display: none; }
+	.reunion-hero__slide {
+		animation: none;
+		opacity: 0;
+		transform: none;
+	}
+	.reunion-hero__slide--team { opacity: 1; }
+}
+
+@keyframes reunionHeroLoop {
+	0% { opacity: 0; transform: scale(1.04); }
+	6% { opacity: 1; }
+	25% { opacity: 1; }
+	31% { opacity: 0; transform: scale(1.1); }
+	100% { opacity: 0; transform: scale(1.1); }
 }
 
 @media (max-width: 700px) {
