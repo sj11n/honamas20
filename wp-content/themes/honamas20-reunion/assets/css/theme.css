@@ -226,13 +226,12 @@ body {
 
 .reunion-schedule__day--padel::after {
 	background-image: url("../images/schedule/schedule-padel.png");
-	opacity: 0.34;
-}
-
-.reunion-schedule__day--beach::after {
-	background-image: url("../images/schedule/schedule-beach.png");
-	opacity: 0.38;
-	width: min(48%, 24rem);
+	background-position: right top;
+	bottom: auto;
+	height: min(22rem, 34%);
+	opacity: 0.3;
+	top: 5.8rem;
+	width: min(42%, 23rem);
 }
 
 .reunion-schedule__day-header {
@@ -295,6 +294,32 @@ body {
 	grid-template-columns: 2.1rem minmax(5.5rem, 8rem) minmax(0, 1fr);
 	padding: 0.85rem 0;
 	position: relative;
+}
+
+.reunion-schedule__item--feature-beach {
+	min-height: 12rem;
+}
+
+.reunion-schedule__item--feature-beach::after {
+	background-image: url("../images/schedule/schedule-beach.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	bottom: 0;
+	content: "";
+	left: auto;
+	opacity: 0.38;
+	pointer-events: none;
+	position: absolute;
+	right: -23rem;
+	top: 0;
+	width: min(42vw, 22rem);
+	z-index: 0;
+}
+
+.reunion-schedule__item--feature-beach > * {
+	position: relative;
+	z-index: 1;
 }
 
 .reunion-schedule__dot {
@@ -787,6 +812,20 @@ a:where(:hover, :focus-visible) {
 		right: -2rem;
 		top: 3.5rem;
 		width: 12rem;
+	}
+
+	.reunion-schedule__day--padel::after {
+		top: 4rem;
+	}
+
+	.reunion-schedule__item--feature-beach {
+		min-height: 11rem;
+	}
+
+	.reunion-schedule__item--feature-beach::after {
+		opacity: 0.16;
+		right: -1rem;
+		width: 11rem;
 	}
 
 	.reunion-schedule__day-header {

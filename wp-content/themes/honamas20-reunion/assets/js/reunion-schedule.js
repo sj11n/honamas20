@@ -79,6 +79,7 @@ if ( scheduleSection ) {
 				},
 				{
 					tone: 'red',
+					feature: 'beach',
 					time: '15:00',
 					title: 'Beach-Party',
 					details: 'Paal69 · Zandvoort Beach · Food · Get-together · Time for Talk · Party on · Bierchen · Schwimmen',
@@ -93,7 +94,6 @@ if ( scheduleSection ) {
 		},
 		{
 			date: 'SO · 30. August',
-			art: 'beach',
 			items: [
 				{
 					tone: 'gold',
@@ -112,7 +112,7 @@ if ( scheduleSection ) {
 	];
 
 	const itemTemplate = ( item ) => `
-		<li class="reunion-schedule__item reunion-schedule__item--${ item.tone }">
+		<li class="reunion-schedule__item reunion-schedule__item--${ item.tone }${ item.feature ? ` reunion-schedule__item--feature-${ item.feature }` : '' }">
 			<span class="reunion-schedule__dot" aria-hidden="true"></span>
 			<div class="reunion-schedule__time">${ item.time }</div>
 			<div class="reunion-schedule__copy">
