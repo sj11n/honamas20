@@ -41,6 +41,13 @@ function honamas_enqueue_assets(): void {
 		wp_get_theme()->get( 'Version' ),
 		true
 	);
+	wp_enqueue_script(
+		'honamas20-reunion-schedule',
+		get_theme_file_uri( 'assets/js/reunion-schedule.js' ),
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'honamas_enqueue_assets' );
 
