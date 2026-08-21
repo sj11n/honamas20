@@ -72,7 +72,7 @@ body {
 	z-index: 1;
 }
 .reunion-hero::after {
-	animation: reunionHeroBackgroundLoop 32s infinite;
+	animation: reunionHeroBackgroundLoop 40s infinite;
 	background-image: url("../images/hero/team-line.png");
 	background-position: center 42%;
 	background-size: cover;
@@ -92,7 +92,7 @@ body {
 	z-index: 0;
 }
 .reunion-hero__slide {
-	animation: reunionHeroLoop 32s infinite;
+	animation: reunionHeroLoop 40s infinite;
 	display: block;
 	height: 100%;
 	inset: 0;
@@ -107,6 +107,7 @@ body {
 .reunion-hero__slide--celebration { animation-delay: 8s; object-position: center 36%; }
 .reunion-hero__slide--trophy { animation-delay: 16s; object-position: center 48%; }
 .reunion-hero__slide--sunset { animation-delay: 24s; object-position: center 52%; }
+.reunion-hero__slide--padel { animation-delay: 32s; object-position: center 50%; }
 .reunion-logo { margin: 0 auto var(--wp--preset--spacing--60); max-width: min(31rem, 86vw); }
 .reunion-logo img { display: block; height: auto; width: 100%; }
 .reunion-header-logo { display: block; flex: 0 0 auto; height: 56px; width: 56px; }
@@ -503,24 +504,29 @@ a:where(:hover, :focus-visible) {
 }
 
 @keyframes reunionHeroBackgroundLoop {
-	0%, 22% {
+	0%, 18% {
 		background-image: url("../images/hero/team-line.png");
 		background-position: center 42%;
 		transform: scale(1.04);
 	}
-	25%, 47% {
+	20%, 38% {
 		background-image: url("../images/hero/team-celebration.png");
 		background-position: center 36%;
 		transform: scale(1.08);
 	}
-	50%, 72% {
+	40%, 58% {
 		background-image: url("../images/hero/world-cup-trophy.jpg");
 		background-position: center 48%;
 		transform: scale(1.06);
 	}
-	75%, 97% {
+	60%, 78% {
 		background-image: url("../images/hero/zandvoort-sunset.png");
 		background-position: center 52%;
+		transform: scale(1.08);
+	}
+	80%, 98% {
+		background-image: url("../images/hero/padel-court.png");
+		background-position: center 50%;
 		transform: scale(1.08);
 	}
 	100% {
@@ -532,9 +538,9 @@ a:where(:hover, :focus-visible) {
 
 @keyframes reunionHeroLoop {
 	0% { opacity: 0; transform: scale(1.04); }
-	6% { opacity: 1; }
-	25% { opacity: 1; }
-	31% { opacity: 0; transform: scale(1.1); }
+	4% { opacity: 1; }
+	18% { opacity: 1; }
+	22% { opacity: 0; transform: scale(1.1); }
 	100% { opacity: 0; transform: scale(1.1); }
 }
 
