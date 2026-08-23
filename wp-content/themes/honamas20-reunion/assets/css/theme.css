@@ -117,7 +117,7 @@ body {
 	height: 56px;
 	width: 56px;
 }
-.reunion-header-logo img { display: block; height: 100%; object-fit: contain; opacity: 0; width: 100%; }
+.reunion-header-logo img { display: block; height: 100%; object-fit: contain; width: 100%; }
 .reunion-kicker { color: #e63953; font-family: var(--wp--preset--font-family--heading); font-size: var(--wp--preset--font-size--small); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .reunion-hero .reunion-kicker {
 	color: #fff;

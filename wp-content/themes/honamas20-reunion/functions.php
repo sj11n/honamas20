@@ -68,7 +68,7 @@ add_filter( 'wp_sitemaps_enabled', '__return_false' );
  * Seed required reunion content on fresh WordPress installs.
  */
 function honamas20_reunion_seed_content(): void {
-	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-clean' ) {
+	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-reunion-posts' ) {
 		return;
 	}
 
@@ -106,6 +106,8 @@ function honamas20_reunion_seed_content(): void {
 		'post_name'      => 'noch-30-tage-bis-amstelveen-zandvoort',
 		'post_status'    => 'publish',
 		'post_type'      => 'post',
+		'post_date'      => '2026-07-30 08:39:13',
+		'post_date_gmt'  => '2026-07-30 06:39:13',
 		'comment_status' => 'closed',
 		'ping_status'    => 'closed',
 		'post_excerpt'   => 'Der Countdown läuft: Bitte gebt kurz eure Infos zu Anreise, Zimmern und Trikotgrößen durch.',
@@ -126,7 +128,41 @@ function honamas20_reunion_seed_content(): void {
 		wp_insert_post( wp_slash( $post_data ) );
 	}
 
-	update_option( 'honamas20_reunion_seed_version', '2026-08-24-clean' );
+	$nomination_post = get_page_by_path( 'nominierung-fuer-h20', OBJECT, 'post' );
+	$nomination_data = array(
+		'post_title'     => 'Nominierung für H20',
+		'post_name'      => 'nominierung-fuer-h20',
+		'post_status'    => 'publish',
+		'post_type'      => 'post',
+		'post_date'      => '2026-08-21 21:49:13',
+		'post_date_gmt'  => '2026-08-21 19:49:13',
+		'comment_status' => 'closed',
+		'ping_status'    => 'closed',
+		'post_excerpt'   => 'Die Starting 21 für das Reunion-Wochenende 2026 stehen fest.',
+		'post_content'   => '<!-- wp:paragraph --><p>🏑 <strong>Die Nominierung steht: Unsere Starting 21 für das Reunion-Wochenende 2026!</strong></p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>20 Jahre nach dem Weltmeistertitel von Mönchengladbach geht es für die HONAMAS von 2006 noch einmal gemeinsam auf Tour. Vom <strong>28. bis 30. August 2026</strong> treffen wir uns in <strong>Amstelveen und Zandvoort</strong> – zum WM-Halbfinale, zum Padel-Duell und vor allem für ein Wochenende voller gemeinsamer Erinnerungen.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Bundes-Bernie hat lange überlegt, zahlreiche Videoanalysen ausgewertet und schließlich den Kader bekannt gegeben. Nominiert wurden:</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p><strong>15 Spieler</strong></p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Sebastian Biederlack · Ulrich Bubolz · Philipp Crone · Sebastian Draguhn · Eike Duckwitz · Björn Emmerling · Moritz Fürste · Oliver Hentschel · Niklas Meinert · Jan-Marco Montag · Carlos Nevado · Christian Schulte · Tibor Weißenborn · Matthias Witthaus · Philipp Zeller</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p><strong>6 Staff-Mitglieder</strong></p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Bernhard Peters · Torsten Althoff · Rainer Koll · Andreas Papenfuß · Gerhard Groß · Ulrich Forstner</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Damit steht sie: unsere <strong>Starting 21 für Amstelveen und Zandvoort</strong>.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Leider können diesmal nicht alle dabei sein. Auf der Bank sitzen Justus Scharowsky, Timo Weß, Christopher Zeller, Bernd Schöpf, Mario Plesse, Andrew Meredith, Werner Wiedersich, Hans-Dieter Herrmann und Klaus Brosius. Ihr gehört genauso zu diesem Team und werdet an diesem Wochenende definitiv fehlen.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Denn auch 20 Jahre später gilt: Ein Weltmeisterteam besteht nicht nur aus denen, die auf dem Platz stehen. Es lebt von allen, die den Weg gemeinsam gegangen sind.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p><strong>Der Kader steht. Der Spielplan steht. Die Vorfreude steigt.</strong></p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Noch sieben Tage bis zum Wiedersehen. 🇩🇪🏑🌊</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>#HONAMAS20 #Reunion2026 #Weltmeister2006 #Starting21 #EinTeam</p><!-- /wp:paragraph -->'
+			. '<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} --><figure class="wp-block-image size-large"><img src="' . esc_url( get_theme_file_uri( 'assets/images/posts/starting-21.png' ) ) . '" alt="Nominierungsgrafik der Starting 21 für das HONAMAS Reunion-Wochenende 2026"/></figure><!-- /wp:image -->',
+	);
+
+	if ( $nomination_post instanceof WP_Post ) {
+		$nomination_data['ID'] = $nomination_post->ID;
+		wp_update_post( wp_slash( $nomination_data ) );
+	} else {
+		wp_insert_post( wp_slash( $nomination_data ) );
+	}
+
+	update_option( 'honamas20_reunion_seed_version', '2026-08-24-reunion-posts' );
 }
 add_action( 'admin_init', 'honamas20_reunion_seed_content' );
 
