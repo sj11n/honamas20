@@ -110,8 +110,14 @@ body {
 .reunion-hero__slide--padel { animation-delay: 32s; object-position: center 50%; }
 .reunion-logo { margin: 0 auto var(--wp--preset--spacing--60); max-width: min(31rem, 86vw); }
 .reunion-logo img { display: block; height: auto; width: 100%; }
-.reunion-header-logo { display: block; flex: 0 0 auto; height: 56px; width: 56px; }
-.reunion-header-logo img { display: block; height: 100%; object-fit: contain; width: 100%; }
+.reunion-header-logo {
+	background: url("../images/logo-honamas-20.png") center / contain no-repeat;
+	display: block;
+	flex: 0 0 auto;
+	height: 56px;
+	width: 56px;
+}
+.reunion-header-logo img { display: block; height: 100%; object-fit: contain; opacity: 0; width: 100%; }
 .reunion-kicker { color: #e63953; font-family: var(--wp--preset--font-family--heading); font-size: var(--wp--preset--font-size--small); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .reunion-hero .reunion-kicker {
 	color: #fff;
