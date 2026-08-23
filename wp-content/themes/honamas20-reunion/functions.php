@@ -65,6 +65,53 @@ add_filter( 'wp_robots', 'honamas20_reunion_robots' );
 add_filter( 'wp_sitemaps_enabled', '__return_false' );
 
 /**
+ * Seed required reunion content on fresh WordPress installs.
+ */
+function honamas20_reunion_seed_content(): void {
+	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24' ) {
+		return;
+	}
+
+	update_option( 'blogname', 'HONAMAS | 20' );
+	update_option( 'blogdescription', 'Die Reunion zum 20-jährigen Jubiläum des WM-Titels von 2006.' );
+	update_option( 'blog_public', '0' );
+	update_option( 'permalink_structure', '/%postname%/' );
+	flush_rewrite_rules( false );
+
+	$default_post = get_page_by_path( 'hallo-welt', OBJECT, 'post' );
+	if ( $default_post instanceof WP_Post ) {
+		wp_trash_post( $default_post->ID );
+	}
+
+	$survey_post = get_page_by_path( 'noch-30-tage-bis-amstelveen-zandvoort', OBJECT, 'post' );
+	$post_data   = array(
+		'post_title'   => 'Noch 30 Tage bis Amstelveen & Zandvoort',
+		'post_name'    => 'noch-30-tage-bis-amstelveen-zandvoort',
+		'post_status'  => 'publish',
+		'post_type'    => 'post',
+		'post_excerpt' => 'Der Countdown läuft: Bitte gebt kurz eure Infos zu Anreise, Zimmern und Trikotgrößen durch.',
+		'post_content' => '<!-- wp:paragraph --><p>Männer, der Countdown läuft: Noch 30 Tage bis Amstelveen &amp; Zandvoort.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Damit Logistik, Betten und der Feinschliff für unser 20-Jähriges exakt sitzen, brauchen wir kurz ein paar Infos von euch: Anreise, Zimmer und Trikotgrößen.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Bitte klickt euch kurz durch. Das dauert keine zwei Minuten:</p><!-- /wp:paragraph -->'
+			. '<!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://forms.gle/bhXtjRmeoqyaZi468">Zur Umfrage</a></div><!-- /wp:button --></div><!-- /wp:buttons -->'
+			. '<!-- wp:paragraph --><p><strong>Deadline:</strong> Freitag, 31.07. Selbe Frist wie die Steuererklärung, aber das hier macht definitiv mehr Spaß.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Tickets fürs Halbfinale sind gebucht, Hotels stehen. Sobald alle Daten da sind, droppen die finalen Details im Laufe des August.</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Let’s go!</p><!-- /wp:paragraph -->'
+			. '<!-- wp:paragraph --><p>Euer Orga-Team Bernie, Jambo und Emmel</p><!-- /wp:paragraph -->',
+	);
+
+	if ( $survey_post instanceof WP_Post ) {
+		$post_data['ID'] = $survey_post->ID;
+		wp_update_post( wp_slash( $post_data ) );
+	} else {
+		wp_insert_post( wp_slash( $post_data ) );
+	}
+
+	update_option( 'honamas20_reunion_seed_version', '2026-08-24' );
+}
+add_action( 'admin_init', 'honamas20_reunion_seed_content' );
+
+/**
  * Register HONAMAS pattern categories.
  */
 function honamas_register_pattern_categories(): void {
