@@ -68,13 +68,15 @@ add_filter( 'wp_sitemaps_enabled', '__return_false' );
  * Seed required reunion content on fresh WordPress installs.
  */
 function honamas20_reunion_seed_content(): void {
-	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24' ) {
+	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-clean' ) {
 		return;
 	}
 
 	update_option( 'blogname', 'HONAMAS | 20' );
 	update_option( 'blogdescription', 'Die Reunion zum 20-jährigen Jubiläum des WM-Titels von 2006.' );
 	update_option( 'blog_public', '0' );
+	update_option( 'default_comment_status', 'closed' );
+	update_option( 'default_ping_status', 'closed' );
 	update_option( 'permalink_structure', '/%postname%/' );
 	flush_rewrite_rules( false );
 
@@ -83,14 +85,31 @@ function honamas20_reunion_seed_content(): void {
 		wp_trash_post( $default_post->ID );
 	}
 
+	$sample_page = get_page_by_path( 'beispiel-seite', OBJECT, 'page' );
+	if ( $sample_page instanceof WP_Post ) {
+		wp_trash_post( $sample_page->ID );
+	}
+
+	$default_comments = get_comments(
+		array(
+			'author_email' => 'wapuu@wordpress.example',
+			'status'       => 'all',
+		)
+	);
+	foreach ( $default_comments as $comment ) {
+		wp_delete_comment( $comment->comment_ID, true );
+	}
+
 	$survey_post = get_page_by_path( 'noch-30-tage-bis-amstelveen-zandvoort', OBJECT, 'post' );
 	$post_data   = array(
-		'post_title'   => 'Noch 30 Tage bis Amstelveen & Zandvoort',
-		'post_name'    => 'noch-30-tage-bis-amstelveen-zandvoort',
-		'post_status'  => 'publish',
-		'post_type'    => 'post',
-		'post_excerpt' => 'Der Countdown läuft: Bitte gebt kurz eure Infos zu Anreise, Zimmern und Trikotgrößen durch.',
-		'post_content' => '<!-- wp:paragraph --><p>Männer, der Countdown läuft: Noch 30 Tage bis Amstelveen &amp; Zandvoort.</p><!-- /wp:paragraph -->'
+		'post_title'     => 'Noch 30 Tage bis Amstelveen & Zandvoort',
+		'post_name'      => 'noch-30-tage-bis-amstelveen-zandvoort',
+		'post_status'    => 'publish',
+		'post_type'      => 'post',
+		'comment_status' => 'closed',
+		'ping_status'    => 'closed',
+		'post_excerpt'   => 'Der Countdown läuft: Bitte gebt kurz eure Infos zu Anreise, Zimmern und Trikotgrößen durch.',
+		'post_content'   => '<!-- wp:paragraph --><p>Männer, der Countdown läuft: Noch 30 Tage bis Amstelveen &amp; Zandvoort.</p><!-- /wp:paragraph -->'
 			. '<!-- wp:paragraph --><p>Damit Logistik, Betten und der Feinschliff für unser 20-Jähriges exakt sitzen, brauchen wir kurz ein paar Infos von euch: Anreise, Zimmer und Trikotgrößen.</p><!-- /wp:paragraph -->'
 			. '<!-- wp:paragraph --><p>Bitte klickt euch kurz durch. Das dauert keine zwei Minuten:</p><!-- /wp:paragraph -->'
 			. '<!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://forms.gle/bhXtjRmeoqyaZi468">Zur Umfrage</a></div><!-- /wp:button --></div><!-- /wp:buttons -->'
@@ -107,7 +126,7 @@ function honamas20_reunion_seed_content(): void {
 		wp_insert_post( wp_slash( $post_data ) );
 	}
 
-	update_option( 'honamas20_reunion_seed_version', '2026-08-24' );
+	update_option( 'honamas20_reunion_seed_version', '2026-08-24-clean' );
 }
 add_action( 'admin_init', 'honamas20_reunion_seed_content' );
 
