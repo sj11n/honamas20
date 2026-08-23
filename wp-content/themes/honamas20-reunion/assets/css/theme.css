@@ -114,8 +114,8 @@ body {
 	background: url("../images/logo-honamas-20.png") center / contain no-repeat;
 	display: block;
 	flex: 0 0 auto;
-	height: 56px;
-	width: 56px;
+	height: 72px;
+	width: 72px;
 }
 .reunion-header-logo img { display: block; height: 100%; object-fit: contain; width: 100%; }
 .reunion-kicker { color: #e63953; font-family: var(--wp--preset--font-family--heading); font-size: var(--wp--preset--font-size--small); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
