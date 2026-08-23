@@ -68,7 +68,7 @@ add_filter( 'wp_sitemaps_enabled', '__return_false' );
  * Seed required reunion content on fresh WordPress installs.
  */
 function honamas20_reunion_seed_content(): void {
-	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-reunion-posts' ) {
+	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-playlist-2006' ) {
 		return;
 	}
 
@@ -162,7 +162,34 @@ function honamas20_reunion_seed_content(): void {
 		wp_insert_post( wp_slash( $nomination_data ) );
 	}
 
-	update_option( 'honamas20_reunion_seed_version', '2026-08-24-reunion-posts' );
+	$playlist_page = get_page_by_path( 'playlist-2006', OBJECT, 'page' );
+	$playlist_data = array(
+		'post_title'     => 'Playlist 2006',
+		'post_name'      => 'playlist-2006',
+		'post_status'    => 'publish',
+		'post_type'      => 'page',
+		'comment_status' => 'closed',
+		'ping_status'    => 'closed',
+		'post_content'   => '<!-- wp:group {"align":"full","className":"playlist-hero","layout":{"type":"constrained"}} --><div class="wp-block-group alignfull playlist-hero">'
+			. '<!-- wp:image {"align":"full","sizeSlug":"full","linkDestination":"none","className":"playlist-hero__image"} --><figure class="wp-block-image alignfull size-full playlist-hero__image"><img src="' . esc_url( get_theme_file_uri( 'assets/images/pages/playlist-2006-hero.jpeg' ) ) . '" alt="Collage aus Musik, Schlagzeug, Verstärker und HONAMAS-20-Logo"/></figure><!-- /wp:image -->'
+			. '<!-- wp:group {"className":"playlist-hero__copy","layout":{"type":"constrained"}} --><div class="wp-block-group playlist-hero__copy"><!-- wp:paragraph {"className":"reunion-kicker"} --><p class="reunion-kicker">Team-Sound 2006</p><!-- /wp:paragraph --><!-- wp:heading {"level":1} --><h1>Playlist 2006</h1><!-- /wp:heading --><!-- wp:paragraph {"fontSize":"large"} --><p class="has-large-font-size">Drei Team-CDs, ein Turniersommer: Warm Up, Cool Down und Staff.</p><!-- /wp:paragraph --></div><!-- /wp:group -->'
+			. '</div><!-- /wp:group -->'
+			. '<!-- wp:group {"align":"wide","className":"playlist-intro","layout":{"type":"constrained","contentSize":"760px"}} --><div class="wp-block-group alignwide playlist-intro"><!-- wp:paragraph {"fontSize":"large"} --><p class="has-large-font-size">Wie zu jedem großen Turnier gab es auch zur WM 2006 eine CD mit je einem Wunschsong der Spieler und Trainer. Besonders an diesem Sommer: Es wurden gleich zwei Team-CDs zusammengestellt – eine <strong>Warm Up</strong> und eine <strong>Cool Down</strong>. Dazu kam eine eigene <strong>Staff CD</strong>, damit auch der Staff nicht vergessen wird.</p><!-- /wp:paragraph --></div><!-- /wp:group -->'
+			. '<!-- wp:group {"align":"wide","className":"playlist-grid","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide playlist-grid">'
+			. '<!-- wp:html --><article class="playlist-card playlist-card--warm"><div class="playlist-card__head"><p>CD 01</p><h2>Warm Up</h2><span>Vor dem Spiel. Puls hoch.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Warm Up" src="https://open.spotify.com/embed/playlist/3SfxvJ01PKdsTZUg1twoFy?utm_source=generator&amp;theme=0&amp;si=dcf6ab94e9644569" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
+			. '<!-- wp:html --><article class="playlist-card playlist-card--cool"><div class="playlist-card__head"><p>CD 02</p><h2>Cool Down</h2><span>Nach dem Spiel. Runterkommen.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Cool Down" src="https://open.spotify.com/embed/playlist/0TFiu45hOhMlFN280kpYuV?utm_source=generator&amp;theme=0&amp;si=26e86179b1ca4c99" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
+			. '<!-- wp:html --><article class="playlist-card playlist-card--staff"><div class="playlist-card__head"><p>CD 03</p><h2>Staff</h2><span>Damit keiner vergessen wird.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Staff" src="https://open.spotify.com/embed/playlist/0gdmlcx0kdUpu6L7s9MsGn?utm_source=generator&amp;theme=0&amp;si=623016ff4839465c" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
+			. '</div><!-- /wp:group -->',
+	);
+
+	if ( $playlist_page instanceof WP_Post ) {
+		$playlist_data['ID'] = $playlist_page->ID;
+		wp_update_post( wp_slash( $playlist_data ) );
+	} else {
+		wp_insert_post( wp_slash( $playlist_data ) );
+	}
+
+	update_option( 'honamas20_reunion_seed_version', '2026-08-24-playlist-2006' );
 }
 add_action( 'admin_init', 'honamas20_reunion_seed_content' );
 

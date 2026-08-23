@@ -148,6 +148,93 @@ body {
 .reunion-update { border-top: 1px solid #dedcd7; padding: var(--wp--preset--spacing--50) 0; }
 .reunion-update h3 { font-size: var(--wp--preset--font-size--x-large); margin: .25rem 0; text-transform: none; }
 .reunion-update h3 a { text-decoration: none; }
+.playlist-hero {
+	background: #111114;
+	color: #fff;
+	display: grid;
+	min-height: clamp(28rem, 62vh, 44rem);
+	overflow: hidden;
+	place-items: end center;
+	position: relative;
+}
+.playlist-hero::after {
+	background:
+		linear-gradient(180deg, rgba(17, 17, 20, 0.08), rgba(17, 17, 20, 0.62)),
+		linear-gradient(90deg, rgba(17, 17, 20, 0.42), rgba(17, 17, 20, 0.08) 48%, rgba(17, 17, 20, 0.5));
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 1;
+}
+.playlist-hero__image {
+	inset: 0;
+	margin: 0 !important;
+	position: absolute;
+}
+.playlist-hero__image img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	width: 100%;
+}
+.playlist-hero__copy {
+	margin-bottom: clamp(3rem, 8vw, 6rem);
+	max-width: 72rem;
+	padding: 0 var(--wp--preset--spacing--50);
+	position: relative;
+	text-align: center;
+	z-index: 2;
+}
+.playlist-hero__copy .reunion-kicker { color: #ffdc4a; }
+.playlist-hero h1 {
+	font-size: clamp(4rem, 12vw, 10rem);
+	line-height: .84;
+	margin: 0 auto var(--wp--preset--spacing--40);
+	text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
+}
+.playlist-hero p:not(.reunion-kicker) {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 42rem;
+	text-shadow: 0 3px 22px rgba(0, 0, 0, 0.4);
+}
+.playlist-intro { padding: clamp(3rem, 7vw, 5.5rem) var(--wp--preset--spacing--50) var(--wp--preset--spacing--60); }
+.playlist-grid {
+	display: grid;
+	gap: var(--wp--preset--spacing--50);
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	padding: 0 var(--wp--preset--spacing--50) var(--wp--preset--spacing--80);
+}
+.playlist-card {
+	background: #111114;
+	border: 1px solid rgba(17, 17, 20, 0.12);
+	color: #fff;
+	display: grid;
+	gap: var(--wp--preset--spacing--40);
+	padding: clamp(1rem, 2.5vw, 1.4rem);
+}
+.playlist-card--warm { background: #e63953; }
+.playlist-card--cool { background: #0fa9a1; }
+.playlist-card--staff { background: #111114; }
+.playlist-card__head p {
+	color: rgba(255, 255, 255, 0.74);
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: .72rem;
+	font-weight: 800;
+	letter-spacing: .08em;
+	margin: 0 0 .4rem;
+	text-transform: uppercase;
+}
+.playlist-card__head h2 {
+	color: #fff;
+	font-size: clamp(2.1rem, 5vw, 3.4rem);
+	line-height: .92;
+	margin: 0 0 .6rem;
+	text-transform: uppercase;
+}
+.playlist-card__head span { color: rgba(255, 255, 255, 0.82); font-weight: 700; }
+.playlist-card iframe { background: #000; border: 0; border-radius: 8px; display: block; width: 100%; }
 .reunion-program,
 .reunion-schedule {
 	background:
@@ -878,6 +965,10 @@ a:where(:hover, :focus-visible) {
 	.reunion-schedule__copy p {
 		font-size: 0.92rem;
 	}
+
+	.playlist-grid { grid-template-columns: 1fr; }
+	.playlist-hero { min-height: 72vh; }
+	.playlist-hero__copy { text-align: left; }
 
 	.honamas-story-origin .wp-block-column:last-child {
 		border-left: 0;
