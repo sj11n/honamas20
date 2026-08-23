@@ -219,7 +219,13 @@ body {
 	min-width: 0;
 	padding: clamp(1rem, 2.5vw, 1.4rem);
 }
-.playlist-grid > * { min-width: 0; width: 100%; }
+.playlist-grid > * {
+	height: 100%;
+	margin-block-end: 0 !important;
+	margin-block-start: 0 !important;
+	min-width: 0;
+	width: 100%;
+}
 .playlist-card--warm { background: #e63953; }
 .playlist-card--cool { background: #0fa9a1; }
 .playlist-card--staff { background: #111114; }
