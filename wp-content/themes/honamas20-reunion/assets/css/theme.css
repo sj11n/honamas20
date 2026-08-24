@@ -252,6 +252,152 @@ body {
 }
 .playlist-card__head span { color: rgba(255, 255, 255, 0.82); font-weight: 700; }
 .playlist-card iframe { background: #000; border: 0; border-radius: 8px; display: block; height: 352px; width: 100%; }
+.playlist-youtube {
+	background: #fff;
+	padding: clamp(3rem, 7vw, 5.5rem) var(--wp--preset--spacing--50) var(--wp--preset--spacing--80);
+}
+
+.playlist-youtube__intro {
+	margin-bottom: clamp(1.8rem, 4vw, 3rem);
+	text-align: center;
+}
+
+.playlist-youtube__intro h2 {
+	font-size: clamp(2.6rem, 7vw, 5.8rem);
+	line-height: 0.94;
+	margin: 0;
+}
+
+.playlist-youtube__intro p:not(.reunion-kicker) {
+	color: rgba(17, 17, 20, 0.68);
+	font-size: clamp(1rem, 2vw, 1.2rem);
+	line-height: 1.55;
+}
+
+.playlist-youtube > [data-playlist-youtube] {
+	display: grid;
+	gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.playlist-youtube-disc {
+	--playlist-disc-accent: #111114;
+	background: #f6f4f0;
+	border: 1px solid rgba(17, 17, 20, 0.12);
+	border-radius: 8px;
+	display: grid;
+	grid-template-columns: minmax(10rem, 0.32fr) minmax(0, 1fr);
+	overflow: hidden;
+}
+
+.playlist-youtube-disc--warm { --playlist-disc-accent: #e63953; }
+.playlist-youtube-disc--cool { --playlist-disc-accent: #0fa9a1; }
+.playlist-youtube-disc--staff { --playlist-disc-accent: #111114; }
+
+.playlist-youtube-disc__header {
+	background: var(--playlist-disc-accent);
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 15rem;
+	padding: clamp(1rem, 3vw, 1.35rem);
+}
+
+.playlist-youtube-disc__header p {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.75rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.playlist-youtube-disc__header h3 {
+	color: #fff;
+	font-size: clamp(2rem, 6vw, 4.4rem);
+	line-height: 0.9;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.playlist-youtube-disc__tracks {
+	display: grid;
+}
+
+.playlist-youtube-track {
+	align-items: center;
+	background: #fff;
+	border-bottom: 1px solid rgba(17, 17, 20, 0.1);
+	color: #111114;
+	display: grid;
+	gap: 0.8rem;
+	grid-template-columns: 2.2rem minmax(0, 1fr) minmax(4rem, 7rem) auto;
+	min-height: 4.25rem;
+	padding: 0.8rem 1rem;
+	text-decoration: none;
+}
+
+.playlist-youtube-track:last-child {
+	border-bottom: 0;
+}
+
+.playlist-youtube-track:hover,
+.playlist-youtube-track:focus-visible {
+	background: #f6f4f0;
+	color: #111114;
+}
+
+.playlist-youtube-track__number,
+.playlist-youtube-track__name,
+.playlist-youtube-track__play {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.74rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.playlist-youtube-track__number {
+	color: rgba(17, 17, 20, 0.36);
+}
+
+.playlist-youtube-track__main {
+	display: grid;
+	gap: 0.15rem;
+	min-width: 0;
+}
+
+.playlist-youtube-track__main strong {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(0.98rem, 2vw, 1.18rem);
+	line-height: 1.15;
+	overflow-wrap: anywhere;
+}
+
+.playlist-youtube-track__main small {
+	color: rgba(17, 17, 20, 0.62);
+	font-size: 0.86rem;
+	line-height: 1.25;
+}
+
+.playlist-youtube-track__name {
+	color: var(--playlist-disc-accent);
+	justify-self: start;
+}
+
+.playlist-youtube-track__play {
+	border: 1px solid rgba(17, 17, 20, 0.22);
+	border-radius: 999px;
+	justify-self: end;
+	padding: 0.42rem 0.62rem;
+}
+
+.playlist-youtube-track:hover .playlist-youtube-track__play,
+.playlist-youtube-track:focus-visible .playlist-youtube-track__play {
+	background: #111114;
+	border-color: #111114;
+	color: #fff;
+}
 .reunion-program,
 .reunion-schedule {
 	background:
@@ -1079,6 +1225,21 @@ a:where(:hover, :focus-visible) {
 	.playlist-grid { grid-template-columns: 1fr; }
 	.playlist-hero { min-height: 72vh; }
 	.playlist-hero__copy { text-align: left; }
+	.playlist-youtube { padding-left: var(--wp--preset--spacing--40); padding-right: var(--wp--preset--spacing--40); }
+	.playlist-youtube__intro { text-align: left; }
+	.playlist-youtube-disc { grid-template-columns: 1fr; }
+	.playlist-youtube-disc__header { min-height: 9rem; }
+	.playlist-youtube-track {
+		gap: 0.55rem 0.75rem;
+		grid-template-columns: 2rem minmax(0, 1fr) auto;
+	}
+	.playlist-youtube-track__name {
+		grid-column: 2;
+	}
+	.playlist-youtube-track__play {
+		grid-column: 3;
+		grid-row: 1 / span 2;
+	}
 
 	.honamas-story-origin .wp-block-column:last-child {
 		border-left: 0;

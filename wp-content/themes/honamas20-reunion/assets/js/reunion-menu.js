@@ -41,6 +41,12 @@
 		return;
 	}
 
+	document.querySelectorAll( '.wp-block-navigation-item__content, .reunion-mobile-menu__inner a' ).forEach( ( link ) => {
+		if ( link.textContent.trim() === 'Aktuelles' ) {
+			link.textContent = 'News & Updates';
+		}
+	} );
+
 	const links = menu.querySelectorAll( 'a' );
 	const openButton = document.querySelector( '.reunion-mobile-menu-button' );
 	const closeButton = menu.querySelector( '.reunion-mobile-menu__close' );

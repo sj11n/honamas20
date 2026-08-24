@@ -181,7 +181,7 @@ if ( scheduleSection ) {
 			<div class="reunion-schedule__days">
 				${ days.map( dayTemplate ).join( '' ) }
 			</div>
-			<section class="reunion-locations" aria-labelledby="reunion-locations-title">
+			<section class="reunion-locations" id="reunion-locations" aria-labelledby="reunion-locations-title">
 				<div class="reunion-locations__intro">
 					<p class="reunion-kicker">Locations</p>
 					<h3 id="reunion-locations-title">Alle Orte. Ein Tap.</h3>

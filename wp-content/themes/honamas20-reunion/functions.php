@@ -55,6 +55,13 @@ function honamas_enqueue_assets(): void {
 		wp_get_theme()->get( 'Version' ),
 		true
 	);
+	wp_enqueue_script(
+		'honamas20-reunion-playlist',
+		get_theme_file_uri( 'assets/js/reunion-playlist.js' ),
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'honamas_enqueue_assets' );
 
@@ -75,7 +82,7 @@ add_filter( 'wp_sitemaps_enabled', '__return_false' );
  * Seed required reunion content on fresh WordPress installs.
  */
 function honamas20_reunion_seed_content(): void {
-	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-playlist-2006' ) {
+	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-playlist-youtube' ) {
 		return;
 	}
 
@@ -186,7 +193,8 @@ function honamas20_reunion_seed_content(): void {
 			. '<!-- wp:html --><article class="playlist-card playlist-card--warm"><div class="playlist-card__head"><p>CD 01</p><h2>Warm Up</h2><span>Vor dem Spiel. Puls hoch.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Warm Up" src="https://open.spotify.com/embed/playlist/3SfxvJ01PKdsTZUg1twoFy?utm_source=generator&amp;theme=0&amp;si=dcf6ab94e9644569" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
 			. '<!-- wp:html --><article class="playlist-card playlist-card--cool"><div class="playlist-card__head"><p>CD 02</p><h2>Cool Down</h2><span>Nach dem Spiel. Runterkommen.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Cool Down" src="https://open.spotify.com/embed/playlist/0TFiu45hOhMlFN280kpYuV?utm_source=generator&amp;theme=0&amp;si=26e86179b1ca4c99" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
 			. '<!-- wp:html --><article class="playlist-card playlist-card--staff"><div class="playlist-card__head"><p>CD 03</p><h2>Staff</h2><span>Damit keiner vergessen wird.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Staff" src="https://open.spotify.com/embed/playlist/0gdmlcx0kdUpu6L7s9MsGn?utm_source=generator&amp;theme=0&amp;si=623016ff4839465c" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
-			. '</div><!-- /wp:group -->',
+			. '</div><!-- /wp:group -->'
+			. '<!-- wp:group {"align":"wide","className":"playlist-youtube","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide playlist-youtube"><!-- wp:group {"className":"playlist-youtube__intro","layout":{"type":"constrained","contentSize":"780px"}} --><div class="wp-block-group playlist-youtube__intro"><!-- wp:paragraph {"className":"reunion-kicker"} --><p class="reunion-kicker">YouTube Tracks</p><!-- /wp:paragraph --><!-- wp:heading --><h2>Die Songs einzeln hören.</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Die Spotify-Playlists oben sind der schnelle Einstieg. Hier findest du die einzelnen Tracks der drei CDs direkt als YouTube-Links.</p><!-- /wp:paragraph --></div><!-- /wp:group --><!-- wp:html --><div data-playlist-youtube></div><!-- /wp:html --></div><!-- /wp:group -->',
 	);
 
 	if ( $playlist_page instanceof WP_Post ) {
@@ -196,7 +204,7 @@ function honamas20_reunion_seed_content(): void {
 		wp_insert_post( wp_slash( $playlist_data ) );
 	}
 
-	update_option( 'honamas20_reunion_seed_version', '2026-08-24-playlist-2006' );
+	update_option( 'honamas20_reunion_seed_version', '2026-08-24-playlist-youtube' );
 }
 add_action( 'admin_init', 'honamas20_reunion_seed_content' );
 
