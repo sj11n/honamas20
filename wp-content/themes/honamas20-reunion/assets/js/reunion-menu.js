@@ -52,7 +52,7 @@
 
 	if ( heroButtons && ! hasLocationsButton ) {
 		const locationsButton = document.createElement( 'div' );
-		locationsButton.className = 'wp-block-button is-style-outline';
+		locationsButton.className = 'wp-block-button';
 		locationsButton.innerHTML = '<a class="wp-block-button__link wp-element-button" href="#reunion-locations">Locations</a>';
 		heroButtons.append( locationsButton );
 	}

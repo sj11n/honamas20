@@ -130,8 +130,15 @@ body {
 	border-color: #fff;
 	color: #111114;
 }
+.reunion-hero .wp-block-button.is-style-outline .wp-block-button__link {
+	background: #fff;
+	border-color: #fff;
+	color: #111114;
+}
 .reunion-hero .wp-block-button__link:hover,
-.reunion-hero .wp-block-button__link:focus-visible {
+.reunion-hero .wp-block-button__link:focus-visible,
+.reunion-hero .wp-block-button.is-style-outline .wp-block-button__link:hover,
+.reunion-hero .wp-block-button.is-style-outline .wp-block-button__link:focus-visible {
 	background: #ffdc4a;
 	border-color: #ffdc4a;
 	color: #111114;
@@ -347,6 +354,12 @@ body {
 	color: #111114;
 }
 
+.playlist-youtube-track--missing {
+	background: #f6f4f0;
+	color: rgba(17, 17, 20, 0.68);
+	cursor: default;
+}
+
 .playlist-youtube-track__number,
 .playlist-youtube-track__name,
 .playlist-youtube-track__play {
@@ -397,6 +410,12 @@ body {
 	background: #111114;
 	border-color: #111114;
 	color: #fff;
+}
+
+.playlist-youtube-track--missing .playlist-youtube-track__play {
+	background: transparent;
+	border-color: rgba(17, 17, 20, 0.18);
+	color: rgba(17, 17, 20, 0.48);
 }
 .reunion-program,
 .reunion-schedule {
