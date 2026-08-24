@@ -48,6 +48,13 @@ function honamas_enqueue_assets(): void {
 		wp_get_theme()->get( 'Version' ),
 		true
 	);
+	wp_enqueue_script(
+		'honamas20-reunion-menu',
+		get_theme_file_uri( 'assets/js/reunion-menu.js' ),
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'honamas_enqueue_assets' );
 

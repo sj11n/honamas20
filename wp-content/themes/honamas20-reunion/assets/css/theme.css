@@ -707,6 +707,10 @@ a:where(:hover, :focus-visible) {
 .honamas-site-header .wp-block-navigation__responsive-container-close {
 	cursor: pointer;
 }
+.reunion-mobile-menu-button,
+.reunion-mobile-menu {
+	display: none;
+}
 .honamas-chapter-navigation {
 	display: flex;
 	flex-wrap: wrap;
@@ -1044,115 +1048,154 @@ a:where(:hover, :focus-visible) {
 	}
 
 	.honamas-site-header .wp-block-navigation {
-		flex: 0 0 auto;
-		margin-left: auto;
-	}
-
-	.honamas-site-header .wp-block-navigation__responsive-container-open:not(.always-shown) {
-		align-items: center;
-		background: #111114;
-		border: 1px solid rgba(17, 17, 20, 0.16);
-		border-radius: 999px;
-		box-shadow: 0 10px 28px rgba(17, 17, 20, 0.14);
-		color: #fff;
-		display: inline-flex !important;
-		font-size: 0;
-		font-weight: 800;
-		gap: 0.45rem;
-		justify-content: center;
-		min-height: 44px;
-		min-width: 44px;
-		padding: 0.72rem 0.9rem;
-		text-transform: uppercase;
-	}
-
-	.honamas-site-header .wp-block-navigation__responsive-container-open svg {
-		height: 20px;
-		width: 20px;
-	}
-
-	.honamas-site-header .wp-block-navigation__responsive-container-open::after {
-		content: "Menü";
-		font-family: var(--wp--preset--font-family--heading);
-		font-size: 0.72rem;
-		letter-spacing: 0.04em;
-		line-height: 1;
-	}
-
-	.honamas-site-header .wp-block-navigation__responsive-container:not(.is-menu-open) {
 		display: none !important;
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container.is-menu-open {
-		background:
-			linear-gradient(135deg, rgba(230, 57, 83, 0.2), transparent 36%),
-			linear-gradient(315deg, rgba(15, 169, 161, 0.2), transparent 38%),
-			#111114 !important;
-		color: #fff !important;
-		display: flex !important;
-		inset: 0 !important;
-		padding: 5.5rem 1rem 1.25rem !important;
-		position: fixed !important;
+	.reunion-mobile-menu-button {
+		align-items: center;
+		background: #111114;
+		border: 1px solid #111114;
+		border-radius: 999px;
+		color: #fff;
+		display: inline-flex;
+		flex: 0 0 auto;
+		font-family: var(--wp--preset--font-family--heading);
+		font-size: 0.72rem;
+		font-weight: 800;
+		gap: 0.55rem;
+		letter-spacing: 0.05em;
+		line-height: 1;
+		justify-content: center;
+		margin-left: auto;
+		min-height: 44px;
+		padding: 0 1rem;
+		text-transform: uppercase;
+	}
+
+	.reunion-mobile-menu-button::before {
+		background: currentColor;
+		box-shadow: 0 6px 0 currentColor, 0 12px 0 currentColor;
+		content: "";
+		height: 2px;
+		width: 18px;
+	}
+
+	.reunion-mobile-menu {
+		background: #f6f4f0;
+		color: #111114;
+		display: block;
+		inset: 0;
+		min-height: 100dvh;
+		opacity: 0;
+		overflow-y: auto;
+		pointer-events: none;
+		position: fixed;
+		transform: translateY(-1rem);
+		transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+		visibility: hidden;
 		z-index: 999999;
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container-close {
+	body.reunion-menu-open {
+		overflow: hidden;
+	}
+
+	body.reunion-menu-open .reunion-mobile-menu {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(0);
+		visibility: visible;
+	}
+
+	.reunion-mobile-menu__bar {
 		align-items: center;
-		background: rgba(255, 255, 255, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.28);
+		border-bottom: 1px solid rgba(17, 17, 20, 0.14);
+		display: flex;
+		justify-content: space-between;
+		min-height: 72px;
+		padding: 0 1.1rem;
+	}
+
+	.reunion-mobile-menu__home {
+		color: #111114;
+		font-family: var(--wp--preset--font-family--heading);
+		font-size: 1rem;
+		font-weight: 800;
+		letter-spacing: 0;
+		text-decoration: none;
+	}
+
+	.reunion-mobile-menu__close {
+		align-items: center;
+		background: #111114;
+		border: 0;
 		border-radius: 999px;
 		color: #fff;
-		display: flex;
-		height: 48px;
+		display: inline-flex;
+		height: 44px;
 		justify-content: center;
-		right: 1rem;
-		top: 1rem;
-		width: 48px;
+		position: relative;
+		width: 44px;
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container-close svg {
-		height: 22px;
-		width: 22px;
+	.reunion-mobile-menu__close::before,
+	.reunion-mobile-menu__close::after {
+		background: currentColor;
+		content: "";
+		height: 2px;
+		position: absolute;
+		width: 18px;
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container-content {
-		align-items: stretch !important;
-		display: flex !important;
-		padding-top: 0 !important;
-		width: 100%;
+	.reunion-mobile-menu__close::before {
+		transform: rotate(45deg);
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container {
-		align-items: stretch !important;
-		display: grid !important;
-		gap: 0.85rem !important;
-		width: 100%;
+	.reunion-mobile-menu__close::after {
+		transform: rotate(-45deg);
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item {
-		width: 100%;
+	.reunion-mobile-menu__inner {
+		display: grid;
+		padding: clamp(2rem, 9vh, 4.5rem) 1.1rem 2rem;
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
-		background: rgba(255, 255, 255, 0.08);
-		border: 1px solid rgba(255, 255, 255, 0.16);
-		border-radius: 8px;
-		color: #fff !important;
-		display: block;
+	.reunion-mobile-menu__inner a {
+		border-top: 1px solid rgba(17, 17, 20, 0.18);
+		color: #111114;
+		display: flex;
 		font-family: var(--wp--preset--font-family--heading);
-		font-size: clamp(1.65rem, 8vw, 3.25rem);
+		font-size: clamp(2rem, 11vw, 4rem);
 		font-weight: 800;
-		line-height: 0.96;
-		padding: 1rem;
+		justify-content: space-between;
+		line-height: 0.95;
+		padding: 1.15rem 0;
 		text-decoration: none;
 		text-transform: uppercase;
-		white-space: normal;
 	}
 
-	.honamas-site-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content:hover,
-	.honamas-site-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content:focus-visible {
-		background: #ffdc4a;
-		color: #111114 !important;
-		outline-color: #fff;
+	.reunion-mobile-menu__inner a::after {
+		color: #c9a227;
+		content: "→";
+		font-size: 0.7em;
+		line-height: 1;
+	}
+
+	.reunion-mobile-menu__inner a:last-child {
+		border-bottom: 1px solid rgba(17, 17, 20, 0.18);
+	}
+
+	.reunion-mobile-menu-button:hover,
+	.reunion-mobile-menu-button:focus-visible,
+	.reunion-mobile-menu__close:hover,
+	.reunion-mobile-menu__close:focus-visible {
+		background: #c9a227;
+		border-color: #c9a227;
+		color: #111114;
+	}
+
+	.reunion-mobile-menu__inner a:hover,
+	.reunion-mobile-menu__inner a:focus-visible {
+		color: #6c5a16;
 	}
 }
