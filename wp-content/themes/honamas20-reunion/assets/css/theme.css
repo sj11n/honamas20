@@ -125,6 +125,9 @@ body {
 }
 .reunion-hero h1 { font-size: clamp(3.1rem, 8vw, 7.5rem); margin-inline: auto; max-width: 14ch; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.42); }
 .reunion-hero p:not(.reunion-kicker) { margin-inline: auto; max-width: 38rem; }
+.reunion-hero .wp-block-buttons {
+	justify-content: center;
+}
 .reunion-hero .wp-block-button__link {
 	background: #fff;
 	border-color: #fff;
