@@ -47,6 +47,16 @@
 		}
 	} );
 
+	const heroButtons = document.querySelector( '.reunion-hero .wp-block-buttons' );
+	const hasLocationsButton = heroButtons?.querySelector( 'a[href="#reunion-locations"]' );
+
+	if ( heroButtons && ! hasLocationsButton ) {
+		const locationsButton = document.createElement( 'div' );
+		locationsButton.className = 'wp-block-button is-style-outline';
+		locationsButton.innerHTML = '<a class="wp-block-button__link wp-element-button" href="#reunion-locations">Locations</a>';
+		heroButtons.append( locationsButton );
+	}
+
 	const links = menu.querySelectorAll( 'a' );
 	const openButton = document.querySelector( '.reunion-mobile-menu-button' );
 	const closeButton = menu.querySelector( '.reunion-mobile-menu__close' );
