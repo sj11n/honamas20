@@ -15,7 +15,7 @@ if ( scheduleSection ) {
 					tone: 'blue',
 					time: '16:00',
 					title: 'Abfahrt Zandvoort',
-					details: 'Eigene Autos + Uber',
+					details: 'Treffpunkt: NH Hotel Zandvoort · eigene Autos + Uber',
 				},
 				{
 					tone: 'red',
@@ -111,6 +111,33 @@ if ( scheduleSection ) {
 		},
 	];
 
+	const locations = [
+		{
+			role: 'Halbfinale',
+			name: 'Wagener Stadion Amstelveen',
+			address: 'Nieuwe Kalfjeslaan 18, 1182 AA Amstelveen',
+			url: 'https://www.google.com/maps/search/?api=1&query=Wagener%20Stadion%20Nieuwe%20Kalfjeslaan%2018%20Amstelveen',
+		},
+		{
+			role: 'Hotel & Treffpunkt',
+			name: 'NH Hotel Zandvoort',
+			address: 'Burgemeester van Alphenstraat 63, 2041 KG Zandvoort',
+			url: 'https://www.google.com/maps/search/?api=1&query=Burgemeester%20van%20Alphenstraat%2063%202041%20KG%20Zandvoort',
+		},
+		{
+			role: 'Padel',
+			name: 'Padel Bloemendaal',
+			address: 'Tetterodeweg 15, 2051 EG Overveen',
+			url: 'https://www.google.com/maps/search/?api=1&query=Padel%20Bloemendaal%20Tetterodeweg%2015%202051%20EG%20Overveen',
+		},
+		{
+			role: 'Beach-Party',
+			name: 'Paal69',
+			address: 'Zuidstrand 3, 2042 AG Zandvoort',
+			url: 'https://www.google.com/maps/search/?api=1&query=Paal69%20Zuidstrand%203%202042%20AG%20Zandvoort',
+		},
+	];
+
 	const itemTemplate = ( item ) => `
 		<li class="reunion-schedule__item reunion-schedule__item--${ item.tone }${ item.feature ? ` reunion-schedule__item--feature-${ item.feature }` : '' }">
 			<span class="reunion-schedule__dot" aria-hidden="true"></span>
@@ -134,6 +161,15 @@ if ( scheduleSection ) {
 		</article>
 	`;
 
+	const locationTemplate = ( location ) => `
+		<a class="reunion-location" href="${ location.url }" target="_blank" rel="noopener">
+			<span class="reunion-location__role">${ location.role }</span>
+			<strong>${ location.name }</strong>
+			<span>${ location.address }</span>
+			<em>Route öffnen</em>
+		</a>
+	`;
+
 	scheduleSection.classList.add( 'reunion-schedule' );
 	scheduleSection.innerHTML = `
 		<div class="reunion-schedule__inner">
@@ -145,6 +181,15 @@ if ( scheduleSection ) {
 			<div class="reunion-schedule__days">
 				${ days.map( dayTemplate ).join( '' ) }
 			</div>
+			<section class="reunion-locations" aria-labelledby="reunion-locations-title">
+				<div class="reunion-locations__intro">
+					<p class="reunion-kicker">Locations</p>
+					<h3 id="reunion-locations-title">Alle Orte. Ein Tap.</h3>
+				</div>
+				<div class="reunion-locations__grid">
+					${ locations.map( locationTemplate ).join( '' ) }
+				</div>
+			</section>
 			<p class="reunion-schedule__mic">HONAMAS 20 · Mic Drop</p>
 		</div>
 	`;

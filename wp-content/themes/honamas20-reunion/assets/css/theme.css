@@ -474,6 +474,79 @@ body {
 	margin: 0.35rem 0 0;
 }
 
+.reunion-locations {
+	border-top: 1px solid rgba(9, 40, 90, 0.14);
+	display: grid;
+	gap: clamp(1.25rem, 3vw, 2rem);
+	grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+	margin-top: clamp(2rem, 5vw, 4rem);
+	padding-top: clamp(1.4rem, 4vw, 2.6rem);
+}
+
+.reunion-locations__intro h3 {
+	color: #09285a;
+	font-size: clamp(1.8rem, 5vw, 3.4rem);
+	line-height: 0.98;
+	margin: 0;
+}
+
+.reunion-locations__grid {
+	display: grid;
+	gap: 0.7rem;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reunion-location {
+	background: rgba(255, 255, 255, 0.72);
+	border: 1px solid rgba(9, 40, 90, 0.12);
+	border-radius: 8px;
+	color: #09285a;
+	display: grid;
+	gap: 0.4rem;
+	min-height: 10.5rem;
+	padding: 1rem;
+	text-decoration: none;
+}
+
+.reunion-location:hover,
+.reunion-location:focus-visible {
+	background: #fff;
+	border-color: rgba(9, 40, 90, 0.28);
+	color: #09285a;
+	transform: translateY(-1px);
+}
+
+.reunion-location__role {
+	color: #e93d51;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.72rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.reunion-location strong {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(1.05rem, 2vw, 1.35rem);
+	line-height: 1.05;
+}
+
+.reunion-location span:not(.reunion-location__role) {
+	color: rgba(9, 40, 90, 0.72);
+	font-size: 0.92rem;
+	line-height: 1.38;
+}
+
+.reunion-location em {
+	align-self: end;
+	color: #09285a;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.76rem;
+	font-style: normal;
+	font-weight: 800;
+	text-transform: uppercase;
+}
+
 .reunion-schedule__item--blue { --schedule-tone: #1287d5; color: #1287d5; }
 .reunion-schedule__item--red { --schedule-tone: #e93d51; color: #e93d51; }
 .reunion-schedule__item--navy { --schedule-tone: #09285a; color: #09285a; }
@@ -991,6 +1064,18 @@ a:where(:hover, :focus-visible) {
 		font-size: 0.92rem;
 	}
 
+	.reunion-locations {
+		grid-template-columns: 1fr;
+	}
+
+	.reunion-locations__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.reunion-location {
+		min-height: 0;
+	}
+
 	.playlist-grid { grid-template-columns: 1fr; }
 	.playlist-hero { min-height: 72vh; }
 	.playlist-hero__copy { text-align: left; }
@@ -1165,13 +1250,15 @@ a:where(:hover, :focus-visible) {
 		color: #111114;
 		display: flex;
 		font-family: var(--wp--preset--font-family--heading);
-		font-size: clamp(2rem, 11vw, 4rem);
+		font-size: clamp(1.45rem, 7.2vw, 2.35rem);
 		font-weight: 800;
 		justify-content: space-between;
-		line-height: 0.95;
-		padding: 1.15rem 0;
+		letter-spacing: 0;
+		line-height: 1.05;
+		padding: 1rem 0;
 		text-decoration: none;
-		text-transform: uppercase;
+		text-transform: none;
+		white-space: nowrap;
 	}
 
 	.reunion-mobile-menu__inner a::after {
