@@ -82,7 +82,7 @@ add_filter( 'wp_sitemaps_enabled', '__return_false' );
  * Seed required reunion content on fresh WordPress installs.
  */
 function honamas20_reunion_seed_content(): void {
-	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-playlist-youtube' ) {
+	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-24-playlist-spotify-links' ) {
 		return;
 	}
 
@@ -190,11 +190,11 @@ function honamas20_reunion_seed_content(): void {
 			. '</div><!-- /wp:group -->'
 			. '<!-- wp:group {"align":"wide","className":"playlist-intro","layout":{"type":"constrained","contentSize":"760px"}} --><div class="wp-block-group alignwide playlist-intro"><!-- wp:paragraph {"fontSize":"large"} --><p class="has-large-font-size">Wie zu jedem großen Turnier gab es auch zur WM 2006 eine CD mit je einem Wunschsong der Spieler und Trainer. Besonders an diesem Sommer: Es wurden gleich zwei Team-CDs zusammengestellt – eine <strong>Warm Up</strong> und eine <strong>Cool Down</strong>. Dazu kam eine eigene <strong>Staff CD</strong>, damit auch der Staff nicht vergessen wird.</p><!-- /wp:paragraph --></div><!-- /wp:group -->'
 			. '<!-- wp:group {"align":"wide","className":"playlist-grid","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide playlist-grid">'
-			. '<!-- wp:html --><article class="playlist-card playlist-card--warm"><div class="playlist-card__head"><p>CD 01</p><h2>Warm Up</h2><span>Vor dem Spiel. Puls hoch.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Warm Up" src="https://open.spotify.com/embed/playlist/3SfxvJ01PKdsTZUg1twoFy?utm_source=generator&amp;theme=0&amp;si=dcf6ab94e9644569" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
-			. '<!-- wp:html --><article class="playlist-card playlist-card--cool"><div class="playlist-card__head"><p>CD 02</p><h2>Cool Down</h2><span>Nach dem Spiel. Runterkommen.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Cool Down" src="https://open.spotify.com/embed/playlist/0TFiu45hOhMlFN280kpYuV?utm_source=generator&amp;theme=0&amp;si=26e86179b1ca4c99" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
-			. '<!-- wp:html --><article class="playlist-card playlist-card--staff"><div class="playlist-card__head"><p>CD 03</p><h2>Staff</h2><span>Damit keiner vergessen wird.</span></div><iframe data-testid="embed-iframe" title="Spotify Playlist: HONAMAS 2006 Staff" src="https://open.spotify.com/embed/playlist/0gdmlcx0kdUpu6L7s9MsGn?utm_source=generator&amp;theme=0&amp;si=623016ff4839465c" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></article><!-- /wp:html -->'
+			. '<!-- wp:html --><article class="playlist-card playlist-card--warm"><div class="playlist-card__head"><p>CD 01</p><h2>Warm Up</h2><span>Vor dem Spiel. Puls hoch.</span></div><a class="playlist-card__spotify" href="https://open.spotify.com/playlist/3SfxvJ01PKdsTZUg1twoFy?si=dcf6ab94e9644569" target="_blank" rel="noopener"><span class="playlist-card__spotify-mark" aria-hidden="true">Spotify</span><strong>Warm Up auf Spotify hören</strong><small>Playlist öffnen</small></a></article><!-- /wp:html -->'
+			. '<!-- wp:html --><article class="playlist-card playlist-card--cool"><div class="playlist-card__head"><p>CD 02</p><h2>Cool Down</h2><span>Nach dem Spiel. Runterkommen.</span></div><a class="playlist-card__spotify" href="https://open.spotify.com/playlist/0TFiu45hOhMlFN280kpYuV?si=26e86179b1ca4c99" target="_blank" rel="noopener"><span class="playlist-card__spotify-mark" aria-hidden="true">Spotify</span><strong>Cool Down auf Spotify hören</strong><small>Playlist öffnen</small></a></article><!-- /wp:html -->'
+			. '<!-- wp:html --><article class="playlist-card playlist-card--staff"><div class="playlist-card__head"><p>CD 03</p><h2>Staff</h2><span>Damit keiner vergessen wird.</span></div><a class="playlist-card__spotify" href="https://open.spotify.com/playlist/0gdmlcx0kdUpu6L7s9MsGn?si=623016ff4839465c" target="_blank" rel="noopener"><span class="playlist-card__spotify-mark" aria-hidden="true">Spotify</span><strong>Staff auf Spotify hören</strong><small>Playlist öffnen</small></a></article><!-- /wp:html -->'
 			. '</div><!-- /wp:group -->'
-			. '<!-- wp:group {"align":"wide","className":"playlist-youtube","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide playlist-youtube"><!-- wp:group {"className":"playlist-youtube__intro","layout":{"type":"constrained","contentSize":"780px"}} --><div class="wp-block-group playlist-youtube__intro"><!-- wp:paragraph {"className":"reunion-kicker"} --><p class="reunion-kicker">YouTube Tracks</p><!-- /wp:paragraph --><!-- wp:heading --><h2>Die Songs einzeln hören.</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Die Spotify-Playlists oben sind der schnelle Einstieg. Hier findest du die einzelnen Tracks der drei CDs direkt als YouTube-Links.</p><!-- /wp:paragraph --></div><!-- /wp:group --><!-- wp:html --><div data-playlist-youtube></div><!-- /wp:html --></div><!-- /wp:group -->',
+			. '<!-- wp:group {"align":"wide","className":"playlist-youtube","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide playlist-youtube"><!-- wp:group {"className":"playlist-youtube__intro","layout":{"type":"constrained","contentSize":"780px"}} --><div class="wp-block-group playlist-youtube__intro"><!-- wp:paragraph {"className":"reunion-kicker"} --><p class="reunion-kicker">YouTube Tracks</p><!-- /wp:paragraph --><!-- wp:heading --><h2>Die Songs einzeln hören.</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Oben führen die CD-Karten direkt zu den Spotify-Playlists. Hier findest du die einzelnen Tracks der drei CDs zusätzlich als YouTube-Links.</p><!-- /wp:paragraph --></div><!-- /wp:group --><!-- wp:html --><div data-playlist-youtube></div><!-- /wp:html --></div><!-- /wp:group -->',
 	);
 
 	if ( $playlist_page instanceof WP_Post ) {
@@ -204,7 +204,7 @@ function honamas20_reunion_seed_content(): void {
 		wp_insert_post( wp_slash( $playlist_data ) );
 	}
 
-	update_option( 'honamas20_reunion_seed_version', '2026-08-24-playlist-youtube' );
+	update_option( 'honamas20_reunion_seed_version', '2026-08-24-playlist-spotify-links' );
 }
 add_action( 'admin_init', 'honamas20_reunion_seed_content' );
 

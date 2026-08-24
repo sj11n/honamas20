@@ -221,7 +221,7 @@ body {
 	color: #fff;
 	display: grid;
 	gap: var(--wp--preset--spacing--40);
-	grid-template-rows: minmax(10.5rem, auto) auto;
+	grid-template-rows: minmax(10.5rem, auto) 1fr;
 	height: 100%;
 	min-width: 0;
 	padding: clamp(1rem, 2.5vw, 1.4rem);
@@ -258,7 +258,61 @@ body {
 	text-transform: uppercase;
 }
 .playlist-card__head span { color: rgba(255, 255, 255, 0.82); font-weight: 700; }
-.playlist-card iframe { background: #000; border: 0; border-radius: 8px; display: block; height: 352px; width: 100%; }
+.playlist-card__spotify {
+	align-content: end;
+	background:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04)),
+		rgba(17, 17, 20, 0.18);
+	border: 1px solid rgba(255, 255, 255, 0.34);
+	color: #fff;
+	display: grid;
+	gap: 0.75rem;
+	min-height: 13rem;
+	padding: clamp(1rem, 2.5vw, 1.35rem);
+	text-decoration: none;
+}
+.playlist-card__spotify:hover,
+.playlist-card__spotify:focus-visible {
+	background: #1db954;
+	border-color: #1db954;
+	color: #111114;
+}
+.playlist-card__spotify-mark {
+	align-items: center;
+	background: #1db954;
+	border-radius: 999px;
+	color: #111114;
+	display: inline-flex;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.72rem;
+	font-weight: 900;
+	justify-self: start;
+	letter-spacing: 0.08em;
+	min-height: 2.1rem;
+	padding: 0 0.9rem;
+	text-transform: uppercase;
+}
+.playlist-card__spotify:hover .playlist-card__spotify-mark,
+.playlist-card__spotify:focus-visible .playlist-card__spotify-mark {
+	background: #111114;
+	color: #1db954;
+}
+.playlist-card__spotify strong {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(1.3rem, 3vw, 1.8rem);
+	line-height: 1.05;
+	max-width: 13rem;
+}
+.playlist-card__spotify small {
+	border-top: 1px solid currentColor;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.72rem;
+	font-weight: 900;
+	letter-spacing: 0.08em;
+	opacity: 0.74;
+	padding-top: 0.9rem;
+	text-transform: uppercase;
+}
 .playlist-youtube {
 	background: #fff;
 	padding: clamp(3rem, 7vw, 5.5rem) var(--wp--preset--spacing--50) var(--wp--preset--spacing--80);
