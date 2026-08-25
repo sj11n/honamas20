@@ -474,6 +474,208 @@ body {
 	border-color: rgba(17, 17, 20, 0.18);
 	color: rgba(17, 17, 20, 0.48);
 }
+.song-hero {
+	background: #111114;
+	color: #fff;
+	display: grid;
+	min-height: clamp(28rem, 62vh, 44rem);
+	overflow: hidden;
+	place-items: end center;
+	position: relative;
+}
+
+.song-hero::after {
+	background:
+		linear-gradient(180deg, rgba(17, 17, 20, 0.02), rgba(17, 17, 20, 0.66)),
+		linear-gradient(90deg, rgba(17, 17, 20, 0.48), rgba(17, 17, 20, 0.06) 46%, rgba(17, 17, 20, 0.38));
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 1;
+}
+
+.song-hero__image {
+	inset: 0;
+	margin: 0 !important;
+	position: absolute;
+}
+
+.song-hero__image img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	width: 100%;
+}
+
+.song-hero__copy {
+	margin-bottom: clamp(3rem, 8vw, 6rem);
+	max-width: 76rem;
+	padding: 0 var(--wp--preset--spacing--50);
+	position: relative;
+	text-align: center;
+	z-index: 2;
+}
+
+.song-hero__copy .reunion-kicker {
+	color: #ffdc4a;
+}
+
+.song-hero h1 {
+	font-size: clamp(4.3rem, 12vw, 10.5rem);
+	line-height: 0.84;
+	margin: 0 auto var(--wp--preset--spacing--40);
+	text-shadow: 0 4px 30px rgba(0, 0, 0, 0.42);
+	text-transform: uppercase;
+}
+
+.song-hero p:not(.reunion-kicker) {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 42rem;
+	text-shadow: 0 3px 22px rgba(0, 0, 0, 0.4);
+}
+
+.song-player-section {
+	background: #fff;
+	padding: clamp(3rem, 7vw, 5.5rem) var(--wp--preset--spacing--50);
+}
+
+.song-player {
+	align-items: end;
+	background:
+		linear-gradient(135deg, rgba(255, 220, 74, 0.42), rgba(255, 255, 255, 0.92)),
+		#f6f4f0;
+	color: #111114;
+	display: grid;
+	gap: var(--wp--preset--spacing--50);
+	grid-template-columns: minmax(0, 1fr) auto;
+	margin-inline: auto;
+	max-width: 1120px;
+	padding: clamp(1.3rem, 4vw, 2.2rem);
+}
+
+.song-player__meta h2 {
+	font-size: clamp(2.3rem, 6vw, 5.2rem);
+	line-height: 0.92;
+	margin: 0 0 0.75rem;
+	max-width: 12ch;
+}
+
+.song-player__meta p:not(.reunion-kicker) {
+	color: rgba(17, 17, 20, 0.68);
+	font-size: clamp(1rem, 2vw, 1.18rem);
+	line-height: 1.5;
+	margin: 0;
+	max-width: 34rem;
+}
+
+.song-player__controls {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+	justify-content: flex-end;
+}
+
+.song-player__controls audio {
+	display: none;
+}
+
+.song-player__play,
+.song-player__download {
+	align-items: center;
+	border: 1px solid #111114;
+	border-radius: 999px;
+	color: #111114;
+	display: inline-flex;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.82rem;
+	font-weight: 900;
+	justify-content: center;
+	letter-spacing: 0.08em;
+	min-height: 3.2rem;
+	padding: 0 1.2rem;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.song-player__play {
+	background: #111114;
+	color: #fff;
+	min-width: 7rem;
+}
+
+.song-player__play::before {
+	content: "▶";
+	font-size: 0.75em;
+	margin-right: 0.5rem;
+}
+
+.song-player.is-playing .song-player__play::before {
+	content: "Ⅱ";
+}
+
+.song-player__download {
+	background: transparent;
+}
+
+.song-player__play:hover,
+.song-player__play:focus-visible,
+.song-player__download:hover,
+.song-player__download:focus-visible {
+	background: #e63953;
+	border-color: #e63953;
+	color: #fff;
+}
+
+.song-lyrics {
+	background:
+		linear-gradient(180deg, #fff, #f6f4f0);
+	padding: clamp(3rem, 7vw, 5.5rem) var(--wp--preset--spacing--50) var(--wp--preset--spacing--80);
+}
+
+.song-lyrics > .reunion-kicker,
+.song-lyrics > h2 {
+	text-align: center;
+}
+
+.song-lyrics h2 {
+	font-size: clamp(2.8rem, 8vw, 6.5rem);
+	line-height: 0.92;
+	margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+	text-transform: uppercase;
+}
+
+.song-lyrics__grid {
+	display: grid;
+	gap: 1rem;
+}
+
+.song-lyrics__grid section {
+	background: #fff;
+	border: 1px solid rgba(17, 17, 20, 0.12);
+	display: grid;
+	gap: clamp(1rem, 3vw, 2rem);
+	grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1fr);
+	padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.song-lyrics__grid section p {
+	color: #e63953;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.76rem;
+	font-weight: 900;
+	letter-spacing: 0.08em;
+	line-height: 1;
+	margin: 0.18rem 0 0;
+	text-transform: uppercase;
+}
+
+.song-lyrics__grid section div {
+	font-size: clamp(1rem, 2vw, 1.16rem);
+	line-height: 1.72;
+}
 .reunion-program,
 .reunion-schedule {
 	background:
@@ -1315,6 +1517,73 @@ a:where(:hover, :focus-visible) {
 	.playlist-youtube-track__play {
 		grid-column: 3;
 		grid-row: 1 / span 2;
+	}
+
+	.song-hero {
+		min-height: 68vh;
+		place-items: end start;
+	}
+
+	.song-hero::after {
+		background:
+			linear-gradient(180deg, rgba(17, 17, 20, 0.08), rgba(17, 17, 20, 0.74)),
+			linear-gradient(90deg, rgba(17, 17, 20, 0.42), rgba(17, 17, 20, 0.12));
+	}
+
+	.song-hero__copy {
+		padding-left: var(--wp--preset--spacing--40);
+		padding-right: var(--wp--preset--spacing--40);
+		text-align: left;
+	}
+
+	.song-hero h1 {
+		font-size: clamp(3.35rem, 18vw, 5.6rem);
+		margin-left: 0;
+		margin-right: 0;
+		max-width: 7ch;
+	}
+
+	.song-hero p:not(.reunion-kicker) {
+		margin-left: 0;
+	}
+
+	.song-player-section,
+	.song-lyrics {
+		padding-left: var(--wp--preset--spacing--40);
+		padding-right: var(--wp--preset--spacing--40);
+	}
+
+	.song-player {
+		align-items: start;
+		grid-template-columns: 1fr;
+	}
+
+	.song-player__meta h2 {
+		font-size: clamp(2rem, 11vw, 3.4rem);
+		max-width: 11ch;
+	}
+
+	.song-player__controls {
+		justify-content: flex-start;
+		width: 100%;
+	}
+
+	.song-player__play,
+	.song-player__download {
+		flex: 1 1 10rem;
+	}
+
+	.song-lyrics > .reunion-kicker,
+	.song-lyrics > h2 {
+		text-align: left;
+	}
+
+	.song-lyrics__grid section {
+		grid-template-columns: 1fr;
+	}
+
+	.song-lyrics__grid section p {
+		margin-top: 0;
 	}
 
 	.honamas-story-origin .wp-block-column:last-child {
