@@ -122,7 +122,7 @@ function honamas20_reunion_song_player_shortcode(): string {
 		return '<section class="song-player song-player--missing"><div class="song-player__meta"><p class="reunion-kicker">Einer von uns (HONAMAS 20|06)</p><h2>Der Song ist vorbereitet.</h2><p>Die Audiodatei wird eingeblendet, sobald sie in der Mediathek liegt.</p></div></section>';
 	}
 
-	return '<section class="song-player" data-song-player><div class="song-player__meta"><p class="reunion-kicker">Einer von uns (HONAMAS 20|06)</p><h2>Ein Lied für ein Team, das geblieben ist.</h2><p>Direkt abspielen oder für unterwegs herunterladen.</p></div><div class="song-player__controls"><audio data-song-audio preload="metadata" src="' . esc_url( $song_audio_url ) . '"></audio><button class="song-player__play" type="button" data-song-play><span data-song-play-label>Play</span></button><a class="song-player__download" href="' . esc_url( $song_audio_url ) . '" download>Download</a></div></section>';
+	return '<section class="song-player" data-song-player><div class="song-player__meta"><p class="reunion-kicker">Einer von uns (HONAMAS 20|06)</p><h2>Ein Lied für das geilste Team der Welt.</h2><p>Direkt abspielen oder für unterwegs herunterladen.</p></div><div class="song-player__controls"><audio data-song-audio preload="metadata" src="' . esc_url( $song_audio_url ) . '"></audio><button class="song-player__play" type="button" data-song-play><span data-song-play-label>Play</span></button><a class="song-player__download" href="' . esc_url( $song_audio_url ) . '" download>Download</a></div></section>';
 }
 add_shortcode( 'honamas20_song_player', 'honamas20_reunion_song_player_shortcode' );
 
