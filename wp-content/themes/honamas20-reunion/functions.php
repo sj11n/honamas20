@@ -130,7 +130,7 @@ add_shortcode( 'honamas20_song_player', 'honamas20_reunion_song_player_shortcode
  * Seed required reunion content on fresh WordPress installs.
  */
 function honamas20_reunion_seed_content(): void {
-	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-25-song-page-media-audio' ) {
+	if ( get_option( 'honamas20_reunion_seed_version' ) === '2026-08-25-song-page-media-audio-title' ) {
 		return;
 	}
 
@@ -254,7 +254,7 @@ function honamas20_reunion_seed_content(): void {
 
 	$song_page = get_page_by_path( 'song', OBJECT, 'page' );
 	$song_data = array(
-		'post_title'     => 'Song',
+		'post_title'     => 'Einer von uns',
 		'post_name'      => 'song',
 		'post_status'    => 'publish',
 		'post_type'      => 'page',
@@ -291,7 +291,7 @@ function honamas20_reunion_seed_content(): void {
 		wp_insert_post( wp_slash( $song_data ) );
 	}
 
-	update_option( 'honamas20_reunion_seed_version', '2026-08-25-song-page-media-audio' );
+	update_option( 'honamas20_reunion_seed_version', '2026-08-25-song-page-media-audio-title' );
 }
 add_action( 'admin_init', 'honamas20_reunion_seed_content' );
 
