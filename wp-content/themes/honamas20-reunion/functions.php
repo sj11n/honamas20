@@ -69,6 +69,13 @@ function honamas_enqueue_assets(): void {
 		wp_get_theme()->get( 'Version' ),
 		true
 	);
+	wp_localize_script(
+		'honamas20-reunion-song',
+		'honamas20SongPlayer',
+		array(
+			'playCountEndpoint' => esc_url_raw( rest_url( 'honamas20/v1/song-plays' ) ),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'honamas_enqueue_assets' );
 
@@ -113,6 +120,43 @@ function honamas20_reunion_get_song_audio_url(): string {
 }
 
 /**
+ * Return the current public play count for the reunion song.
+ */
+function honamas20_reunion_get_song_play_count(): int {
+	return max( 0, (int) get_option( 'honamas20_reunion_song_play_count', 0 ) );
+}
+
+/**
+ * Increment the public play count once the browser has started the song.
+ */
+function honamas20_reunion_increment_song_play_count( WP_REST_Request $request ): WP_REST_Response {
+	$play_count = honamas20_reunion_get_song_play_count() + 1;
+	update_option( 'honamas20_reunion_song_play_count', $play_count, false );
+
+	return rest_ensure_response(
+		array(
+			'count' => $play_count,
+		)
+	);
+}
+
+/**
+ * Register the lightweight public endpoint used by the song player.
+ */
+function honamas20_reunion_register_song_play_count_route(): void {
+	register_rest_route(
+		'honamas20/v1',
+		'/song-plays',
+		array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'honamas20_reunion_increment_song_play_count',
+			'permission_callback' => '__return_true',
+		)
+	);
+}
+add_action( 'rest_api_init', 'honamas20_reunion_register_song_play_count_route' );
+
+/**
  * Render the song player with the current media-library audio file.
  */
 function honamas20_reunion_song_player_shortcode(): string {
@@ -122,7 +166,7 @@ function honamas20_reunion_song_player_shortcode(): string {
 		return '<section class="song-player song-player--missing"><div class="song-player__meta"><p class="reunion-kicker">Einer von uns (HONAMAS 20|06)</p><h2>Der Song ist vorbereitet.</h2><p>Die Audiodatei wird eingeblendet, sobald sie in der Mediathek liegt.</p></div></section>';
 	}
 
-	return '<section class="song-player" data-song-player><div class="song-player__meta"><p class="reunion-kicker">Einer von uns (HONAMAS 20|06)</p><h2>Ein Lied für das geilste Team der Welt.</h2><p>Direkt abspielen oder für unterwegs herunterladen.</p></div><div class="song-player__controls"><audio data-song-audio preload="metadata" src="' . esc_url( $song_audio_url ) . '"></audio><button class="song-player__play" type="button" data-song-play><span data-song-play-label>Play</span></button><a class="song-player__download" href="' . esc_url( $song_audio_url ) . '" download>Download</a></div></section>';
+	return '<section class="song-player" data-song-player><div class="song-player__meta"><p class="reunion-kicker">Einer von uns (HONAMAS 20|06)</p><h2>Ein Lied für das geilste Team der Welt.</h2><p>Direkt abspielen oder für unterwegs herunterladen.</p><p class="song-player__count" aria-live="polite"><strong data-song-play-count>' . esc_html( (string) honamas20_reunion_get_song_play_count() ) . '</strong> Plays</p></div><div class="song-player__controls"><audio data-song-audio preload="metadata" src="' . esc_url( $song_audio_url ) . '"></audio><button class="song-player__play" type="button" data-song-play><span data-song-play-label>Play</span></button><a class="song-player__download" href="' . esc_url( $song_audio_url ) . '" download>Download</a></div></section>';
 }
 add_shortcode( 'honamas20_song_player', 'honamas20_reunion_song_player_shortcode' );
 
@@ -269,17 +313,17 @@ function honamas20_reunion_seed_content(): void {
 			. '</div><!-- /wp:group -->'
 			. '<!-- wp:group {"align":"wide","className":"song-lyrics","layout":{"type":"constrained","contentSize":"880px"}} --><div class="wp-block-group alignwide song-lyrics">'
 			. '<!-- wp:paragraph {"className":"reunion-kicker"} --><p class="reunion-kicker">Lyrics</p><!-- /wp:paragraph -->'
-			. '<!-- wp:heading --><h2>Einer von uns</h2><!-- /wp:heading -->'
+			. '<!-- wp:heading --><h2>Lyrics</h2><!-- /wp:heading -->'
 			. '<!-- wp:html --><div class="song-lyrics__grid">'
 			. '<section><p>Verse 1</p><div>Freitagabend, Amstelveen, wir steh’n wieder hier<br>Zwanzig Jahre später, beim dritten kalten Bier<br>Bubi hält die Bälle, wie im Siebenmeter-Krimi<br>Christian hält uns zusammen – unsere Seele, unser Schüti<br>Der General steht sicher, Jambo gibt den Ton<br>Zello dreht auf, Wesa kennt die Position<br>Und Hupe räumt ab, damit hinten nichts passiert<br>Damals wie heute – jeder für den andern alles riskiert!</div></section>'
 			. '<section><p>Pre-Chorus</p><div>Wir war’n die Adler, die niemand kommen sah<br>Wir schrieben uns die Regeln selbst – und dann war’n wir da!</div></section>'
 			. '<section><p>Chorus</p><div>HONAMAS – Wir sind dieses Team!<br>Achtzehn Freunde mit derselben DNA im Gen<br>Zwanzig Jahre her, dass wir die Welt bewegt<br>Ein Gefühl, das niemals, niemals mehr vergeht<br>Vom ersten Logo bis zum Titel in der Hand<br>Wir sind HONAMAS – die Besten im Land!</div></section>'
-			. '<section><p>Verse 2</p><div>Emmel baut auf, als Herz im Mittelfeld<br>Buddy wird laut, so wie es uns gefällt<br>Tibs ist am Start, Meini lenkt den Lauf<br>Scharo bleibt cool und setzt noch einen drauf<br>Dragon grinst rüber, bereit für den Schlag<br>Carlito tanzt rein, weil er die Lücke mag<br>Witti hat den Blick, liest jedes Detail<br>Und Zells trifft die Kiste – und wir feiern: „Wie geil!“</div></section>'
+			. '<section><p>Verse 2</p><div>Emmel baut auf, als Herz im Mittelfeld<br>Buddy wird laut, so wie es uns gefällt<br>Tibs ist am Start, Meini lenkt den Lauf<br>Scharo bleibt cool, Ullen setzt noch einen drauf<br>Dragon grinst rüber, Mo bereit für den Schlag<br>Carlito tanzt rein, weil er die Lücke mag<br>Witti hat den Blick, liest jedes Detail<br>Und Zells trifft die Kiste – und wir feiern: „Wie geil!“</div></section>'
 			. '<section><p>Pre-Chorus</p><div>Kein Plan mehr nötig, kein Taktik-Papier<br>Einer ruft „Jetzt!“ – und wir wissen: Wir sind hier!</div></section>'
 			. '<section><p>Chorus</p><div>HONAMAS – Wir sind dieses Team!<br>Achtzehn Freunde mit derselben DNA im Gen<br>Zwanzig Jahre her, dass wir die Welt bewegt<br>Ein Gefühl, das niemals, niemals mehr vergeht<br>Vom ersten Logo bis zum Titel in der Hand<br>Wir sind HONAMAS – die Besten im Land!</div></section>'
-			. '<section><p>Bridge</p><div>Und hinten die Köpfe, die das alles gebaut<br>Bernie hat uns damals voll vertraut<br>Totte daneben, immer nah dran<br>Der wusste genau, was jeder hier kann<br>Reiner der Doc, hat uns wieder hingestellt<br>Wenn’s wehtat im Kopf oder dem Rest der Welt<br>Mario und Paape, die Hände aus Gold<br>Haben alles geflickt, was nicht mehr rollt<br>Gigi sah alles, noch bevor du was sagst<br>Wo es zwickt, wo es klemmt, was dich heute noch plagt<br>Und hinten steht Bernd, ganz ruhig, ist doch klar<br>Er hat uns erfunden – und war einfach da!</div></section>'
+			. '<section><p>Bridge</p><div>Und hinten die Köpfe, die das alles gebaut<br>Berni hat uns allen voll vertraut<br>Totte, Andrew, Mauwu – immer nah dran<br>Sie wussten genau, was jeder hier kann<br>Didi hielt die Köpfe klar, wenn der Druck einmal stieg,<br>Doc Rainer machte uns fit, wenn einer liegenblieb.<br>Werner sah im Video, was von uns keiner sah,<br>und so wurde jede Ecke zur Gefahr.<br>Mario und Paape, die Hände aus Gold<br>Haben alles geflickt, was nicht mehr rollt<br>Gigi sah alles, noch bevor du was sagst<br>Wo es zwickt, wo es klemmt, was dich heute noch plagt<br>Und hinten steht Bernd, ganz ruhig, ist doch klar<br>Er hat uns erfunden – und war einfach da!</div></section>'
 			. '<section><p>Final Chorus</p><div>HONAMAS – Wir bleiben dieses Team!<br>Achtzehn Freunde mit derselben DNA im Gen<br>Zwanzig Jahre her, dass wir die Welt bewegt<br>Ein Gefühl, das niemals, niemals mehr vergeht<br>Von der ersten Idee bis zum WM-Pokal<br>Wir sind HONAMAS – einmal und für alle Mal!</div></section>'
-			. '<section><p>Outro</p><div>Und wenn einer fragt, was am Ende noch zählt:<br>Es war unser Spirit, der die Welt heute noch quält<br>Egal, wohin jeder Einzelne geht<br>Wir sind die HONAMAS – das Team, das niemals vergeht!</div></section>'
+			. '<section><p>Outro</p><div>Und wenn einer fragt, was am Ende noch zählt:<br>Es war unser Spirit, der uns zusammenhält<br>Egal, wohin jeder Einzelne geht<br>Wir sind die HONAMAS – das Team, das niemals vergeht!</div></section>'
 			. '</div><!-- /wp:html -->'
 			. '</div><!-- /wp:group -->',
 	);
@@ -294,6 +338,44 @@ function honamas20_reunion_seed_content(): void {
 	update_option( 'honamas20_reunion_seed_version', '2026-08-25-song-page-media-audio-title' );
 }
 add_action( 'admin_init', 'honamas20_reunion_seed_content' );
+
+/**
+ * Update only the song lyrics on existing reunion sites.
+ */
+function honamas20_reunion_update_song_lyrics(): void {
+	if ( get_option( 'honamas20_reunion_song_lyrics_version' ) === '2026-08-26-2' ) {
+		return;
+	}
+
+	$song_page = get_page_by_path( 'song', OBJECT, 'page' );
+	if ( ! $song_page instanceof WP_Post ) {
+		return;
+	}
+
+	$replacements = array(
+		'<h2>Einer von uns</h2>' => '<h2>Lyrics</h2>',
+		'<h2 class="wp-block-heading">Einer von uns</h2>' => '<h2 class="wp-block-heading">Lyrics</h2>',
+		'Scharo bleibt cool und setzt noch einen drauf<br>Dragon grinst rüber, bereit für den Schlag' => 'Scharo bleibt cool, Ullen setzt noch einen drauf<br>Dragon grinst rüber, Mo bereit für den Schlag',
+		'Bernie hat uns damals voll vertraut<br>Totte daneben, immer nah dran<br>Der wusste genau, was jeder hier kann<br>Reiner der Doc, hat uns wieder hingestellt<br>Wenn’s wehtat im Kopf oder dem Rest der Welt' => 'Berni hat uns allen voll vertraut<br>Totte, Andrew, Mauwu – immer nah dran<br>Sie wussten genau, was jeder hier kann<br>Didi hielt die Köpfe klar, wenn der Druck einmal stieg,<br>Doc Rainer machte uns fit, wenn einer liegenblieb.<br>Werner sah im Video, was von uns keiner sah,<br>und so wurde jede Ecke zur Gefahr.',
+		'Bernie hat uns damals voll vertraut<br>Totte daneben, immer nah dran<br>Die wussten genau, was jeder hier kann<br>Reiner der Doc, hat uns wieder hingestellt<br>Wenn’s wehtat im Kopf oder dem Rest der Welt' => 'Berni hat uns allen voll vertraut<br>Totte, Andrew, Mauwu – immer nah dran<br>Sie wussten genau, was jeder hier kann<br>Didi hielt die Köpfe klar, wenn der Druck einmal stieg,<br>Doc Rainer machte uns fit, wenn einer liegenblieb.<br>Werner sah im Video, was von uns keiner sah,<br>und so wurde jede Ecke zur Gefahr.',
+		'Es war unser Spirit, der die Welt heute noch quält' => 'Es war unser Spirit, der uns zusammenhält',
+	);
+
+	$updated_content = str_replace( array_keys( $replacements ), array_values( $replacements ), $song_page->post_content );
+	if ( $updated_content !== $song_page->post_content ) {
+		wp_update_post(
+			wp_slash(
+				array(
+					'ID'           => $song_page->ID,
+					'post_content' => $updated_content,
+				)
+			)
+		);
+	}
+
+	update_option( 'honamas20_reunion_song_lyrics_version', '2026-08-26-2', false );
+}
+add_action( 'admin_init', 'honamas20_reunion_update_song_lyrics' );
 
 /**
  * Register HONAMAS pattern categories.
