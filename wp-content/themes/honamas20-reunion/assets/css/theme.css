@@ -691,6 +691,282 @@ body {
 	font-size: clamp(1rem, 2vw, 1.16rem);
 	line-height: 1.72;
 }
+
+.honstagram-hero {
+	background: #fff;
+	line-height: 0;
+}
+
+.honstagram-hero__image {
+	margin: 0;
+}
+
+.honstagram-hero__image img {
+	display: block;
+	height: auto;
+	width: 100%;
+}
+
+.honstagram {
+	background: #fff;
+	padding: clamp(2.5rem, 6vw, 5.5rem) var(--wp--preset--spacing--50) var(--wp--preset--spacing--80);
+}
+
+.honstagram__upload {
+	align-items: end;
+	border-bottom: 1px solid rgba(17, 17, 20, 0.14);
+	display: grid;
+	gap: clamp(2rem, 6vw, 5rem);
+	grid-template-columns: minmax(0, 0.95fr) minmax(19rem, 0.75fr);
+	margin: 0 auto clamp(2.5rem, 6vw, 4.5rem);
+	max-width: 1280px;
+	padding-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.honstagram__upload h2 {
+	font-size: clamp(2.7rem, 5vw, 5.3rem);
+	line-height: 0.96;
+	margin: 0 0 0.75rem;
+	max-width: 10ch;
+}
+
+.honstagram__upload > div > p {
+	color: rgba(17, 17, 20, 0.68);
+	font-size: clamp(1rem, 1.8vw, 1.18rem);
+	line-height: 1.55;
+	margin: 0;
+	max-width: 32rem;
+}
+
+.honstagram__upload form {
+	display: grid;
+	gap: 0.85rem;
+}
+
+.honstagram__file-button,
+.honstagram__submit {
+	align-items: center;
+	background: #111114;
+	border: 1px solid #111114;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+	display: inline-flex;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.82rem;
+	font-weight: 900;
+	justify-content: center;
+	letter-spacing: 0.06em;
+	min-height: 3.45rem;
+	padding: 0 1.25rem;
+	text-transform: uppercase;
+}
+
+.honstagram__file-button {
+	background: linear-gradient(105deg, #ffae2d, #ff3f7b 46%, #752ce8);
+	border: 0;
+	box-shadow: 0 12px 24px rgba(230, 0, 126, 0.16);
+	position: relative;
+}
+
+.honstagram__file-button input {
+	height: 1px;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	width: 1px;
+}
+
+.honstagram__selection,
+.honstagram__status {
+	color: rgba(17, 17, 20, 0.6);
+	font-size: 0.82rem;
+	line-height: 1.45;
+	margin: 0;
+}
+
+.honstagram__status:not(:empty) {
+	color: #111114;
+	font-weight: 700;
+}
+
+.honstagram__consent {
+	align-items: start;
+	cursor: pointer;
+	display: grid;
+	font-size: 0.86rem;
+	gap: 0.7rem;
+	grid-template-columns: 1.15rem minmax(0, 1fr);
+	line-height: 1.45;
+}
+
+.honstagram__consent input {
+	accent-color: #e6007e;
+	height: 1.15rem;
+	margin: 0.1rem 0 0;
+	width: 1.15rem;
+}
+
+.honstagram__honeypot {
+	height: 1px;
+	left: -9999px;
+	opacity: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.honstagram__submit {
+	justify-self: start;
+}
+
+.honstagram__submit:disabled {
+	background: #dedcd7;
+	border-color: #dedcd7;
+	cursor: not-allowed;
+	color: #6c6c72;
+}
+
+.honstagram__progress {
+	background: #f2f0ed;
+	height: 0.35rem;
+	overflow: hidden;
+	width: 100%;
+}
+
+.honstagram__progress span {
+	background: linear-gradient(90deg, #ffae2d, #ff3f7b, #752ce8);
+	display: block;
+	height: 100%;
+	transition: width 180ms ease;
+	width: 0;
+}
+
+.honstagram__feed {
+	columns: 4 16rem;
+	column-gap: 0.85rem;
+	margin: 0 auto;
+	max-width: 1440px;
+}
+
+.honstagram__tile {
+	background: #f0f0f0;
+	border: 0;
+	break-inside: avoid;
+	cursor: zoom-in;
+	display: block;
+	margin: 0 0 0.85rem;
+	overflow: hidden;
+	padding: 0;
+	position: relative;
+	width: 100%;
+}
+
+.honstagram__tile img {
+	display: block;
+	height: auto;
+	transition: transform 260ms ease;
+	width: 100%;
+}
+
+.honstagram__tile:hover img,
+.honstagram__tile:focus-visible img {
+	transform: scale(1.035);
+}
+
+.honstagram__tile:focus-visible,
+.honstagram__file-button:focus-visible,
+.honstagram__submit:focus-visible,
+.honstagram__lightbox-close:focus-visible {
+	outline: 3px solid #752ce8;
+	outline-offset: 3px;
+}
+
+.honstagram__tile.is-new {
+	animation: honstagram-reveal 420ms ease both;
+}
+
+.honstagram__empty {
+	border-top: 1px solid rgba(17, 17, 20, 0.14);
+	color: rgba(17, 17, 20, 0.6);
+	font-size: 1rem;
+	margin: 0 auto;
+	max-width: 1440px;
+	padding-top: 1.25rem;
+}
+
+.honstagram__lightbox {
+	background: rgba(17, 17, 20, 0.96);
+	border: 0;
+	box-sizing: border-box;
+	max-height: 100vh;
+	max-width: 100vw;
+	padding: clamp(1rem, 4vw, 3rem);
+}
+
+.honstagram__lightbox::backdrop {
+	background: rgba(17, 17, 20, 0.82);
+}
+
+.honstagram__lightbox img {
+	display: block;
+	max-height: calc(100vh - 2rem);
+	max-width: calc(100vw - 2rem);
+	object-fit: contain;
+}
+
+.honstagram__lightbox-close {
+	background: #fff;
+	border: 0;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 2rem;
+	height: 2.75rem;
+	line-height: 1;
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	width: 2.75rem;
+}
+
+@keyframes honstagram-reveal {
+	from {
+		opacity: 0;
+		transform: translateY(0.8rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (max-width: 782px) {
+	.honstagram {
+		padding-inline: var(--wp--preset--spacing--30);
+	}
+
+	.honstagram__upload {
+		align-items: start;
+		grid-template-columns: 1fr;
+	}
+
+	.honstagram__upload h2 {
+		max-width: none;
+	}
+
+	.honstagram__submit {
+		width: 100%;
+	}
+
+	.honstagram__feed {
+		column-gap: 0.5rem;
+		columns: 2 9.5rem;
+	}
+
+	.honstagram__tile {
+		margin-bottom: 0.5rem;
+	}
+}
 .reunion-program,
 .reunion-schedule {
 	background:

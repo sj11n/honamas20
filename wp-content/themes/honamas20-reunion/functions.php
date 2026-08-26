@@ -69,6 +69,15 @@ function honamas_enqueue_assets(): void {
 		wp_get_theme()->get( 'Version' ),
 		true
 	);
+	if ( is_page( 'honstagram' ) ) {
+		wp_enqueue_script(
+			'honamas20-reunion-honstagram',
+			get_theme_file_uri( 'assets/js/honstagram.js' ),
+			array(),
+			wp_get_theme()->get( 'Version' ),
+			true
+		);
+	}
 	wp_localize_script(
 		'honamas20-reunion-song',
 		'honamas20SongPlayer',
@@ -376,6 +385,36 @@ function honamas20_reunion_update_song_lyrics(): void {
 	update_option( 'honamas20_reunion_song_lyrics_version', '2026-08-26-2', false );
 }
 add_action( 'admin_init', 'honamas20_reunion_update_song_lyrics' );
+
+/**
+ * Create the HONSTAGRAM page without touching existing editorial content.
+ */
+function honamas20_reunion_add_honstagram_page(): void {
+	if ( get_option( 'honamas20_reunion_honstagram_version' ) === '2026-08-26' ) {
+		return;
+	}
+
+	$page = get_page_by_path( 'honstagram', OBJECT, 'page' );
+	$data = array(
+		'post_title'     => 'honstagram',
+		'post_name'      => 'honstagram',
+		'post_status'    => 'publish',
+		'post_type'      => 'page',
+		'comment_status' => 'closed',
+		'ping_status'    => 'closed',
+		'post_content'   => '<!-- wp:group {"align":"full","className":"honstagram-hero","layout":{"type":"constrained"}} --><div class="wp-block-group alignfull honstagram-hero"><h1 class="screen-reader-text">honstagram</h1><!-- wp:image {"align":"full","sizeSlug":"full","linkDestination":"none","className":"honstagram-hero__image"} --><figure class="wp-block-image alignfull size-full honstagram-hero__image"><img src="' . esc_url( get_theme_file_uri( 'assets/images/honstagram/honstagram-header.png' ) ) . '" alt="HONAMAS 20 honstagram"/></figure><!-- /wp:image --></div><!-- /wp:group --><!-- wp:shortcode -->[honstagram]<!-- /wp:shortcode -->',
+	);
+
+	if ( $page instanceof WP_Post ) {
+		$data['ID'] = $page->ID;
+		wp_update_post( wp_slash( $data ) );
+	} else {
+		wp_insert_post( wp_slash( $data ) );
+	}
+
+	update_option( 'honamas20_reunion_honstagram_version', '2026-08-26', false );
+}
+add_action( 'admin_init', 'honamas20_reunion_add_honstagram_page' );
 
 /**
  * Register HONAMAS pattern categories.
