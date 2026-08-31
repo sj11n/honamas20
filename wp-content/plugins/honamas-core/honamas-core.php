@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.9
+ * Version: 0.1.10
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -542,8 +542,13 @@ function honamas_core_handle_honstagram_upload( WP_REST_Request $request ): WP_R
 	}
 
 	$image_count = count( $files['honstagram_images']['name'] );
-	if ( $image_count > 10 ) {
-		return new WP_REST_Response( array( 'message' => __( 'Pro Upload sind maximal 10 Bilder möglich.', 'honamas-core' ) ), 400 );
+	if ( $image_count > 25 ) {
+		return new WP_REST_Response( array( 'message' => __( 'Pro Upload sind maximal 25 Bilder möglich.', 'honamas-core' ) ), 400 );
+	}
+
+	$total_size = array_sum( array_map( 'absint', $files['honstagram_images']['size'] ) );
+	if ( $total_size > 100 * MB_IN_BYTES ) {
+		return new WP_REST_Response( array( 'message' => __( 'Die Bilder dürfen zusammen maximal 100 MB groß sein.', 'honamas-core' ) ), 400 );
 	}
 
 	$uploaded_images = array();
@@ -873,11 +878,11 @@ function honamas_core_render_honstagram(): string {
 		<div class="honstagram__upload">
 			<div>
 				<h2><?php esc_html_e( 'Deine Bilder. Unser Wochenende.', 'honamas-core' ); ?></h2>
-				<p><?php esc_html_e( 'Wähle bis zu zehn Bilder aus und teile sie direkt mit dem Team.', 'honamas-core' ); ?></p>
+				<p><?php esc_html_e( 'Wähle bis zu 25 Bilder aus und teile sie direkt mit dem Team.', 'honamas-core' ); ?></p>
 			</div>
 			<form data-honstagram-form enctype="multipart/form-data" novalidate>
 				<label class="honstagram__file-button" for="honstagram-images"><span><?php esc_html_e( 'Fotos hochladen', 'honamas-core' ); ?></span><input accept="image/jpeg,image/png,image/webp" id="honstagram-images" multiple name="honstagram_images[]" required type="file"></label>
-				<p class="honstagram__selection" data-honstagram-selection><?php esc_html_e( 'JPG, PNG oder WebP · maximal 10 Bilder · jeweils bis 12 MB', 'honamas-core' ); ?></p>
+				<p class="honstagram__selection" data-honstagram-selection><?php esc_html_e( 'JPG, PNG oder WebP · maximal 25 Bilder · jeweils bis 12 MB · zusammen bis 100 MB', 'honamas-core' ); ?></p>
 				<label class="honstagram__consent"><input name="honstagram_rights" required type="checkbox" value="1"><span><?php esc_html_e( 'Ich habe die Rechte an diesen Bildern und bin mit ihrer Veröffentlichung im honstagram einverstanden.', 'honamas-core' ); ?></span></label>
 				<input aria-hidden="true" autocomplete="off" class="honstagram__honeypot" name="honstagram_website" tabindex="-1" type="text">
 				<button class="honstagram__submit" disabled type="submit" data-honstagram-submit><?php esc_html_e( 'Jetzt teilen', 'honamas-core' ); ?></button>

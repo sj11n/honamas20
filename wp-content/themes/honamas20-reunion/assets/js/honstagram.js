@@ -20,6 +20,9 @@
 	const lightbox = honstagram.querySelector( '[data-honstagram-lightbox]' );
 	const lightboxImage = honstagram.querySelector( '[data-honstagram-lightbox-image]' );
 	const closeLightbox = honstagram.querySelector( '[data-honstagram-close]' );
+	const maxFiles = 25;
+	const maxFileSize = 12 * 1024 * 1024;
+	const maxTotalSize = 100 * 1024 * 1024;
 
 	if ( ! form || ! fileInput || ! submitButton || ! status || ! selection || ! progress || ! progressBar || ! feed || ! loadMoreWrap || ! loadMoreButton || ! sentinel || ! lightbox || ! lightboxImage || ! closeLightbox ) {
 		return;
@@ -32,7 +35,7 @@
 	const updateSelection = () => {
 		const selected = fileInput.files.length;
 		submitButton.disabled = ! selected || ! form.querySelector( '[name="honstagram_rights"]' ).checked;
-		selection.textContent = selected ? `${ selected } ${ selected === 1 ? 'Bild ausgewählt' : 'Bilder ausgewählt' }` : 'JPG, PNG oder WebP · maximal 10 Bilder · jeweils bis 12 MB';
+		selection.textContent = selected ? `${ selected } ${ selected === 1 ? 'Bild ausgewählt' : 'Bilder ausgewählt' }` : 'JPG, PNG oder WebP · maximal 25 Bilder · jeweils bis 12 MB · zusammen bis 100 MB';
 	};
 
 	const addImage = ( image, prepend = false ) => {
@@ -110,14 +113,21 @@
 	form.addEventListener( 'submit', ( event ) => {
 		event.preventDefault();
 
-		if ( ! fileInput.files.length || fileInput.files.length > 10 ) {
-			status.textContent = 'Bitte wähle zwischen einem und zehn Bildern aus.';
+		if ( ! fileInput.files.length || fileInput.files.length > maxFiles ) {
+			status.textContent = 'Bitte wähle zwischen einem und 25 Bildern aus.';
 			return;
 		}
 
-		const tooLarge = Array.from( fileInput.files ).some( ( file ) => file.size > 12 * 1024 * 1024 );
+		const selectedFiles = Array.from( fileInput.files );
+		const tooLarge = selectedFiles.some( ( file ) => file.size > maxFileSize );
 		if ( tooLarge ) {
 			status.textContent = 'Ein Bild ist größer als 12 MB. Bitte wähle kleinere Dateien aus.';
+			return;
+		}
+
+		const totalSize = selectedFiles.reduce( ( total, file ) => total + file.size, 0 );
+		if ( totalSize > maxTotalSize ) {
+			status.textContent = 'Die ausgewählten Bilder sind zusammen größer als 100 MB. Bitte teile sie auf zwei Uploads auf.';
 			return;
 		}
 
