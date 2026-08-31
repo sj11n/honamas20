@@ -14,13 +14,20 @@
 	const progressBar = honstagram.querySelector( '[data-honstagram-progress-bar]' );
 	const feed = honstagram.querySelector( '[data-honstagram-feed]' );
 	const emptyState = honstagram.querySelector( '[data-honstagram-empty]' );
+	const loadMoreWrap = honstagram.querySelector( '[data-honstagram-load-more-wrap]' );
+	const loadMoreButton = honstagram.querySelector( '[data-honstagram-load-more]' );
+	const sentinel = honstagram.querySelector( '[data-honstagram-sentinel]' );
 	const lightbox = honstagram.querySelector( '[data-honstagram-lightbox]' );
 	const lightboxImage = honstagram.querySelector( '[data-honstagram-lightbox-image]' );
 	const closeLightbox = honstagram.querySelector( '[data-honstagram-close]' );
 
-	if ( ! form || ! fileInput || ! submitButton || ! status || ! selection || ! progress || ! progressBar || ! feed || ! lightbox || ! lightboxImage || ! closeLightbox ) {
+	if ( ! form || ! fileInput || ! submitButton || ! status || ! selection || ! progress || ! progressBar || ! feed || ! loadMoreWrap || ! loadMoreButton || ! sentinel || ! lightbox || ! lightboxImage || ! closeLightbox ) {
 		return;
 	}
+
+	let isLoadingMore = false;
+	let hasMore = honstagram.dataset.hasMore === 'true';
+	let nextPage = Number.parseInt( honstagram.dataset.nextPage, 10 ) || 2;
 
 	const updateSelection = () => {
 		const selected = fileInput.files.length;
@@ -28,10 +35,15 @@
 		selection.textContent = selected ? `${ selected } ${ selected === 1 ? 'Bild ausgewählt' : 'Bilder ausgewählt' }` : 'JPG, PNG oder WebP · maximal 10 Bilder · jeweils bis 12 MB';
 	};
 
-	const addImage = ( image ) => {
+	const addImage = ( image, prepend = false ) => {
+		if ( feed.querySelector( `[data-honstagram-id="${ CSS.escape( String( image.id ) ) }"]` ) ) {
+			return;
+		}
+
 		const tile = document.createElement( 'button' );
 		tile.type = 'button';
 		tile.className = 'honstagram__tile is-new';
+		tile.dataset.honstagramId = image.id;
 		tile.dataset.honstagramImage = '';
 		tile.dataset.full = image.full;
 		tile.dataset.alt = image.alt;
@@ -43,7 +55,46 @@
 		picture.decoding = 'async';
 		picture.src = image.thumbnail;
 		tile.append( picture );
-		feed.prepend( tile );
+		if ( prepend ) {
+			feed.prepend( tile );
+		} else {
+			feed.append( tile );
+		}
+	};
+
+	const updateLoadMore = () => {
+		loadMoreWrap.hidden = ! hasMore;
+		loadMoreButton.disabled = isLoadingMore;
+		loadMoreButton.textContent = isLoadingMore ? 'Bilder werden geladen …' : 'Weitere Bilder laden';
+	};
+
+	const loadMore = async () => {
+		if ( isLoadingMore || ! hasMore ) {
+			return;
+		}
+
+		isLoadingMore = true;
+		updateLoadMore();
+
+		try {
+			const endpoint = new URL( honstagram.dataset.galleryEndpoint, window.location.origin );
+			endpoint.searchParams.set( 'page', String( nextPage ) );
+			const response = await window.fetch( endpoint, { credentials: 'same-origin' } );
+			const payload = await response.json();
+
+			if ( ! response.ok || ! Array.isArray( payload.images ) ) {
+				throw new Error( 'Gallery request failed' );
+			}
+
+			payload.images.forEach( ( image ) => addImage( image ) );
+			hasMore = Boolean( payload.has_more );
+			nextPage = payload.next_page || nextPage + 1;
+		} catch ( error ) {
+			status.textContent = 'Weitere Bilder konnten gerade nicht geladen werden. Bitte versuche es gleich noch einmal.';
+		} finally {
+			isLoadingMore = false;
+			updateLoadMore();
+		}
 	};
 
 	const openLightbox = ( tile ) => {
@@ -90,7 +141,7 @@
 			} catch ( error ) {}
 
 			if ( request.status >= 200 && request.status < 300 && response?.images ) {
-				response.images.forEach( addImage );
+				response.images.forEach( ( image ) => addImage( image, true ) );
 				emptyState.hidden = true;
 				status.textContent = response.message;
 				form.reset();
@@ -118,6 +169,20 @@
 			openLightbox( tile );
 		}
 	} );
+
+	loadMoreButton.addEventListener( 'click', loadMore );
+	if ( 'IntersectionObserver' in window ) {
+		const observer = new IntersectionObserver(
+			( entries ) => {
+				if ( entries.some( ( entry ) => entry.isIntersecting ) ) {
+					loadMore();
+				}
+			},
+			{ rootMargin: '700px 0px' }
+		);
+		observer.observe( sentinel );
+	}
+	updateLoadMore();
 
 	closeLightbox.addEventListener( 'click', () => lightbox.close() );
 	lightbox.addEventListener( 'click', ( event ) => {

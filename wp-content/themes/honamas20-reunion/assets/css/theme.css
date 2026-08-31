@@ -895,6 +895,41 @@ body {
 	padding-top: 1.25rem;
 }
 
+.honstagram__load-more-wrap {
+	display: grid;
+	justify-items: center;
+	margin: 1.75rem auto 0;
+	max-width: 1440px;
+	min-height: 3.5rem;
+}
+
+.honstagram__load-more {
+	background: transparent;
+	border: 1px solid rgba(17, 17, 20, 0.22);
+	border-radius: 4px;
+	color: #111114;
+	cursor: pointer;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.78rem;
+	font-weight: 900;
+	letter-spacing: 0.06em;
+	min-height: 3rem;
+	padding: 0 1.1rem;
+	text-transform: uppercase;
+}
+
+.honstagram__load-more:hover,
+.honstagram__load-more:focus-visible {
+	background: #111114;
+	border-color: #111114;
+	color: #fff;
+}
+
+.honstagram__sentinel {
+	height: 1px;
+	width: 100%;
+}
+
 .honstagram__lightbox {
 	background: rgba(17, 17, 20, 0.96);
 	border: 0;

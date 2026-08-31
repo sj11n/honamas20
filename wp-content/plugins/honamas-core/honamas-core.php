@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.7
+ * Version: 0.1.8
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -428,7 +428,7 @@ function honamas_core_honstagram_rate_limit_key(): string {
  * Save an uploaded image in the WordPress media library and mark it for HONSTAGRAM.
  *
  * @param array<string, mixed> $file Upload array.
- * @return int|WP_Error Attachment ID on success.
+ * @return array{attachment_id: int, duplicate: bool}|WP_Error Attachment result on success.
  */
 function honamas_core_create_honstagram_attachment( array $file ) {
 	$allowed_mimes = array(
@@ -443,6 +443,33 @@ function honamas_core_create_honstagram_attachment( array $file ) {
 
 	if ( ! empty( $file['size'] ) && (int) $file['size'] > 12 * MB_IN_BYTES ) {
 		return new WP_Error( 'honstagram_file_too_large', __( 'Ein Bild darf maximal 12 MB groß sein.', 'honamas-core' ) );
+	}
+
+	$file_hash = hash_file( 'sha256', $file['tmp_name'] );
+	if ( ! $file_hash ) {
+		return new WP_Error( 'honstagram_hash_failed', __( 'Die Bilddatei konnte nicht geprüft werden.', 'honamas-core' ) );
+	}
+
+	$existing = get_posts(
+		array(
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'meta_query'     => array(
+				array(
+					'key'   => '_honstagram_sha256',
+					'value' => $file_hash,
+				),
+			),
+		)
+	);
+
+	if ( $existing ) {
+		return array(
+			'attachment_id' => (int) $existing[0],
+			'duplicate'     => true,
+		);
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -483,8 +510,12 @@ function honamas_core_create_honstagram_attachment( array $file ) {
 	$metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
 	wp_update_attachment_metadata( $attachment_id, $metadata );
 	update_post_meta( $attachment_id, '_honstagram_uploaded', '1' );
+	update_post_meta( $attachment_id, '_honstagram_sha256', $file_hash );
 
-	return $attachment_id;
+	return array(
+		'attachment_id' => $attachment_id,
+		'duplicate'     => false,
+	);
 }
 
 /**
@@ -517,6 +548,7 @@ function honamas_core_handle_honstagram_upload( WP_REST_Request $request ): WP_R
 
 	$uploaded_images = array();
 	$attachment_ids  = array();
+	$duplicate_count = 0;
 	for ( $index = 0; $index < $image_count; $index++ ) {
 		$file = array(
 			'name'     => $files['honstagram_images']['name'][ $index ],
@@ -533,14 +565,20 @@ function honamas_core_handle_honstagram_upload( WP_REST_Request $request ): WP_R
 			return new WP_REST_Response( array( 'message' => __( 'Mindestens ein Bild konnte nicht hochgeladen werden.', 'honamas-core' ) ), 400 );
 		}
 
-		$attachment_id = honamas_core_create_honstagram_attachment( $file );
-		if ( is_wp_error( $attachment_id ) ) {
+		$upload_result = honamas_core_create_honstagram_attachment( $file );
+		if ( is_wp_error( $upload_result ) ) {
 			foreach ( $attachment_ids as $uploaded_attachment_id ) {
 				wp_delete_attachment( $uploaded_attachment_id, true );
 			}
-			return new WP_REST_Response( array( 'message' => $attachment_id->get_error_message() ), 400 );
+			return new WP_REST_Response( array( 'message' => $upload_result->get_error_message() ), 400 );
 		}
-		$attachment_ids[] = $attachment_id;
+
+		$attachment_id = $upload_result['attachment_id'];
+		if ( $upload_result['duplicate'] ) {
+			$duplicate_count++;
+		} else {
+			$attachment_ids[] = $attachment_id;
+		}
 
 		$full_url      = wp_get_attachment_image_url( $attachment_id, 'full' );
 		$thumbnail_url = wp_get_attachment_image_url( $attachment_id, 'large' );
@@ -554,13 +592,22 @@ function honamas_core_handle_honstagram_upload( WP_REST_Request $request ): WP_R
 
 	set_transient( $rate_key, $rate_count + 1, 10 * MINUTE_IN_SECONDS );
 
+	$message = sprintf(
+		/* translators: %d: uploaded image count. */
+		_n( '%d Foto ist jetzt im honstagram.', '%d Fotos sind jetzt im honstagram.', $image_count - $duplicate_count, 'honamas-core' ),
+		$image_count - $duplicate_count
+	);
+	if ( $duplicate_count ) {
+		$message .= ' ' . sprintf(
+			/* translators: %d: duplicate image count. */
+			_n( '%d bereits vorhandenes Bild wurde nicht erneut angelegt.', '%d bereits vorhandene Bilder wurden nicht erneut angelegt.', $duplicate_count, 'honamas-core' ),
+			$duplicate_count
+		);
+	}
+
 	return new WP_REST_Response(
 		array(
-			'message' => sprintf(
-				/* translators: %d: uploaded image count. */
-				_n( '%d Foto ist jetzt im honstagram.', '%d Fotos sind jetzt im honstagram.', $image_count, 'honamas-core' ),
-				$image_count
-			),
+			'message' => $message,
 			'images'  => $uploaded_images,
 		),
 		201
@@ -584,15 +631,44 @@ function honamas_core_register_honstagram_route(): void {
 add_action( 'rest_api_init', 'honamas_core_register_honstagram_route' );
 
 /**
- * Render the public HONSTAGRAM upload and gallery surface.
+ * Build a frontend-safe HONSTAGRAM image payload.
+ *
+ * @param int $attachment_id Media library attachment ID.
+ * @return array<string, mixed>|null
  */
-function honamas_core_render_honstagram(): string {
-	$images = get_posts(
+function honamas_core_get_honstagram_image_payload( int $attachment_id ): ?array {
+	$full_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+	if ( ! $full_url ) {
+		return null;
+	}
+
+	$thumbnail_url = wp_get_attachment_image_url( $attachment_id, 'large' );
+	$alt           = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+
+	return array(
+		'id'        => $attachment_id,
+		'full'      => $full_url,
+		'thumbnail' => $thumbnail_url ? $thumbnail_url : $full_url,
+		'alt'       => $alt ? $alt : __( 'HONSTAGRAM Foto', 'honamas-core' ),
+	);
+}
+
+/**
+ * Return a page of unique HONSTAGRAM images, newest first.
+ *
+ * @param int $page Current page number.
+ * @param int $per_page Number of images per page.
+ * @return array{images: array<int, array<string, mixed>>, has_more: bool}
+ */
+function honamas_core_get_honstagram_images( int $page = 1, int $per_page = 24 ): array {
+	$page     = max( 1, $page );
+	$per_page = min( 36, max( 1, $per_page ) );
+	$images   = get_posts(
 		array(
 			'post_type'      => 'attachment',
 			'post_status'    => 'inherit',
 			'post_mime_type' => 'image',
-			'posts_per_page' => 100,
+			'posts_per_page' => -1,
 			'orderby'        => 'date',
 			'order'          => 'DESC',
 			'meta_key'       => '_honstagram_uploaded',
@@ -600,9 +676,88 @@ function honamas_core_render_honstagram(): string {
 		)
 	);
 
+	$unique_images = array();
+	$seen_hashes   = array();
+	foreach ( $images as $image ) {
+		$image_id   = $image->ID;
+		$image_hash = get_post_meta( $image_id, '_honstagram_sha256', true );
+		if ( ! $image_hash ) {
+			$file_path = get_attached_file( $image_id );
+			$image_hash = $file_path && file_exists( $file_path ) ? hash_file( 'sha256', $file_path ) : '';
+			if ( $image_hash ) {
+				update_post_meta( $image_id, '_honstagram_sha256', $image_hash );
+			}
+		}
+
+		if ( $image_hash && isset( $seen_hashes[ $image_hash ] ) ) {
+			continue;
+		}
+
+		$payload = honamas_core_get_honstagram_image_payload( $image_id );
+		if ( ! $payload ) {
+			continue;
+		}
+
+		if ( $image_hash ) {
+			$seen_hashes[ $image_hash ] = true;
+		}
+		$unique_images[] = $payload;
+	}
+
+	$offset = ( $page - 1 ) * $per_page;
+	return array(
+		'images'   => array_slice( $unique_images, $offset, $per_page ),
+		'has_more' => count( $unique_images ) > ( $offset + $per_page ),
+	);
+}
+
+/**
+ * Return the next gallery page for endless HONSTAGRAM scrolling.
+ */
+function honamas_core_get_honstagram_gallery( WP_REST_Request $request ): WP_REST_Response {
+	$page   = absint( $request->get_param( 'page' ) );
+	$images = honamas_core_get_honstagram_images( $page ? $page : 1 );
+
+	return new WP_REST_Response(
+		array(
+			'images'    => $images['images'],
+			'has_more'  => $images['has_more'],
+			'next_page' => $images['has_more'] ? ( $page ? $page : 1 ) + 1 : null,
+		)
+	);
+}
+
+/**
+ * Register the public gallery reader route separately from uploads.
+ */
+function honamas_core_register_honstagram_gallery_route(): void {
+	register_rest_route(
+		'honamas-core/v1',
+		'/honstagram/gallery',
+		array(
+			'methods'             => WP_REST_Server::READABLE,
+			'callback'            => 'honamas_core_get_honstagram_gallery',
+			'permission_callback' => '__return_true',
+			'args'                => array(
+				'page' => array(
+					'sanitize_callback' => 'absint',
+				),
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', 'honamas_core_register_honstagram_gallery_route' );
+
+/**
+ * Render the public HONSTAGRAM upload and gallery surface.
+ */
+function honamas_core_render_honstagram(): string {
+	$gallery = honamas_core_get_honstagram_images();
+	$images  = $gallery['images'];
+
 	ob_start();
 	?>
-	<section class="honstagram" data-honstagram data-upload-endpoint="<?php echo esc_url( rest_url( 'honamas-core/v1/honstagram' ) ); ?>">
+	<section class="honstagram" data-honstagram data-gallery-endpoint="<?php echo esc_url( rest_url( 'honamas-core/v1/honstagram/gallery' ) ); ?>" data-has-more="<?php echo $gallery['has_more'] ? 'true' : 'false'; ?>" data-next-page="2" data-upload-endpoint="<?php echo esc_url( rest_url( 'honamas-core/v1/honstagram' ) ); ?>">
 		<div class="honstagram__upload">
 			<div>
 				<h2><?php esc_html_e( 'Deine Bilder. Unser Wochenende.', 'honamas-core' ); ?></h2>
@@ -620,15 +775,10 @@ function honamas_core_render_honstagram(): string {
 		</div>
 		<div class="honstagram__feed" data-honstagram-feed>
 			<?php foreach ( $images as $image ) : ?>
-				<?php
-				$image_id = $image->ID;
-				$full     = wp_get_attachment_image_url( $image_id, 'full' );
-				$alt      = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-				$alt      = $alt ? $alt : __( 'HONSTAGRAM Foto', 'honamas-core' );
-				?>
-				<button aria-label="<?php esc_attr_e( 'Bild groß ansehen', 'honamas-core' ); ?>" class="honstagram__tile" data-honstagram-image data-full="<?php echo esc_url( $full ); ?>" data-alt="<?php echo esc_attr( $alt ); ?>" type="button"><?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'alt' => $alt, 'loading' => 'lazy', 'decoding' => 'async' ) ); ?></button>
+				<button aria-label="<?php esc_attr_e( 'Bild groß ansehen', 'honamas-core' ); ?>" class="honstagram__tile" data-honstagram-id="<?php echo esc_attr( (string) $image['id'] ); ?>" data-honstagram-image data-full="<?php echo esc_url( $image['full'] ); ?>" data-alt="<?php echo esc_attr( $image['alt'] ); ?>" type="button"><img alt="<?php echo esc_attr( $image['alt'] ); ?>" decoding="async" loading="lazy" src="<?php echo esc_url( $image['thumbnail'] ); ?>"></button>
 			<?php endforeach; ?>
 		</div>
+		<div class="honstagram__load-more-wrap" data-honstagram-load-more-wrap<?php echo $gallery['has_more'] ? '' : ' hidden'; ?>><button class="honstagram__load-more" data-honstagram-load-more type="button"><?php esc_html_e( 'Weitere Bilder laden', 'honamas-core' ); ?></button><span aria-hidden="true" class="honstagram__sentinel" data-honstagram-sentinel></span></div>
 		<p class="honstagram__empty" data-honstagram-empty<?php echo $images ? ' hidden' : ''; ?>><?php esc_html_e( 'Die ersten Bilder machen den Anfang.', 'honamas-core' ); ?></p>
 		<dialog class="honstagram__lightbox" data-honstagram-lightbox><button aria-label="<?php esc_attr_e( 'Bild schließen', 'honamas-core' ); ?>" class="honstagram__lightbox-close" type="button" data-honstagram-close>×</button><img alt="" data-honstagram-lightbox-image></dialog>
 	</section>
