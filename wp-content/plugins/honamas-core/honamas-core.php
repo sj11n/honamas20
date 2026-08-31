@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.8
+ * Version: 0.1.9
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -710,6 +710,118 @@ function honamas_core_get_honstagram_images( int $page = 1, int $per_page = 24 )
 		'has_more' => count( $unique_images ) > ( $offset + $per_page ),
 	);
 }
+
+/**
+ * Find older attachments with the same byte-for-byte image content.
+ * The newest copy is retained because it is the one shown in the feed.
+ *
+ * @return array<int, int> Attachment IDs safe to remove.
+ */
+function honamas_core_get_honstagram_duplicate_attachment_ids(): array {
+	$images = get_posts(
+		array(
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'post_mime_type' => 'image',
+			'posts_per_page' => -1,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+			'meta_key'       => '_honstagram_uploaded',
+			'meta_value'     => '1',
+		)
+	);
+
+	$seen_hashes = array();
+	$duplicates  = array();
+	foreach ( $images as $image ) {
+		$image_id   = $image->ID;
+		$image_hash = get_post_meta( $image_id, '_honstagram_sha256', true );
+		if ( ! $image_hash ) {
+			$file_path  = get_attached_file( $image_id );
+			$image_hash = $file_path && file_exists( $file_path ) ? hash_file( 'sha256', $file_path ) : '';
+			if ( $image_hash ) {
+				update_post_meta( $image_id, '_honstagram_sha256', $image_hash );
+			}
+		}
+
+		if ( $image_hash && isset( $seen_hashes[ $image_hash ] ) ) {
+			$duplicates[] = $image_id;
+			continue;
+		}
+
+		if ( $image_hash ) {
+			$seen_hashes[ $image_hash ] = true;
+		}
+	}
+
+	return $duplicates;
+}
+
+/**
+ * Add an explicit, administrator-only cleanup screen for duplicate uploads.
+ */
+function honamas_core_add_honstagram_cleanup_page(): void {
+	add_management_page(
+		__( 'HONSTAGRAM bereinigen', 'honamas-core' ),
+		__( 'HONSTAGRAM bereinigen', 'honamas-core' ),
+		'manage_options',
+		'honstagram-cleanup',
+		'honamas_core_render_honstagram_cleanup_page'
+	);
+}
+add_action( 'admin_menu', 'honamas_core_add_honstagram_cleanup_page' );
+
+/**
+ * Render the confirmation screen before permanent duplicate removal.
+ */
+function honamas_core_render_honstagram_cleanup_page(): void {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$duplicates = honamas_core_get_honstagram_duplicate_attachment_ids();
+	$removed    = isset( $_GET['honstagram_removed'] ) ? absint( $_GET['honstagram_removed'] ) : 0;
+	?>
+	<div class="wrap">
+		<h1><?php esc_html_e( 'HONSTAGRAM bereinigen', 'honamas-core' ); ?></h1>
+		<?php if ( $removed ) : ?>
+			<div class="notice notice-success is-dismissible"><p><?php echo esc_html( sprintf( _n( '%d doppelte Bilddatei wurde entfernt.', '%d doppelte Bilddateien wurden entfernt.', $removed, 'honamas-core' ), $removed ) ); ?></p></div>
+		<?php endif; ?>
+		<p><?php esc_html_e( 'Es werden ausschließlich byte-identische, ältere Kopien entfernt. Die jeweils neueste Version bleibt erhalten.', 'honamas-core' ); ?></p>
+		<?php if ( $duplicates ) : ?>
+			<p><strong><?php echo esc_html( sprintf( _n( '%d doppelte Bilddatei wurde gefunden.', '%d doppelte Bilddateien wurden gefunden.', count( $duplicates ), 'honamas-core' ), count( $duplicates ) ) ); ?></strong></p>
+			<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+				<input name="action" type="hidden" value="honamas_core_delete_honstagram_duplicates">
+				<?php wp_nonce_field( 'honamas_core_delete_honstagram_duplicates' ); ?>
+				<?php submit_button( __( 'Doppelte Bilder endgültig löschen', 'honamas-core' ), 'delete' ); ?>
+			</form>
+		<?php else : ?>
+			<p><?php esc_html_e( 'Keine doppelten HONSTAGRAM-Bilder gefunden.', 'honamas-core' ); ?></p>
+		<?php endif; ?>
+	</div>
+	<?php
+}
+
+/**
+ * Permanently remove only duplicate HONSTAGRAM attachments after admin confirmation.
+ */
+function honamas_core_delete_honstagram_duplicates(): void {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( esc_html__( 'Du hast keine Berechtigung für diese Aktion.', 'honamas-core' ) );
+	}
+
+	check_admin_referer( 'honamas_core_delete_honstagram_duplicates' );
+	$removed = 0;
+	foreach ( honamas_core_get_honstagram_duplicate_attachment_ids() as $attachment_id ) {
+		if ( wp_delete_attachment( $attachment_id, true ) ) {
+			$removed++;
+		}
+	}
+
+	wp_safe_redirect( add_query_arg( 'honstagram_removed', $removed, admin_url( 'tools.php?page=honstagram-cleanup' ) ) );
+	exit;
+}
+add_action( 'admin_post_honamas_core_delete_honstagram_duplicates', 'honamas_core_delete_honstagram_duplicates' );
 
 /**
  * Return the next gallery page for endless HONSTAGRAM scrolling.
