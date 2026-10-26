@@ -225,7 +225,7 @@ function honamas_core_render_archive_collection(): string {
 				}
 				?>
 				<article class="honamas-archive-card">
-					<a aria-label="<?php echo esc_attr( get_the_title() ); ?>" class="honamas-archive-card__image" href="<?php the_permalink(); ?>">
+					<a aria-label="<?php echo esc_attr( get_the_title() ); ?>" class="honamas-archive-card__image<?php echo has_post_thumbnail() ? '' : ' honamas-archive-card__image--empty'; ?>" href="<?php the_permalink(); ?>">
 						<?php if ( has_post_thumbnail() ) : ?>
 							<?php the_post_thumbnail( 'large', array( 'loading' => 'lazy' ) ); ?>
 						<?php else : ?>
@@ -317,7 +317,7 @@ function honamas_core_render_team_start_image(): string {
 	$image_id  = $team_page ? get_post_thumbnail_id( $team_page ) : 0;
 
 	if ( ! $image_id ) {
-		return '<div class="honamas-team-start__placeholder" aria-hidden="true"></div>';
+		return '';
 	}
 
 	$alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );

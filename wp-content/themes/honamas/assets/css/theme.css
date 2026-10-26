@@ -138,6 +138,8 @@ a:where(:hover, :focus-visible) {
 }
 .honamas-team-start__placeholder { background: var(--wp--preset--color--honamas-line); }
 
+.honamas-team-start__stage.is-text-only { grid-template-columns: minmax(0, 40rem); }
+
 .honamas-team-start__panel {
 	align-self: center;
 	background: rgba(255, 255, 255, 0.94);
@@ -200,7 +202,8 @@ a:where(:hover, :focus-visible) {
 		margin: 0 var(--wp--preset--spacing--40);
 	}
 
-	.honamas-team-start__stage {
+	.honamas-team-start__stage,
+	.honamas-team-start__stage.is-text-only {
 		grid-template-columns: 1fr;
 	}
 }
@@ -380,10 +383,12 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-hero-content h1 {
-	font-size: clamp(4rem, 13vw, 11.5rem);
+	font-size: clamp(2.5rem, 14vw, 11.5rem);
 	letter-spacing: 0;
 	max-width: 100%;
+	overflow-wrap: normal;
 	text-wrap: balance;
+	word-break: normal;
 }
 
 .honamas-hero-content p:not(.honamas-kicker) {
@@ -506,6 +511,11 @@ a:where(:hover, :focus-visible) {
 }
 .honamas-archive-card__image img { height: 100%; object-fit: cover; transition: transform 240ms ease; width: 100%; }
 .honamas-archive-card:hover .honamas-archive-card__image img { transform: scale(1.025); }
+.honamas-archive-card__image--empty {
+	background: var(--wp--preset--color--honamas-off-white);
+	border: 1px solid var(--wp--preset--color--honamas-line);
+}
+.honamas-archive-card__image.honamas-archive-card__image--empty span { color: var(--wp--preset--color--honamas-grey); }
 .honamas-archive-card__image span { color: var(--wp--preset--color--honamas-off-white); font-family: var(--wp--preset--font-family--heading); font-size: var(--wp--preset--font-size--small); font-weight: 700; letter-spacing: 0; text-transform: uppercase; }
 .honamas-archive-card__content { padding-top: var(--wp--preset--spacing--40); }
 .honamas-archive-card__content > * { margin: 0; }

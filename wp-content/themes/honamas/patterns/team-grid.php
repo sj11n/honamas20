@@ -6,7 +6,7 @@
  */
 $team_image = function_exists( 'honamas_core_render_team_start_image' )
 	? honamas_core_render_team_start_image()
-	: '<div class="honamas-team-start__placeholder" aria-hidden="true"></div>';
+	: '';
 ?>
 <!-- wp:group {"align":"full","className":"honamas-team-start","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|90"}}},"backgroundColor":"honamas-white","layout":{"type":"constrained"}} -->
 <div id="team" class="wp-block-group alignfull honamas-team-start has-honamas-white-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--90)">
@@ -16,7 +16,7 @@ $team_image = function_exists( 'honamas_core_render_team_start_image' )
 		<p class="honamas-kicker has-honamas-red-color has-text-color"><?php esc_html_e( 'Die Ur-HONAMAS', 'honamas' ); ?></p>
 		<!-- /wp:paragraph -->
 
-		<div class="honamas-team-start__stage">
+		<div class="honamas-team-start__stage<?php echo $team_image ? '' : ' is-text-only'; ?>">
 			<?php echo wp_kses_post( $team_image ); ?>
 			<div class="honamas-team-start__panel">
 				<!-- wp:paragraph {"className":"honamas-team-start__number"} -->

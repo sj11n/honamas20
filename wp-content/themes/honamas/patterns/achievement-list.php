@@ -9,8 +9,8 @@
 <div id="erfolge" class="wp-block-group alignfull has-honamas-off-white-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:paragraph {"className":"honamas-kicker","textColor":"honamas-gold"} -->
-		<p class="honamas-kicker has-honamas-gold-color has-text-color"><?php esc_html_e( 'Erfolge', 'honamas' ); ?></p>
+		<!-- wp:paragraph {"className":"honamas-kicker","textColor":"honamas-grey"} -->
+		<p class="honamas-kicker has-honamas-grey-color has-text-color"><?php esc_html_e( 'Erfolge', 'honamas' ); ?></p>
 		<!-- /wp:paragraph -->
 		<!-- wp:heading -->
 		<h2><?php esc_html_e( 'Die Erfolge der HONAMAS.', 'honamas' ); ?></h2>
