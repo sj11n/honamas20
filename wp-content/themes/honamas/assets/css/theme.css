@@ -711,6 +711,7 @@ a:where(:hover, :focus-visible) {
 	scrollbar-color: var(--wp--preset--color--honamas-black) var(--wp--preset--color--honamas-line);
 }
 .honamas-milestones.wp-block-group { max-width: none; }
+.honamas-timeline-section { padding-bottom: var(--wp--preset--spacing--70) !important; }
 .honamas-milestone {
 	background: var(--wp--preset--color--honamas-off-white);
 	border-top: 4px solid var(--wp--preset--color--honamas-black);
@@ -725,8 +726,7 @@ a:where(:hover, :focus-visible) {
 }
 .honamas-milestone > * { margin: 0; }
 .honamas-milestone__year {
-	-webkit-text-stroke: 1.5px var(--wp--preset--color--honamas-black);
-	color: transparent;
+	color: var(--wp--preset--color--honamas-black);
 	font-family: var(--wp--preset--font-family--heading);
 	font-size: clamp(2.75rem, 4.2vw, 3.75rem);
 	font-variant-numeric: tabular-nums;
@@ -734,7 +734,7 @@ a:where(:hover, :focus-visible) {
 	line-height: 0.95;
 }
 .honamas-milestone__text {
-	font-size: 0.98rem;
+	font-size: 1rem;
 	line-height: 1.55;
 }
 .honamas-milestone:nth-child(3),
@@ -745,7 +745,6 @@ a:where(:hover, :focus-visible) {
 }
 .honamas-milestone:nth-child(3) .honamas-milestone__year,
 .honamas-milestone:nth-child(7) .honamas-milestone__year {
-	-webkit-text-stroke: 0;
 	color: var(--wp--preset--color--honamas-gold);
 }
 .honamas-milestones:focus-visible { outline: var(--honamas-outline); outline-offset: -4px; }
