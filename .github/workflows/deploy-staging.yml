@@ -3,7 +3,9 @@ name: Deploy to staging
 # Deploys theme and plugin together to staging.honamas.com.
 # - Automatically on every push to main that touches theme or plugin.
 # - Manually for any branch: Actions > Deploy to staging > Run workflow.
+# Uses plain SFTP (lftp), so a Strato SFTP-only user restricted to the staging folder is enough.
 # Media, database and wp-config are never touched.
+# Rollback: re-run this workflow on the previous commit/branch.
 
 on:
   push:
@@ -24,15 +26,15 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     env:
-      SSHPASS: ${{ secrets.STAGING_SSH_PASSWORD }}
+      LFTP_PASSWORD: ${{ secrets.STAGING_SSH_PASSWORD }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare SSH
+      - name: Prepare SFTP
         run: |
-          sudo apt-get install -y -qq sshpass
+          sudo apt-get install -y -qq lftp
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan -H "${{ secrets.STAGING_HOST }}" >> ~/.ssh/known_hosts
@@ -45,29 +47,19 @@ jobs:
             */wp-content/themes/honamas) ;;
             *) echo "STAGING_THEME_PATH must end with /wp-content/themes/honamas, got: $THEME_PATH"; exit 1 ;;
           esac
-          PLUGIN_PATH="${THEME_PATH%/themes/honamas}/plugins/honamas-core"
           echo "THEME_PATH=$THEME_PATH" >> "$GITHUB_ENV"
-          echo "PLUGIN_PATH=$PLUGIN_PATH" >> "$GITHUB_ENV"
+          echo "PLUGIN_PATH=${THEME_PATH%/themes/honamas}/plugins/honamas-core" >> "$GITHUB_ENV"
 
-      - name: Back up current staging code (rollback point)
+      - name: Deploy theme and plugin
         run: |
-          sshpass -e ssh -o StrictHostKeyChecking=yes \
-            "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}" \
-            "mkdir -p ~/honamas-backups && tar -czf ~/honamas-backups/pre-${GITHUB_SHA::8}-\$(date +%Y%m%d-%H%M%S).tgz -C '$THEME_PATH/..' honamas -C '$PLUGIN_PATH/..' honamas-core 2>/dev/null || true; ls -1t ~/honamas-backups | tail -n +11 | while read f; do rm -f ~/honamas-backups/\$f; done"
-
-      - name: Deploy theme
-        run: |
-          rsync -az --delete \
-            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
-            wp-content/themes/honamas/ \
-            "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:$THEME_PATH/"
-
-      - name: Deploy plugin
-        run: |
-          rsync -az --delete \
-            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
-            wp-content/plugins/honamas-core/ \
-            "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:$PLUGIN_PATH/"
+          lftp -u "${{ secrets.STAGING_USER }}" "sftp://${{ secrets.STAGING_HOST }}" <<EOF
+          set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=yes"
+          set net:max-retries 3
+          set net:timeout 30
+          mirror -R --delete --parallel=3 --verbose wp-content/themes/honamas "$THEME_PATH"
+          mirror -R --delete --parallel=3 --verbose wp-content/plugins/honamas-core "$PLUGIN_PATH"
+          bye
+          EOF
 
       - name: Smoke test
         run: |
@@ -84,4 +76,3 @@ jobs:
       - name: Summary
         run: |
           echo "Deployed $GITHUB_SHA (ref $GITHUB_REF_NAME) to staging: theme + plugin." >> "$GITHUB_STEP_SUMMARY"
-          echo "Rollback: untar the latest archive in ~/honamas-backups on the staging server." >> "$GITHUB_STEP_SUMMARY"
