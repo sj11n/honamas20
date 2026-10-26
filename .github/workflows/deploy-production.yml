@@ -1,0 +1,77 @@
+name: Deploy to production
+
+# Manual only. Deploys theme and plugin to honamas.com.
+# Safety gates:
+# - the "production" environment must have required reviewers configured,
+# - the confirmation input must read DEPLOY-LIVE,
+# - only the main branch can be deployed.
+# Do not run before the relaunch is approved: the live site still runs Kubio.
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type DEPLOY-LIVE to confirm"
+        required: true
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy HONAMAS theme and plugin to production
+    runs-on: ubuntu-latest
+    environment: production
+    if: github.ref == 'refs/heads/main' && inputs.confirm == 'DEPLOY-LIVE'
+    env:
+      SSHPASS: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare SSH
+        run: |
+          sudo apt-get install -y -qq sshpass
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H "${{ secrets.PRODUCTION_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Resolve target paths
+        run: |
+          THEME_PATH="${{ secrets.PRODUCTION_THEME_PATH }}"
+          THEME_PATH="${THEME_PATH%/}"
+          case "$THEME_PATH" in
+            */wp-content/themes/honamas) ;;
+            *) echo "PRODUCTION_THEME_PATH must end with /wp-content/themes/honamas, got: $THEME_PATH"; exit 1 ;;
+          esac
+          echo "THEME_PATH=$THEME_PATH" >> "$GITHUB_ENV"
+          echo "PLUGIN_PATH=${THEME_PATH%/themes/honamas}/plugins/honamas-core" >> "$GITHUB_ENV"
+
+      - name: Back up current production code (rollback point)
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=yes \
+            "${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }}" \
+            "mkdir -p ~/honamas-backups-prod && tar -czf ~/honamas-backups-prod/pre-${GITHUB_SHA::8}-\$(date +%Y%m%d-%H%M%S).tgz -C '$THEME_PATH/..' honamas -C '$PLUGIN_PATH/..' honamas-core 2>/dev/null || true"
+
+      - name: Deploy theme
+        run: |
+          rsync -az --delete \
+            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
+            wp-content/themes/honamas/ \
+            "${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }}:$THEME_PATH/"
+
+      - name: Deploy plugin
+        run: |
+          rsync -az --delete \
+            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
+            wp-content/plugins/honamas-core/ \
+            "${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }}:$PLUGIN_PATH/"
+
+      - name: Smoke test
+        run: |
+          sleep 5
+          code=$(curl -s -o /dev/null -w "%{http_code}" https://honamas.com/)
+          echo "Front page: $code"
+          test "$code" = "200"
