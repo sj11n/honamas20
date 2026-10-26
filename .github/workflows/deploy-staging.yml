@@ -1,11 +1,26 @@
-name: Deploy theme to staging
+name: Deploy to staging
+
+# Deploys theme and plugin together to staging.honamas.com.
+# - Automatically on every push to main that touches theme or plugin.
+# - Manually for any branch: Actions > Deploy to staging > Run workflow.
+# Media, database and wp-config are never touched.
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "wp-content/themes/honamas/**"
+      - "wp-content/plugins/honamas-core/**"
+      - ".github/workflows/deploy-staging.yml"
   workflow_dispatch:
 
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
 jobs:
-  deploy-theme:
-    name: Deploy HONAMAS theme
+  deploy:
+    name: Deploy HONAMAS theme and plugin
     runs-on: ubuntu-latest
     environment: staging
 
@@ -17,16 +32,55 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf "%s" "${{ secrets.STAGING_SSH_KEY }}" > ~/.ssh/staging_key
+          printf "%s\n" "${{ secrets.STAGING_SSH_KEY }}" > ~/.ssh/staging_key
           chmod 600 ~/.ssh/staging_key
           ssh-keyscan -H "${{ secrets.STAGING_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Deploy theme files
+      - name: Resolve target paths
+        run: |
+          THEME_PATH="${{ secrets.STAGING_THEME_PATH }}"
+          THEME_PATH="${THEME_PATH%/}"
+          case "$THEME_PATH" in
+            */wp-content/themes/honamas) ;;
+            *) echo "STAGING_THEME_PATH must end with /wp-content/themes/honamas, got: $THEME_PATH"; exit 1 ;;
+          esac
+          PLUGIN_PATH="${THEME_PATH%/themes/honamas}/plugins/honamas-core"
+          echo "THEME_PATH=$THEME_PATH" >> "$GITHUB_ENV"
+          echo "PLUGIN_PATH=$PLUGIN_PATH" >> "$GITHUB_ENV"
+
+      - name: Back up current staging code (rollback point)
+        run: |
+          ssh -i ~/.ssh/staging_key -o StrictHostKeyChecking=yes \
+            "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}" \
+            "mkdir -p ~/honamas-backups && tar -czf ~/honamas-backups/pre-${GITHUB_SHA::8}-\$(date +%Y%m%d-%H%M%S).tgz -C '$THEME_PATH/..' honamas -C '$PLUGIN_PATH/..' honamas-core 2>/dev/null || true; ls -1t ~/honamas-backups | tail -n +11 | while read f; do rm -f ~/honamas-backups/\$f; done"
+
+      - name: Deploy theme
         run: |
           rsync -az --delete \
             -e "ssh -i ~/.ssh/staging_key -o StrictHostKeyChecking=yes" \
             wp-content/themes/honamas/ \
-            "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:${{ secrets.STAGING_THEME_PATH }}/"
+            "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:$THEME_PATH/"
 
-      - name: Post-deploy note
-        run: echo "Theme deployed to staging. WordPress uploads and environment-specific config were not touched."
+      - name: Deploy plugin
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/staging_key -o StrictHostKeyChecking=yes" \
+            wp-content/plugins/honamas-core/ \
+            "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:$PLUGIN_PATH/"
+
+      - name: Smoke test
+        run: |
+          sleep 5
+          code=$(curl -s -o /dev/null -w "%{http_code}" http://staging.honamas.com/)
+          echo "Front page: $code"
+          test "$code" = "200"
+          if curl -s http://staging.honamas.com/robots.txt | grep -q "Disallow: /$"; then
+            echo "robots.txt blocks indexing"
+          else
+            echo "::warning::staging robots.txt does not block indexing"
+          fi
+
+      - name: Summary
+        run: |
+          echo "Deployed $GITHUB_SHA (ref $GITHUB_REF_NAME) to staging: theme + plugin." >> "$GITHUB_STEP_SUMMARY"
+          echo "Rollback: untar the latest archive in ~/honamas-backups on the staging server." >> "$GITHUB_STEP_SUMMARY"
