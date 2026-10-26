@@ -32,14 +32,14 @@ function honamas_enqueue_assets(): void {
 		'honamas-theme',
 		get_theme_file_uri( 'assets/css/theme.css' ),
 		array(),
-		wp_get_theme()->get( 'Version' )
+		(string) filemtime( get_theme_file_path( 'assets/css/theme.css' ) )
 	);
 
 	wp_enqueue_script(
 		'honamas-reveal',
 		get_theme_file_uri( 'assets/js/reveal.js' ),
 		array(),
-		wp_get_theme()->get( 'Version' ),
+		(string) filemtime( get_theme_file_path( 'assets/js/reveal.js' ) ),
 		array(
 			'in_footer' => true,
 			'strategy'  => 'defer',
