@@ -1,11 +1,12 @@
 name: Deploy to production
 
-# Manual only. Deploys theme and plugin to honamas.com.
+# Manual only. Deploys theme and plugin to honamas.com via SFTP (lftp).
 # Safety gates:
-# - the "production" environment must have required reviewers configured,
+# - the "production" environment requires a reviewer's approval,
 # - the confirmation input must read DEPLOY-LIVE,
 # - only the main branch can be deployed.
 # Do not run before the relaunch is approved: the live site still runs Kubio.
+# Rollback: re-run on the previous commit; for full recovery use Strato BackupControl.
 
 on:
   workflow_dispatch:
@@ -25,15 +26,15 @@ jobs:
     environment: production
     if: github.ref == 'refs/heads/main' && inputs.confirm == 'DEPLOY-LIVE'
     env:
-      SSHPASS: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
+      LFTP_PASSWORD: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare SSH
+      - name: Prepare SFTP
         run: |
-          sudo apt-get install -y -qq sshpass
+          sudo apt-get install -y -qq lftp
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan -H "${{ secrets.PRODUCTION_HOST }}" >> ~/.ssh/known_hosts
@@ -49,25 +50,16 @@ jobs:
           echo "THEME_PATH=$THEME_PATH" >> "$GITHUB_ENV"
           echo "PLUGIN_PATH=${THEME_PATH%/themes/honamas}/plugins/honamas-core" >> "$GITHUB_ENV"
 
-      - name: Back up current production code (rollback point)
+      - name: Deploy theme and plugin
         run: |
-          sshpass -e ssh -o StrictHostKeyChecking=yes \
-            "${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }}" \
-            "mkdir -p ~/honamas-backups-prod && tar -czf ~/honamas-backups-prod/pre-${GITHUB_SHA::8}-\$(date +%Y%m%d-%H%M%S).tgz -C '$THEME_PATH/..' honamas -C '$PLUGIN_PATH/..' honamas-core 2>/dev/null || true"
-
-      - name: Deploy theme
-        run: |
-          rsync -az --delete \
-            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
-            wp-content/themes/honamas/ \
-            "${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }}:$THEME_PATH/"
-
-      - name: Deploy plugin
-        run: |
-          rsync -az --delete \
-            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
-            wp-content/plugins/honamas-core/ \
-            "${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }}:$PLUGIN_PATH/"
+          lftp -u "${{ secrets.PRODUCTION_USER }},$LFTP_PASSWORD" "sftp://${{ secrets.PRODUCTION_HOST }}" <<EOF
+          set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=yes"
+          set net:max-retries 3
+          set net:timeout 30
+          mirror -R --delete --parallel=3 --verbose wp-content/themes/honamas "$THEME_PATH"
+          mirror -R --delete --parallel=3 --verbose wp-content/plugins/honamas-core "$PLUGIN_PATH"
+          bye
+          EOF
 
       - name: Smoke test
         run: |
@@ -75,3 +67,7 @@ jobs:
           code=$(curl -s -o /dev/null -w "%{http_code}" https://honamas.com/)
           echo "Front page: $code"
           test "$code" = "200"
+
+      - name: Summary
+        run: |
+          echo "Deployed $GITHUB_SHA (ref $GITHUB_REF_NAME) to production: theme + plugin." >> "$GITHUB_STEP_SUMMARY"
