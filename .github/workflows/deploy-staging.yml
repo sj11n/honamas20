@@ -23,6 +23,8 @@ jobs:
     name: Deploy HONAMAS theme and plugin
     runs-on: ubuntu-latest
     environment: staging
+    env:
+      SSHPASS: ${{ secrets.STAGING_SSH_PASSWORD }}
 
     steps:
       - name: Checkout
@@ -30,10 +32,9 @@ jobs:
 
       - name: Prepare SSH
         run: |
+          sudo apt-get install -y -qq sshpass
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf "%s\n" "${{ secrets.STAGING_SSH_KEY }}" > ~/.ssh/staging_key
-          chmod 600 ~/.ssh/staging_key
           ssh-keyscan -H "${{ secrets.STAGING_HOST }}" >> ~/.ssh/known_hosts
 
       - name: Resolve target paths
@@ -50,21 +51,21 @@ jobs:
 
       - name: Back up current staging code (rollback point)
         run: |
-          ssh -i ~/.ssh/staging_key -o StrictHostKeyChecking=yes \
+          sshpass -e ssh -o StrictHostKeyChecking=yes \
             "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}" \
             "mkdir -p ~/honamas-backups && tar -czf ~/honamas-backups/pre-${GITHUB_SHA::8}-\$(date +%Y%m%d-%H%M%S).tgz -C '$THEME_PATH/..' honamas -C '$PLUGIN_PATH/..' honamas-core 2>/dev/null || true; ls -1t ~/honamas-backups | tail -n +11 | while read f; do rm -f ~/honamas-backups/\$f; done"
 
       - name: Deploy theme
         run: |
           rsync -az --delete \
-            -e "ssh -i ~/.ssh/staging_key -o StrictHostKeyChecking=yes" \
+            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
             wp-content/themes/honamas/ \
             "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:$THEME_PATH/"
 
       - name: Deploy plugin
         run: |
           rsync -az --delete \
-            -e "ssh -i ~/.ssh/staging_key -o StrictHostKeyChecking=yes" \
+            -e "sshpass -e ssh -o StrictHostKeyChecking=yes" \
             wp-content/plugins/honamas-core/ \
             "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:$PLUGIN_PATH/"
 
