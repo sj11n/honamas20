@@ -236,6 +236,7 @@ Bestehende Überschrift: **Our wins**
 - Europameister 2013
 - Weltmeister 2023
 - Europameister 2025
+- Weltmeister 2026
 
 ---
 
@@ -567,7 +568,7 @@ Codex soll diese Assets nicht durch generische Platzhalter ersetzen, sofern die 
 | Januar 2023 | Sporthilfe-Magazin veröffentlicht „Der Sonderweg der HONAMAS“ |
 | 2023 | Weltmeistertitel |
 | 2025 | Europameistertitel |
-| 2026 | 20 Jahre HONAMAS |
+| 2026 | Weltmeistertitel und 20 Jahre HONAMAS |
 
 ---
 

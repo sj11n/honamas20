@@ -24,6 +24,7 @@
 			<li><?php esc_html_e( '2013 - Europameister', 'honamas' ); ?></li>
 			<li><?php esc_html_e( '2023 - Weltmeister', 'honamas' ); ?></li>
 			<li><?php esc_html_e( '2025 - Europameister', 'honamas' ); ?></li>
+			<li><?php esc_html_e( '2026 - Weltmeister', 'honamas' ); ?></li>
 		</ul>
 		<!-- /wp:list -->
 	</div>
