@@ -1,17 +1,20 @@
-<!-- wp:group {"tagName":"header","align":"full","className":"honamas-site-header","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
-<header class="wp-block-group alignfull honamas-site-header" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
-	<!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
-	<div class="wp-block-group alignwide">
-		<!-- wp:site-title {"level":0,"style":{"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"800","letterSpacing":"0"},"elements":{"link":{"color":{"text":"var:preset|color|honamas-black"},"typography":{"textDecoration":"none"}}}},"fontFamily":"heading","fontSize":"large"} /-->
-		<!-- wp:navigation {"overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"right"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
-			<!-- wp:navigation-link {"label":"Start","url":"/"} /-->
-			<!-- wp:navigation-link {"label":"Die Geschichte","url":"/die-idee/"} /-->
-			<!-- wp:navigation-link {"label":"Das Team","url":"/die-ur-honamas/"} /-->
-			<!-- wp:navigation-link {"label":"Der Honama","url":"/der-honama/"} /-->
-			<!-- wp:navigation-link {"label":"Archiv","url":"/archiv/"} /-->
-			<!-- wp:navigation-link {"label":"Der Film","url":"/der-film/"} /-->
-		<!-- /wp:navigation -->
-	</div>
-	<!-- /wp:group -->
-</header>
-<!-- /wp:group -->
+<!-- wp:html -->
+<a class="brand" href="/" aria-label="HONAMAS, Startseite">HONAMAS</a>
+	<nav class="nav" aria-label="Hauptnavigation">
+		<a href="/#geschichte">Geschichte</a>
+		<a href="/der-honama/">Der Honama</a>
+		<a href="/die-ur-honamas/">Ur-HONAMAS</a>
+		<a href="/erfolge/">Erfolge</a>
+		<a class="button" href="/der-film/">Film ansehen</a>
+	</nav>
+	<details class="menu">
+		<summary>Menü</summary>
+		<div class="menu-panel">
+			<a href="/#geschichte">Geschichte</a>
+			<a href="/der-honama/">Der Honama</a>
+			<a href="/die-ur-honamas/">Ur-HONAMAS</a>
+			<a href="/erfolge/">Erfolge</a>
+			<a class="button" href="/der-film/">Film ansehen</a>
+		</div>
+	</details>
+<!-- /wp:html -->

@@ -20,26 +20,38 @@ function honamas_setup(): void {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'html5', array( 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
 
-	add_editor_style( 'assets/css/theme.css' );
+	add_editor_style( 'assets/css/site.css' );
 }
 add_action( 'after_setup_theme', 'honamas_setup' );
 
 /**
  * Enqueue front-end assets.
+ *
+ * site.css and site.js carry the HONAMAS design on every page. The previous theme.css is only
+ * loaded where the archive templates still rely on its classes.
  */
 function honamas_enqueue_assets(): void {
 	wp_enqueue_style(
-		'honamas-theme',
-		get_theme_file_uri( 'assets/css/theme.css' ),
+		'honamas-site',
+		get_theme_file_uri( 'assets/css/site.css' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/css/theme.css' ) )
+		(string) filemtime( get_theme_file_path( 'assets/css/site.css' ) )
 	);
 
+	if ( is_post_type_archive( 'honamas_archive_item' ) || is_singular( 'honamas_archive_item' ) ) {
+		wp_enqueue_style(
+			'honamas-archive',
+			get_theme_file_uri( 'assets/css/theme.css' ),
+			array( 'honamas-site' ),
+			(string) filemtime( get_theme_file_path( 'assets/css/theme.css' ) )
+		);
+	}
+
 	wp_enqueue_script(
-		'honamas-reveal',
-		get_theme_file_uri( 'assets/js/reveal.js' ),
+		'honamas-site',
+		get_theme_file_uri( 'assets/js/site.js' ),
 		array(),
-		(string) filemtime( get_theme_file_path( 'assets/js/reveal.js' ) ),
+		(string) filemtime( get_theme_file_path( 'assets/js/site.js' ) ),
 		array(
 			'in_footer' => true,
 			'strategy'  => 'defer',
@@ -47,6 +59,19 @@ function honamas_enqueue_assets(): void {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'honamas_enqueue_assets' );
+
+/**
+ * Mark the document as scripted before first paint, so entrance animations never hide content without JS,
+ * and preload the display weight of the local font.
+ */
+function honamas_head_early(): void {
+	echo "<script>document.documentElement.classList.add('js')</script>\n";
+	printf(
+		'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+		esc_url( get_theme_file_uri( 'assets/fonts/montserrat-latin-800-normal.woff2' ) )
+	);
+}
+add_action( 'wp_head', 'honamas_head_early', 1 );
 
 /**
  * Register HONAMAS pattern categories.
