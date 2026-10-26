@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy theme and plugin
         run: |
-          lftp -u "${{ secrets.STAGING_USER }}" "sftp://${{ secrets.STAGING_HOST }}" <<EOF
+          lftp -u "${{ secrets.STAGING_USER }},$LFTP_PASSWORD" "sftp://${{ secrets.STAGING_HOST }}" <<EOF
           set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=yes"
           set net:max-retries 3
           set net:timeout 30
