@@ -5,10 +5,14 @@
  * Categories: honamas-sections
  */
 ?>
-<!-- wp:quote {"className":"honamas-rule","style":{"typography":{"fontStyle":"normal","fontWeight":"800","lineHeight":"1.12"}},"fontFamily":"heading","fontSize":"x-large"} -->
-<blockquote class="wp-block-quote honamas-rule has-heading-font-family has-x-large-font-size" style="font-style:normal;font-weight:800;line-height:1.12">
-	<!-- wp:paragraph -->
-	<p><?php esc_html_e( 'Eine Mannschaft gab sich einen Namen.', 'honamas' ); ?></p>
-	<!-- /wp:paragraph -->
-</blockquote>
-<!-- /wp:quote -->
+<!-- wp:group {"align":"full","className":"honamas-statement","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90"}}},"backgroundColor":"honamas-white","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull honamas-statement has-honamas-white-background-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-bottom:var(--wp--preset--spacing--90)">
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:paragraph {"className":"honamas-statement__text"} -->
+		<p class="honamas-statement__text"><?php esc_html_e( 'Eine Mannschaft gab sich einen Namen.', 'honamas' ); ?></p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+</div>
+<!-- /wp:group -->

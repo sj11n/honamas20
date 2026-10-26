@@ -138,6 +138,8 @@ a:where(:hover, :focus-visible) {
 }
 .honamas-team-start__placeholder { background: var(--wp--preset--color--honamas-line); }
 
+.honamas-team-start__stage.is-text-only { grid-template-columns: minmax(0, 40rem); }
+
 .honamas-team-start__panel {
 	align-self: center;
 	background: rgba(255, 255, 255, 0.94);
@@ -200,7 +202,8 @@ a:where(:hover, :focus-visible) {
 		margin: 0 var(--wp--preset--spacing--40);
 	}
 
-	.honamas-team-start__stage {
+	.honamas-team-start__stage,
+	.honamas-team-start__stage.is-text-only {
 		grid-template-columns: 1fr;
 	}
 }
@@ -286,7 +289,7 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-video-hero::before {
-	background: linear-gradient(90deg, rgba(17, 17, 20, 0.5) 0%, rgba(17, 17, 20, 0.24) 58%, rgba(17, 17, 20, 0.38) 100%);
+	background: linear-gradient(90deg, rgba(17, 17, 20, 0.62) 0%, rgba(17, 17, 20, 0.28) 58%, rgba(17, 17, 20, 0.42) 100%), linear-gradient(0deg, rgba(17, 17, 20, 0.55) 0%, transparent 38%);
 	content: "";
 	inset: 0;
 	position: absolute;
@@ -301,7 +304,22 @@ a:where(:hover, :focus-visible) {
 	opacity: 0 !important;
 }
 
-.honamas-video-hero::after { display: none; }
+.honamas-video-hero::after {
+	background: linear-gradient(var(--wp--preset--color--honamas-white), var(--wp--preset--color--honamas-white)) center top / 1px 3rem no-repeat;
+	bottom: 1.25rem;
+	color: var(--wp--preset--color--honamas-white);
+	content: "Scroll";
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.7rem;
+	font-weight: 700;
+	left: 50%;
+	letter-spacing: 0.2em;
+	padding-top: 3.5rem;
+	position: absolute;
+	text-transform: uppercase;
+	transform: translateX(-50%);
+	z-index: 3;
+}
 
 .honamas-video-hero .wp-block-cover__image-background,
 .honamas-video-hero video.wp-block-cover__video-background {
@@ -380,10 +398,12 @@ a:where(:hover, :focus-visible) {
 }
 
 .honamas-hero-content h1 {
-	font-size: clamp(4rem, 13vw, 11.5rem);
+	font-size: clamp(2.5rem, 14vw, 11.5rem);
 	letter-spacing: 0;
 	max-width: 100%;
+	overflow-wrap: normal;
 	text-wrap: balance;
+	word-break: normal;
 }
 
 .honamas-hero-content p:not(.honamas-kicker) {
@@ -506,6 +526,11 @@ a:where(:hover, :focus-visible) {
 }
 .honamas-archive-card__image img { height: 100%; object-fit: cover; transition: transform 240ms ease; width: 100%; }
 .honamas-archive-card:hover .honamas-archive-card__image img { transform: scale(1.025); }
+.honamas-archive-card__image--empty {
+	background: var(--wp--preset--color--honamas-off-white);
+	border: 1px solid var(--wp--preset--color--honamas-line);
+}
+.honamas-archive-card__image.honamas-archive-card__image--empty span { color: var(--wp--preset--color--honamas-grey); }
 .honamas-archive-card__image span { color: var(--wp--preset--color--honamas-off-white); font-family: var(--wp--preset--font-family--heading); font-size: var(--wp--preset--font-size--small); font-weight: 700; letter-spacing: 0; text-transform: uppercase; }
 .honamas-archive-card__content { padding-top: var(--wp--preset--spacing--40); }
 .honamas-archive-card__content > * { margin: 0; }
@@ -604,4 +629,208 @@ a:where(:hover, :focus-visible) {
 	.honamas-archive-navigation a { justify-content: center; width: 100%; }
 	.honamas-archive-navigation__overview, .honamas-archive-navigation__next { margin-left: 0; margin-right: 0; }
 
+}
+
+
+/* ==========================================================================
+   Design pass: editorial rhythm, oversized type, horizontal milestones
+   ========================================================================== */
+
+.honamas-display-h2 {
+	font-size: clamp(2.25rem, 5.4vw, 4.75rem);
+	letter-spacing: -0.01em;
+	line-height: 1.02;
+	max-width: 16ch;
+	text-wrap: balance;
+}
+
+.honamas-kicker--dot::before {
+	background: var(--wp--preset--color--honamas-pink);
+	border-radius: 50%;
+	content: "";
+	display: inline-block;
+	height: 0.55rem;
+	margin-right: 0.6rem;
+	vertical-align: 0.05em;
+	width: 0.55rem;
+}
+
+/* Reveal on scroll (class added by reveal.js, so nothing hides without JS) */
+.is-reveal {
+	opacity: 0;
+	transform: translateY(18px);
+	transition: opacity 280ms ease, transform 280ms ease;
+}
+.is-reveal.is-in {
+	opacity: 1;
+	transform: none;
+}
+
+/* Story: oversized year watermark */
+.honamas-story-origin {
+	overflow: hidden;
+	position: relative;
+}
+.honamas-story-origin::before {
+	-webkit-text-stroke: 2px var(--wp--preset--color--honamas-line);
+	color: transparent;
+	content: "2006";
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(9rem, 32vw, 30rem);
+	font-weight: 800;
+	line-height: 0.8;
+	pointer-events: none;
+	position: absolute;
+	right: -0.04em;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 0;
+}
+.honamas-story-origin .wp-block-columns {
+	position: relative;
+	z-index: 1;
+}
+.honamas-story-origin h2 {
+	font-size: clamp(2.25rem, 4.8vw, 4.25rem);
+	line-height: 1.02;
+	max-width: 11ch;
+}
+.honamas-story-origin .wp-block-column:last-child {
+	background: rgba(255, 255, 255, 0.82);
+}
+
+/* Milestones: horizontal scroller with snap */
+.honamas-milestones {
+	display: flex;
+	gap: 1rem;
+	margin-top: var(--wp--preset--spacing--70);
+	overflow-x: auto;
+	padding: 0.5rem max(var(--wp--preset--spacing--50), calc((100vw - 1280px) / 2)) 1.5rem;
+	scroll-padding-inline: max(var(--wp--preset--spacing--50), calc((100vw - 1280px) / 2));
+	scroll-snap-type: x proximity;
+	scrollbar-color: var(--wp--preset--color--honamas-black) var(--wp--preset--color--honamas-line);
+}
+.honamas-milestones.wp-block-group { max-width: none; }
+.honamas-timeline-section { padding-bottom: var(--wp--preset--spacing--70) !important; }
+.honamas-milestone {
+	background: var(--wp--preset--color--honamas-off-white);
+	border-top: 4px solid var(--wp--preset--color--honamas-black);
+	display: flex;
+	flex: 0 0 min(21rem, 80vw);
+	flex-direction: column;
+	gap: 1.25rem;
+	justify-content: space-between;
+	min-height: 22rem;
+	padding: 1.75rem 1.5rem 2rem;
+	scroll-snap-align: start;
+}
+.honamas-milestone > * { margin: 0; }
+.honamas-milestone__year {
+	color: var(--wp--preset--color--honamas-black);
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(2.75rem, 4.2vw, 3.75rem);
+	font-variant-numeric: tabular-nums;
+	font-weight: 800;
+	line-height: 0.95;
+}
+.honamas-milestone__text {
+	font-size: 1rem;
+	line-height: 1.55;
+}
+.honamas-milestone:nth-child(3),
+.honamas-milestone:nth-child(7) {
+	background: var(--wp--preset--color--honamas-black);
+	border-top-color: var(--wp--preset--color--honamas-pink);
+	color: var(--wp--preset--color--honamas-white);
+}
+.honamas-milestone:nth-child(3) .honamas-milestone__year,
+.honamas-milestone:nth-child(7) .honamas-milestone__year {
+	color: var(--wp--preset--color--honamas-gold);
+}
+.honamas-milestones:focus-visible { outline: var(--honamas-outline); outline-offset: -4px; }
+
+/* Statement band */
+.honamas-statement__text {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(2.75rem, 9vw, 8.5rem);
+	font-weight: 800;
+	line-height: 0.98;
+	margin: 0;
+	max-width: 12ch;
+	text-wrap: balance;
+}
+.honamas-statement__text::before {
+	background: var(--wp--preset--color--honamas-pink);
+	content: "";
+	display: block;
+	height: 0.5rem;
+	margin-bottom: clamp(1.25rem, 3vw, 2.25rem);
+	width: clamp(4rem, 10vw, 8rem);
+}
+
+/* Honours */
+.honamas-honours {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	margin-top: var(--wp--preset--spacing--70);
+	max-width: none;
+}
+.honamas-honour {
+	background: var(--wp--preset--color--honamas-white);
+	border-top: 4px solid var(--wp--preset--color--honamas-black);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1.75rem 1.75rem 2rem;
+}
+.honamas-honour > * { margin: 0; }
+.honamas-honour__count {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: clamp(5.5rem, 11vw, 9.5rem);
+	font-weight: 800;
+	line-height: 0.85;
+}
+.honamas-honour__title {
+	font-size: clamp(1.25rem, 2vw, 1.75rem) !important;
+	text-transform: none !important;
+}
+.honamas-honour__years {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 1rem !important;
+}
+.honamas-honour__year {
+	border: 1px solid var(--wp--preset--color--honamas-black);
+	border-radius: 999px;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: 0.9rem;
+	font-variant-numeric: tabular-nums;
+	font-weight: 700;
+	padding: 0.35rem 0.85rem;
+}
+
+/* Film: bigger heading */
+.honamas-film-teaser h2 {
+	font-size: clamp(2.5rem, 6vw, 5.5rem);
+	line-height: 1;
+	max-width: 12ch;
+}
+
+@media (max-width: 900px) {
+	.honamas-honours { grid-template-columns: 1fr; }
+	.honamas-honour { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; }
+	.honamas-honour__count { flex: 0 0 auto; font-size: 5rem; }
+	.honamas-honour__years { flex: 1 0 100%; }
+}
+
+@media (max-width: 700px) {
+	.honamas-story-origin::before { opacity: 0.6; top: 14%; transform: none; }
+	.honamas-milestone { min-height: 18rem; }
+	.honamas-milestone__year { font-size: 2.25rem; overflow-wrap: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.is-reveal { opacity: 1; transform: none; transition: none; }
 }

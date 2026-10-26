@@ -1,0 +1,73 @@
+name: Deploy to production
+
+# Manual only. Deploys theme and plugin to honamas.com via SFTP (lftp).
+# Safety gates:
+# - the "production" environment requires a reviewer's approval,
+# - the confirmation input must read DEPLOY-LIVE,
+# - only the main branch can be deployed.
+# Do not run before the relaunch is approved: the live site still runs Kubio.
+# Rollback: re-run on the previous commit; for full recovery use Strato BackupControl.
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type DEPLOY-LIVE to confirm"
+        required: true
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy HONAMAS theme and plugin to production
+    runs-on: ubuntu-latest
+    environment: production
+    if: github.ref == 'refs/heads/main' && inputs.confirm == 'DEPLOY-LIVE'
+    env:
+      LFTP_PASSWORD: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare SFTP
+        run: |
+          sudo apt-get install -y -qq lftp
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H "${{ secrets.PRODUCTION_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Resolve target paths
+        run: |
+          THEME_PATH="${{ secrets.PRODUCTION_THEME_PATH }}"
+          THEME_PATH="${THEME_PATH%/}"
+          case "$THEME_PATH" in
+            */wp-content/themes/honamas) ;;
+            *) echo "PRODUCTION_THEME_PATH must end with /wp-content/themes/honamas, got: $THEME_PATH"; exit 1 ;;
+          esac
+          echo "THEME_PATH=$THEME_PATH" >> "$GITHUB_ENV"
+          echo "PLUGIN_PATH=${THEME_PATH%/themes/honamas}/plugins/honamas-core" >> "$GITHUB_ENV"
+
+      - name: Deploy theme and plugin
+        run: |
+          lftp -u "${{ secrets.PRODUCTION_USER }},$LFTP_PASSWORD" "sftp://${{ secrets.PRODUCTION_HOST }}" <<EOF
+          set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=yes"
+          set net:max-retries 3
+          set net:timeout 30
+          mirror -R --delete --parallel=3 --verbose wp-content/themes/honamas "$THEME_PATH"
+          mirror -R --delete --parallel=3 --verbose wp-content/plugins/honamas-core "$PLUGIN_PATH"
+          bye
+          EOF
+
+      - name: Smoke test
+        run: |
+          sleep 5
+          code=$(curl -s -o /dev/null -w "%{http_code}" https://honamas.com/)
+          echo "Front page: $code"
+          test "$code" = "200"
+
+      - name: Summary
+        run: |
+          echo "Deployed $GITHUB_SHA (ref $GITHUB_REF_NAME) to production: theme + plugin." >> "$GITHUB_STEP_SUMMARY"
