@@ -13,29 +13,73 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register theme support and editor features.
  */
 function honamas_setup(): void {
-	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'editor-styles' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'html5', array( 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
 
-	add_editor_style( 'assets/css/theme.css' );
+	add_editor_style( 'assets/css/site.css' );
 }
 add_action( 'after_setup_theme', 'honamas_setup' );
 
 /**
  * Enqueue front-end assets.
+ *
+ * site.css and site.js carry the HONAMAS design on every page.
  */
 function honamas_enqueue_assets(): void {
 	wp_enqueue_style(
-		'honamas-theme',
-		get_theme_file_uri( 'assets/css/theme.css' ),
+		'honamas-site',
+		get_theme_file_uri( 'assets/css/site.css' ),
 		array(),
-		wp_get_theme()->get( 'Version' )
+		(string) filemtime( get_theme_file_path( 'assets/css/site.css' ) )
+	);
+
+	wp_enqueue_script(
+		'honamas-site',
+		get_theme_file_uri( 'assets/js/site.js' ),
+		array(),
+		(string) filemtime( get_theme_file_path( 'assets/js/site.js' ) ),
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
 	);
 }
 add_action( 'wp_enqueue_scripts', 'honamas_enqueue_assets' );
+
+/**
+ * Mark the document as scripted before first paint, so entrance animations never hide content without JS,
+ * and preload the display weight of the local font.
+ */
+function honamas_head_early(): void {
+	// The 'js' class hides content for its entrance; if site.js never runs, it is removed again after 3 s.
+	echo "<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.honamasReady){document.documentElement.classList.remove('js')}},3000)</script>\n";
+	printf(
+		'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+		esc_url( get_theme_file_uri( 'assets/fonts/montserrat-latin-800-normal.woff2' ) )
+	);
+}
+add_action( 'wp_head', 'honamas_head_early', 1 );
+
+/**
+ * Mark the content blocks that rise in as their section enters the screen (see site.js).
+ * Editors do not have to set anything: every heading, paragraph, image, quote, list, video and button group takes part.
+ */
+function honamas_mark_reveal_blocks( string $block_content, array $block ): string {
+	static $names = array( 'core/heading', 'core/paragraph', 'core/image', 'core/quote', 'core/list', 'core/video', 'core/buttons' );
+	if ( is_admin() || '' === trim( $block_content ) || ! in_array( $block['blockName'] ?? '', $names, true ) ) {
+		return $block_content;
+	}
+	$tags = new WP_HTML_Tag_Processor( $block_content );
+	if ( $tags->next_tag() ) {
+		$tags->set_attribute( 'data-r', '' );
+		return $tags->get_updated_html();
+	}
+	return $block_content;
+}
+add_filter( 'render_block', 'honamas_mark_reveal_blocks', 10, 2 );
 
 /**
  * Register HONAMAS pattern categories.
@@ -52,3 +96,35 @@ function honamas_register_pattern_categories(): void {
 	);
 }
 add_action( 'init', 'honamas_register_pattern_categories' );
+
+/**
+ * Keep every non-production environment out of search indexes.
+ *
+ * Staging counts as non-production either by WP_ENVIRONMENT_TYPE or by host name.
+ */
+function honamas_is_non_production(): bool {
+	$host = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) : '';
+
+	return 'production' !== wp_get_environment_type() || str_starts_with( $host, 'staging.' );
+}
+
+function honamas_noindex_non_production( array $robots ): array {
+	if ( honamas_is_non_production() ) {
+		$robots['noindex']  = true;
+		$robots['nofollow'] = true;
+		unset( $robots['index'], $robots['follow'] );
+	}
+
+	return $robots;
+}
+add_filter( 'wp_robots', 'honamas_noindex_non_production' );
+
+function honamas_disallow_non_production_robots( string $output ): string {
+	return honamas_is_non_production() ? "User-agent: *\nDisallow: /\n" : $output;
+}
+add_filter( 'robots_txt', 'honamas_disallow_non_production_robots', 99 );
+
+add_filter(
+	'wp_sitemaps_enabled',
+	static fn( bool $enabled ): bool => honamas_is_non_production() ? false : $enabled
+);

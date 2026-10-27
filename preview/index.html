@@ -1,70 +1,279 @@
 <!doctype html>
 <html lang="de">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>HONAMAS Theme Demo</title>
-		<link rel="stylesheet" href="demo.css">
-	</head>
-	<body>
-		<header class="site-header">
-			<div class="inner">
-				<a class="brand" href="#top">HONAMAS</a>
-				<nav class="nav" aria-label="Hauptnavigation">
-					<a href="#story">Story</a><a href="#wm-2006">2006</a><a href="#identity">Identität</a><a href="#film">Film</a><a href="#erfolge">Erfolge</a>
-				</nav>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HONAMAS – Der Name der deutschen Hockey-Nationalmannschaft</title>
+<meta name="description" content="HONAMAS: Wie sich die deutsche Hockey-Nationalmannschaft der Herren 2006 einen Namen gab, eine Identität baute und Weltmeister wurde.">
+<link rel="preload" href="assets/fonts/montserrat-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#idee">Zum Inhalt</a>
+
+<header class="site-header">
+	<a class="brand" href="#top" aria-label="HONAMAS, Anfang der Seite">HONAMAS</a>
+	<nav class="nav" aria-label="Hauptnavigation">
+		<a href="#geschichte">Geschichte</a>
+		<a href="honama.html">Der Honama</a>
+		<a href="die-ur-honamas.html">Ur-HONAMAS</a>
+		<a href="erfolge.html">Erfolge</a>
+		<a class="button" href="film.html">Film ansehen</a>
+	</nav>
+	<details class="menu">
+		<summary>Menü</summary>
+		<div class="menu-panel">
+			<a href="#geschichte">Geschichte</a>
+			<a href="honama.html">Der Honama</a>
+			<a href="die-ur-honamas.html">Ur-HONAMAS</a>
+			<a href="erfolge.html">Erfolge</a>
+			<a class="button" href="film.html">Film ansehen</a>
+		</div>
+	</details>
+</header>
+
+<main id="top">
+
+<section class="hero" aria-label="Einstieg">
+	<video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-tribuene.jpg" aria-hidden="true">
+		<source src="assets/video/honamas-hero.mp4" type="video/mp4">
+	</video>
+	<div class="hero-scrim"></div>
+	<div class="hero-copy">
+		<p>Der Name der deutschen Hockey-Nationalmannschaft der Herren. 2006 im Whirlpool erfunden.</p>
+		<a class="button" href="#geschichte">Die Geschichte lesen</a>
+	</div>
+	<div class="hero-name mono-type" id="heroName"><h1>HONAMAS</h1></div>
+</section>
+
+<section class="section idea" id="idee" aria-labelledby="h-idee">
+	<div class="wrap">
+		<div class="grid idea-head">
+			<h2 id="h-idee" data-r>Eine Frage, ein Name.</h2>
+			<div class="idea-text">
+				<p class="statement" data-r style="--d:1">Warum heißen die Australier Kookaburras, wir aber nur „die deutsche Herren-Nationalmannschaft“?</p>
+				<div class="body" data-r style="--d:2">
+					<p>Auf einer Länderspielreise nach Australien fällt Björn Emmerling auf, dass dort jeder sofort weiß, wer mit den Kookaburras, Wallabies und Hockeyroos gemeint ist. Der Name allein reicht.</p>
+					<p>Vor der Heim-WM 2006 stellt er die Idee im Trainingslager in Mönchengladbach vor, in der Runde im Whirlpool des Hotels Mercure. Wenn die Fußballer die „FuBaNaMa“ sind, dann sind wir die HONAMAS.</p>
+					<p><a class="textlink" href="die-idee.html">Die ganze Idee lesen</a></p>
+				</div>
 			</div>
-		</header>
+			<figure class="idea-photo" data-r style="--d:2">
+				<img src="assets/img/kookaburras-schild.jpg" width="347" height="520" loading="lazy" alt="Fan mit einem selbst gemalten Schild „Let's go Kookaburras“">
+				<figcaption class="small">Kookaburras: Herrenhockey. Wallabies: Rugby. Hockeyroos: Frauenhockey.</figcaption>
+			</figure>
+		</div>
 
-		<main id="top">
-			<section class="hero video-hero" aria-label="HONAMAS Hero mit Videohintergrund">
-				<div class="hero-media" aria-hidden="true"><div class="video-placeholder"><span>Videohintergrund</span></div></div>
-				<div class="inner hero-copy">
-					<p class="kicker">Champions since 2006</p>
-					<h1>HONAMAS</h1>
-					<p class="hero-lead">Eine Mannschaft gab sich einen Namen, baute eine Identität und wurde Weltmeister.</p>
-					<div class="button-row"><a class="button" href="#story">Story lesen</a><a class="button secondary" href="#film">Film ansehen</a></div>
+		<div class="syllables" data-r>
+			<div class="syl-row" role="group" aria-label="Der Name in vier Silben">
+				<button class="syl mono-type" type="button" aria-pressed="true" data-i="0">HO</button>
+				<button class="syl mono-type" type="button" aria-pressed="false" data-i="1">NA</button>
+				<button class="syl mono-type" type="button" aria-pressed="false" data-i="2">MA</button>
+				<button class="syl mono-type" type="button" aria-pressed="false" data-i="3">S</button>
+			</div>
+			<div class="syl-read" aria-live="polite">
+				<ul>
+					<li><b>HO</b> steht für <b>HO</b>ckey.</li>
+					<li><b>NA</b> steht für <b>NA</b>tional.</li>
+					<li><b>MA</b> steht für <b>MA</b>nnschaft.</li>
+					<li><b>S</b> steht für die Mehrzahl: HONAMAS gibt es nie allein, nur als Team.</li>
+				</ul>
+				<p class="small">HOckeyNAtionalMAnnschaft, kurz HONAMA. Das S macht daraus das Team.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section-tight" id="geschichte" aria-labelledby="h-geschichte">
+	<div class="wrap">
+		<div class="grid story-head">
+			<h2 id="h-geschichte" data-r>Von der Idee zur Marke.</h2>
+			<p class="body" data-r style="--d:1">Fünf Kapitel, von Australien bis zur Markeneintragung. Wählen Sie ein Kapitel.</p>
+		</div>
+		<div class="acc" id="acc" data-r>
+
+			<article class="stage is-open" style="--tone:#111114;--tone-ink:#fff">
+				<button class="stage-btn" type="button" aria-expanded="true"><span class="rot">Die Idee</span></button>
+				<div class="stage-panel">
+					<div class="stage-text"><h3>Die Idee</h3><div class="stage-body"><p>Auf einer Länderspielreise fällt einem Spieler auf, dass in Australien jede Nationalmannschaft einen Namen trägt. Vor der Heim-WM 2006 wird daraus im Whirlpool HONAMAS.</p><a class="textlink stage-link" href="die-idee.html">Kapitel lesen</a></div></div>
+					<div class="stage-media"><img src="assets/img/kookaburras-schild.jpg" width="347" height="520" loading="lazy" alt="Fan mit einem selbst gemalten Schild „Let's go Kookaburras“"></div>
 				</div>
-			</section>
+			</article>
 
-			<section class="statement">
-				<div class="inner split"><p class="meta">2006-2026</p><h2>Zwanzig Jahre nach dem WM-Titel ist HONAMAS Teil der deutschen Hockeykultur.</h2></div>
-			</section>
-
-			<section id="story" class="section grid-section">
-				<div class="inner split story-layout">
-					<div><p class="kicker red">Die Idee</p><h2>Aus einer Frage wurde ein Name.</h2></div>
-					<div class="copy story-copy">
-						<p class="lead">Anfang der 2000er-Jahre fiel Björn Emmerling auf einer Australienreise auf, dass Namen wie Kookaburras, Wallabies und Hockeyroos ohne Erklärung verstanden wurden.</p>
-						<p>Vor der Heim-WM 2006 stellte er die Idee der Mannschaft in einem Trainingslager in Mönchengladbach vor. In der Runde im Whirlpool entstand aus der scherzhaft erwähnten „FuBaNaMa“ die Abkürzung HOckey NAtional MAnnSchaft: HONAMAS.</p>
-					</div>
+			<article class="stage" style="--tone:#33333a;--tone-ink:#fff">
+				<button class="stage-btn" type="button" aria-expanded="false"><span class="rot">2006</span></button>
+				<div class="stage-panel">
+					<div class="stage-text"><h3>2006: Von der Idee zur Umsetzung</h3><div class="stage-body"><p>Logo, Team Identity, Teamoutfit und 1.500 Shirts: Die Mannschaft macht sich selbst sichtbar, ohne Auftrag und ohne Freigabe. Am 17. September wird sie Weltmeister.</p><a class="textlink stage-link" href="2006-von-der-idee-zur-umsetzung.html">Kapitel lesen</a></div></div>
+					<div class="stage-media"><img src="assets/img/buehne-2006.jpg" width="1400" height="1050" loading="lazy" alt="Spieler mit Medaillen und Deutschlandtrikots auf einer Bühne nach dem WM-Titel"></div>
 				</div>
-			</section>
+			</article>
 
-			<section id="wm-2006" class="section timeline-section">
-				<div class="inner"><p class="kicker">Die Geschichte</p><h2>Von der Idee zur Umsetzung.</h2>
-					<div class="timeline">
-						<article class="timeline-item"><p class="meta">2000/2001</p><h3>Eine Beobachtung</h3><p>Auf einer Länderspielreise nach Australien entsteht die Frage nach einem eigenen, verständlichen Namen für die deutsche Herren-Nationalmannschaft.</p></article>
-						<article class="timeline-item"><p class="meta">2006</p><h3>Die Mannschaft wird sichtbar</h3><p>Vor der Heim-WM definiert das Team Werte und Eigenschaften, entwickelt Team Identity und Logo, trägt Trainingstrikots und organisiert eigenes Teamequipment sowie 1.500 Shirts für Fans.</p></article>
-						<article class="timeline-item"><p class="meta">17. September 2006</p><h3>Weltmeister im eigenen Land</h3><p>In Mönchengladbach wird die Mannschaft Weltmeister.</p></article>
-						<article class="timeline-item"><p class="meta">2010</p><h3>Die Marke bleibt erhalten</h3><p>Björn Emmerling meldet die Marke HONAMAS persönlich an, nachdem der Verband den Namen nicht formal abgesichert hat.</p></article>
-						<article class="timeline-item"><p class="meta">2015</p><h3>Die Geschichte wird neu erzählt</h3><p>Nach Olympiasiegen und Europameistertiteln war der Ursprung des Namens für viele jüngere Spieler kaum noch präsent. Valentin Altenburg lädt Björn Emmerling zu einem Lehrgang in Mannheim ein, damit die Mannschaft die ursprüngliche Geschichte wieder kennenlernt.</p></article>
-						<article class="timeline-item"><p class="meta">2021</p><h3>Eine späte Anerkennung</h3><p>Nach zehn Jahren übergibt Björn Emmerling die Rechte geordnet an den DHB. Der Verband trägt die Marke am 16. Juni 2021 offiziell ein.</p></article>
-					</div>
+			<article class="stage" style="--tone:#66666e;--tone-ink:#fff">
+				<button class="stage-btn" type="button" aria-expanded="false"><span class="rot">Die Jahre danach</span></button>
+				<div class="stage-panel">
+					<div class="stage-text"><h3>Die Jahre danach</h3><div class="stage-body"><p>Olympiagold und Europameistertitel, doch der Name verschwindet fast. 2015 erzählt Björn der Mannschaft in Mannheim die Geschichte neu.</p><a class="textlink stage-link" href="die-jahre-danach.html">Kapitel lesen</a></div></div>
+					<div class="stage-media"><img src="assets/img/insta-2015.jpg" width="1400" height="839" loading="lazy" alt="Erster Instagram-Post von honamas_hockey vom 1. Juni 2015: Finally on Instagram"></div>
 				</div>
-			</section>
+			</article>
 
-			<section id="identity" class="section identity-section">
-				<div class="inner split"><p class="meta">Team Identity</p><div class="copy"><h2>Mehr als nur eine Nationalmannschaft.</h2><p class="lead">HONAMAS ist die Kurzform für HOckey NAtional MAnnSchaft. Die Mannschaft verstand sich als Team mit Charakter: jung, kreativ und mutig, zugleich diszipliniert und zielstrebig.</p><p>Auf dem Platz verband das Team Struktur mit Freiheit: kompromisslos und verlässlich in der Abwehr, schnell, variabel und gefährlich im Angriff nach dem Prinzip S.V.A.T.: Schnell. Variabel. Aggressiv. Tor. Der Stil: Hockey mit Herz, Klarheit und Mut.</p></div></div>
-			</section>
+			<article class="stage" style="--tone:#a9a9b0;--tone-ink:#111114">
+				<button class="stage-btn" type="button" aria-expanded="false"><span class="rot">Eine Marke</span></button>
+				<div class="stage-panel">
+					<div class="stage-text"><h3>Wie aus dem Namen eine Marke wurde</h3><div class="stage-body"><p>2017 erscheint das Logo erstmals offiziell auf den Trikots der Nationalmannschaft. 2023 macht das Sporthilfe-Magazin „Der Sonderweg der HONAMAS“ zum Titelthema.</p><a class="textlink stage-link" href="wie-aus-dem-namen-eine-marke-wurde.html">Kapitel lesen</a></div></div>
+					<div class="stage-media"><img src="assets/img/reece-home.jpg" width="672" height="840" loading="lazy" alt="Entwurf des Heimtrikots mit HONAMAS-Logo von Reece Australia"></div>
+				</div>
+			</article>
 
-			<section id="film" class="film-section">
-				<div class="inner film-copy"><p class="kicker">Der Film</p><h2>Der Weg zum Titel.</h2><p>Der Film begleitet die deutsche Mannschaft durch die Heim-WM 2006 und erzählt, wie auf diesem Weg die HONAMAS entstanden.</p><a class="button light" href="https://www.youtube.com/watch?v=2RjXuKBzjC0">Film ansehen</a></div>
-			</section>
+			<article class="stage" style="--tone:#dedee2;--tone-ink:#111114">
+				<button class="stage-btn" type="button" aria-expanded="false"><span class="rot">Markenschutz</span></button>
+				<div class="stage-panel">
+					<div class="stage-text"><h3>Markenschutz: eine späte Anerkennung</h3><div class="stage-body"><p>Björn meldet die Marke 2010 persönlich an, einfach weil es sonst niemand tat. 2021 übergibt er die Rechte geordnet an den DHB.</p><a class="textlink stage-link" href="markenschutz-eine-spaete-anerkennung.html">Kapitel lesen</a></div></div>
+					<div class="stage-media"><img class="contain" src="assets/img/logo-honamas.png" width="842" height="596" loading="lazy" alt="Das HONAMAS-Logo"></div>
+				</div>
+			</article>
 
-			<section id="erfolge" class="section"><div class="inner"><p class="kicker red">Our wins</p><h2>Eine Geschichte, die weitergeht.</h2><div class="achievement-grid"><article><p class="meta">2006</p><h3>Weltmeister</h3></article><article><p class="meta">2008</p><h3>Olympiasieger</h3></article><article><p class="meta">2011</p><h3>Europameister</h3></article><article><p class="meta">2012</p><h3>Olympiasieger</h3></article><article><p class="meta">2013</p><h3>Europameister</h3></article><article><p class="meta">2023</p><h3>Weltmeister</h3></article><article><p class="meta">2025</p><h3>Europameister</h3></article></div></div></section>
-		</main>
+		</div>
+	</div>
+</section>
 
-		<footer class="site-footer"><div class="inner"><div><a class="brand" href="#top">HONAMAS</a><p>Champions since 2006</p></div><nav class="nav" aria-label="Footer"><a href="#">Kontakt</a><a href="#">Impressum</a><a href="#">Datenschutz</a></nav></div></footer>
-	</body>
+<section class="section identity" id="identity" aria-labelledby="h-identity">
+	<div class="wrap">
+		<div class="grid identity-grid">
+			<div class="identity-text">
+				<h2 id="h-identity" data-r>Hockey mit Herz und Mut.</h2>
+				<p class="honama-def" data-r style="--d:1"><b>Honama</b>, der: Raubvogel, gefräßig, angriffslustig, clever. Nur in der Gruppe erfolgreich.</p>
+				<div class="body pillars" data-r style="--d:2">
+					<p><b>Tower of Power:</b> in der Abwehr kompromisslos und verlässlich.</p>
+					<p><b>S.V.A.T.:</b> im Angriff schnell, variabel, aggressiv, torgefährlich.</p>
+					<p>Jung, kreativ, mutig, zugleich diszipliniert und zielstrebig. Die Team Identity von 2006 ist bis heute das Fundament der Marke.</p>
+					<p><a class="textlink" href="honama.html">Der Honama und die Team Identity</a></p>
+				</div>
+			</div>
+			<figure class="identity-media" data-r style="--d:1">
+				<img src="assets/img/team-2006.jpg" width="1600" height="1100" loading="lazy" alt="Mannschaftsfoto der HONAMAS 2006 vor der Tribüne, darunter das HONAMAS-Logo mit der Jahreszahl 2006">
+			</figure>
+		</div>
+	</div>
+</section>
+
+<section class="twelfth" id="zwoelfter-mann" aria-labelledby="h-twelfth">
+	<div class="wrap">
+		<div class="grid twelfth-grid">
+			<h2 id="h-twelfth" data-r>Der zwölfte Mann.</h2>
+			<div class="twelfth-text">
+				<div style="display:grid;gap:32px">
+					<p class="body" data-r style="--d:1">Vier Tage vor Beginn der WM druckt das Team mit einem Kölner Hockeyshop 1.500 HONAMAS-Shirts. Bei der Autogrammstunde im Stadion sind sie nach wenigen Stunden ausverkauft.</p>
+					<p><a class="textlink" href="2006-von-der-idee-zur-umsetzung.html">Wie 2006 alles entstand</a></p>
+					<blockquote data-r style="--d:2">„Mit unserem goldenen Logo auf der Unterhose sind wir Weltmeister geworden.“</blockquote>
+				</div>
+			</div>
+			<div class="prints" aria-label="Fotos von HONAMAS-Kleidung">
+				<figure class="print p1"><img src="assets/img/trikot-logo.jpg" width="389" height="500" loading="lazy" alt="Weißes Trikot mit goldenem HONAMAS-Adler"></figure>
+				<figure class="print p2"><img src="assets/img/shirts-2006.jpg" width="400" height="300" loading="lazy" alt="Drei HONAMAS-Shirts in Rot, Weiß und Grün von 2006"></figure>
+				<figure class="print p3"><img src="assets/img/trikot-signiert.jpg" width="1060" height="553" loading="lazy" alt="Trikot mit HONAMAS-Logo und Unterschriften"></figure>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="team" aria-labelledby="h-team">
+	<div class="wrap">
+		<div class="grid team-grid">
+			<div class="team-side">
+				<h2 id="h-team" class="mono-type" data-r>Ur-HONAMAS</h2>
+				<p class="statement" data-r style="--d:1">Das Team von 2006. Jeder von ihnen hat den Namen mit Leben gefüllt.</p>
+				<img src="assets/img/team-2006.jpg" width="1600" height="1100" loading="lazy" alt="Das WM-Team 2006 beim Mannschaftsfoto" data-r style="--d:2">
+			</div>
+			<div class="team-list" data-r>
+<details class="bar" open><summary><span class="bar-name">Ulrich Bubolz</span><span class="bar-nick">Bubi</span></summary><div class="bar-body"><img src="assets/img/players/bubi.jpg" width="520" height="520" loading="lazy" alt="Porträt von Ulrich Bubolz, genannt Bubi"><p>Genannt „Bubi“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Sebastian Biederlack</span><span class="bar-nick">Buddy</span></summary><div class="bar-body"><img src="assets/img/players/buddy.jpg" width="520" height="520" loading="lazy" alt="Porträt von Sebastian Biederlack, genannt Buddy"><p>Genannt „Buddy“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Carlos Nevado</span><span class="bar-nick">Carlito</span></summary><div class="bar-body"><img src="assets/img/players/carlos.jpg" width="520" height="520" loading="lazy" alt="Porträt von Carlos Nevado, genannt Carlito"><p>Genannt „Carlito“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Sebastian Draghun</span><span class="bar-nick">Dragon</span></summary><div class="bar-body"><img src="assets/img/players/dragon.jpg" width="520" height="520" loading="lazy" alt="Porträt von Sebastian Draghun, genannt Dragon"><p>Genannt „Dragon“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Björn Emmerling</span><span class="bar-nick">Emmel</span></summary><div class="bar-body"><img src="assets/img/players/emmel.jpg" width="520" height="520" loading="lazy" alt="Porträt von Björn Emmerling, genannt Emmel"><p>Genannt „Emmel“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Tim Jessulat</span><span class="bar-nick">Enti</span></summary><div class="bar-body"><img src="assets/img/players/enti.jpg" width="520" height="520" loading="lazy" alt="Porträt von Tim Jessulat, genannt Enti"><p>Genannt „Enti“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Eike Duckwitz</span><span class="bar-nick">General</span></summary><div class="bar-body"><img src="assets/img/players/general.jpg" width="520" height="520" loading="lazy" alt="Porträt von Eike Duckwitz, genannt General"><p>Genannt „General“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Philipp Crone</span><span class="bar-nick">Hupe</span></summary><div class="bar-body"><img src="assets/img/players/hupe.jpg" width="520" height="520" loading="lazy" alt="Porträt von Philipp Crone, genannt Hupe"><p>Genannt „Hupe“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Jan-Marco Montag</span><span class="bar-nick">Jambo</span></summary><div class="bar-body"><img src="assets/img/players/jambo.jpg" width="520" height="520" loading="lazy" alt="Porträt von Jan-Marco Montag, genannt Jambo"><p>Genannt „Jambo“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Niklas Meinert</span><span class="bar-nick">Meini</span></summary><div class="bar-body"><img src="assets/img/players/meini.jpg" width="520" height="520" loading="lazy" alt="Porträt von Niklas Meinert, genannt Meini"><p>Genannt „Meini“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Moritz Fürste</span><span class="bar-nick">Mo</span></summary><div class="bar-body"><img src="assets/img/players/mo.jpg" width="520" height="520" loading="lazy" alt="Porträt von Moritz Fürste, genannt Mo"><p>Genannt „Mo“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Nicolás Emmerling</span><span class="bar-nick">Nici</span></summary><div class="bar-body"><img src="assets/img/players/nici.jpg" width="520" height="520" loading="lazy" alt="Porträt von Nicolás Emmerling, genannt Nici"><p>Genannt „Nici“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Philipp Witte</span><span class="bar-nick">Piwi</span></summary><div class="bar-body"><img src="assets/img/players/piwi.jpg" width="520" height="520" loading="lazy" alt="Porträt von Philipp Witte, genannt Piwi"><p>Genannt „Piwi“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Justus Scharowski</span><span class="bar-nick">Scharo</span></summary><div class="bar-body"><img src="assets/img/players/scharo.jpg" width="520" height="520" loading="lazy" alt="Porträt von Justus Scharowski, genannt Scharo"><p>Genannt „Scharo“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Christian Schulte</span><span class="bar-nick">Schüti</span></summary><div class="bar-body"><img src="assets/img/players/schueti.jpg" width="520" height="520" loading="lazy" alt="Porträt von Christian Schulte, genannt Schüti"><p>Genannt „Schüti“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Tibor Weißenborn</span><span class="bar-nick">Tibs</span></summary><div class="bar-body"><img src="assets/img/players/tibs.jpg" width="520" height="520" loading="lazy" alt="Porträt von Tibor Weißenborn, genannt Tibs"><p>Genannt „Tibs“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Oliver Hentschel</span><span class="bar-nick">Ulln</span></summary><div class="bar-body"><img src="assets/img/players/ulln.jpg" width="520" height="520" loading="lazy" alt="Porträt von Oliver Hentschel, genannt Ulln"><p>Genannt „Ulln“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Timo Wess</span><span class="bar-nick">Wesa</span></summary><div class="bar-body"><img src="assets/img/players/wesa.jpg" width="520" height="520" loading="lazy" alt="Porträt von Timo Wess, genannt Wesa"><p>Genannt „Wesa“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Matthias Witthaus</span><span class="bar-nick">Witti</span></summary><div class="bar-body"><img src="assets/img/players/witti.jpg" width="520" height="520" loading="lazy" alt="Porträt von Matthias Witthaus, genannt Witti"><p>Genannt „Witti“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Philipp Zeller</span><span class="bar-nick">Zello</span></summary><div class="bar-body"><img src="assets/img/players/zello.jpg" width="520" height="520" loading="lazy" alt="Porträt von Philipp Zeller, genannt Zello"><p>Genannt „Zello“.</p></div></details>
+<details class="bar"><summary><span class="bar-name">Christopher Zeller</span><span class="bar-nick">Zells</span></summary><div class="bar-body"><img src="assets/img/players/zells.jpg" width="520" height="520" loading="lazy" alt="Porträt von Christopher Zeller, genannt Zells"><p>Genannt „Zells“.</p></div></details>
+				<p class="small team-note">Trainer 2006: Bernhard Peters. <a class="textlink" href="die-ur-honamas.html">Alle Porträts ansehen</a></p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section-tight" id="erfolge" aria-labelledby="h-wins">
+	<div class="wrap">
+		<div class="grid wins-grid">
+			<div class="wins-main">
+				<h2 id="h-wins" data-r>Titel seit 2006.</h2>
+				<dl class="wins">
+					<div class="win" data-r><dt>2006</dt><dd><b>Weltmeister</b> in Mönchengladbach</dd></div>
+					<div class="win" data-r><dt>2008</dt><dd><b>Olympiasieger</b> in Peking</dd></div>
+					<div class="win" data-r><dt>2011</dt><dd><b>Europameister</b></dd></div>
+					<div class="win" data-r><dt>2012</dt><dd><b>Olympiasieger</b> in London</dd></div>
+					<div class="win" data-r><dt>2013</dt><dd><b>Europameister</b></dd></div>
+					<div class="win" data-r><dt>2023</dt><dd><b>Weltmeister</b></dd></div>
+					<div class="win" data-r><dt>2025</dt><dd><b>Europameister</b></dd></div>
+					<div class="win" data-r><dt>2026</dt><dd><b>Weltmeister</b>, zwanzig Jahre nach Mönchengladbach</dd></div>
+				</dl>
+				<p style="margin-top:40px"><a class="textlink" href="erfolge.html">Alle Titel ansehen</a></p>
+			</div>
+			<div class="wins-side">
+				<img src="assets/img/gold-2012.jpg" width="1920" height="760" loading="lazy" alt="Die Mannschaft feiert Olympiagold 2012" data-r>
+				<blockquote data-r style="--d:1">„Die Marke gehörte nie mir. Ich habe sie nur aufbewahrt, bis sie wieder da war, wo sie hingehört – bei der Mannschaft.“<br><span class="small">Björn Emmerling</span></blockquote>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="close on-dark">
+<section class="film wrap" id="film" aria-labelledby="h-film">
+	<div class="grid film-top">
+		<h2 id="h-film" data-r>Der Weg zum Titel.</h2>
+		<div class="film-media" data-r style="--d:1">
+			<video id="loop" muted loop playsinline preload="metadata" poster="assets/img/hero-tribuene.jpg" aria-label="Ausschnitt aus dem Film über die Heim-WM 2006: Spielszene">
+				<source src="assets/video/wm2006-loop.mp4" type="video/mp4">
+			</video>
+		</div>
+		<div class="film-side film-bottom">
+			<p data-r>Eine Stunde über die Heim-WM 2006, das letzte Turnier unter Bernhard Peters, und darüber, wie auf diesem Weg die HONAMAS entstanden.</p>
+			<a class="button" href="https://www.youtube.com/watch?v=2RjXuKBzjC0" data-r style="--d:1">Film auf YouTube ansehen</a>
+			<a class="textlink" href="film.html" data-r style="--d:2">Zur Filmseite</a>
+		</div>
+	</div>
+
+</section>
+
+<footer class="site-footer">
+	<div class="foot-cols">
+		<ul><li>HONAMAS</li><li>Champions since 2006</li><li>Der Name der deutschen Herren-Hockey-Nationalmannschaft</li></ul>
+		<ul><li>Lesen</li><li><a href="die-idee.html">Die Idee</a></li><li><a href="2006-von-der-idee-zur-umsetzung.html">2006</a></li><li><a href="die-jahre-danach.html">Die Jahre danach</a></li><li><a href="wie-aus-dem-namen-eine-marke-wurde.html">Die Marke</a></li><li><a href="markenschutz-eine-spaete-anerkennung.html">Markenschutz</a></li></ul>
+		<ul><li>Mehr</li><li><a href="honama.html">Der Honama</a></li><li><a href="die-ur-honamas.html">Die Ur-HONAMAS</a></li><li><a href="erfolge.html">Erfolge</a></li><li><a href="film.html">Der Film</a></li><li><a href="https://www.instagram.com/honamas_hockey/">@honamas_hockey</a></li></ul>
+		<ul><li>Rechtliches</li><li><a href="#">Kontakt</a></li><li><a href="impressum.html">Impressum</a></li><li><a href="#">Datenschutz</a></li></ul>
+	</div>
+	<div></div>
+	<div>
+		<div class="foot-word" id="footWord" aria-hidden="true">
+			<svg viewBox="0 0 1000 142" xmlns="http://www.w3.org/2000/svg" focusable="false"><text x="0" y="136" textLength="1000" lengthAdjust="spacingAndGlyphs" fill="currentColor" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="190">HONAMAS</text></svg>
+		</div>
+		<p class="foot-legal">© 2026 HONAMAS</p>
+	</div>
+</footer>
+</div>
+
+</main>
+<script src="site.js"></script>
+</body>
 </html>

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HONAMAS Core
  * Description: Structured content for the HONAMAS archive and the Ur-HONAMAS team.
- * Version: 0.1.10
+ * Version: 0.2.0
  * Requires at least: 6.6
  * Requires PHP: 8.1
  * Text Domain: honamas-core
@@ -13,6 +13,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+require_once __DIR__ . '/includes/content-import.php';
+require_once __DIR__ . '/includes/site-shortcodes.php';
 
 function honamas_core_register_content_types(): void {
 	register_post_type(
@@ -225,7 +228,7 @@ function honamas_core_render_archive_collection(): string {
 				}
 				?>
 				<article class="honamas-archive-card">
-					<a aria-label="<?php echo esc_attr( get_the_title() ); ?>" class="honamas-archive-card__image" href="<?php the_permalink(); ?>">
+					<a aria-label="<?php echo esc_attr( get_the_title() ); ?>" class="honamas-archive-card__image<?php echo has_post_thumbnail() ? '' : ' honamas-archive-card__image--empty'; ?>" href="<?php the_permalink(); ?>">
 						<?php if ( has_post_thumbnail() ) : ?>
 							<?php the_post_thumbnail( 'large', array( 'loading' => 'lazy' ) ); ?>
 						<?php else : ?>
@@ -233,8 +236,9 @@ function honamas_core_render_archive_collection(): string {
 						<?php endif; ?>
 					</a>
 					<div class="honamas-archive-card__content">
-						<p class="honamas-meta"><?php echo esc_html( trim( implode( ' · ', array_filter( array( $category, $asset_date ) ) ) ) ); ?></p>
 						<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+						<?php $card_meta = trim( implode( ' · ', array_filter( array( $category, $asset_date ) ) ) ); ?>
+						<?php if ( $card_meta ) : ?><p class="small"><?php echo esc_html( $card_meta ); ?></p><?php endif; ?>
 						<?php if ( $excerpt ) : ?><p><?php echo esc_html( $excerpt ); ?></p><?php endif; ?>
 						<?php if ( $origin ) : ?><p class="honamas-archive-card__origin"><?php echo esc_html( $origin ); ?></p><?php endif; ?>
 					</div>
@@ -243,7 +247,6 @@ function honamas_core_render_archive_collection(): string {
 		</div>
 	<?php else : ?>
 		<section class="honamas-archive-empty">
-			<p class="honamas-meta"><?php esc_html_e( 'Im Aufbau', 'honamas-core' ); ?></p>
 			<h2><?php esc_html_e( 'Die ersten Originale folgen.', 'honamas-core' ); ?></h2>
 			<p><?php esc_html_e( 'Das Archiv wird fortlaufend mit ausgewählten Dokumenten, Fotos, Kleidung und Pressebelegen ergänzt.', 'honamas-core' ); ?></p>
 		</section>
@@ -317,7 +320,7 @@ function honamas_core_render_team_start_image(): string {
 	$image_id  = $team_page ? get_post_thumbnail_id( $team_page ) : 0;
 
 	if ( ! $image_id ) {
-		return '<div class="honamas-team-start__placeholder" aria-hidden="true"></div>';
+		return '';
 	}
 
 	$alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
