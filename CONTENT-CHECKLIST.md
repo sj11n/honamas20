@@ -137,3 +137,11 @@ Die erste Staging-Version benötigt nicht die vollständige Sammlung. Sie brauch
 3. Redaktion prüft Kapiteltexte, Teaser und Links.
 4. Rechtliche Texte, Consent und externe Einbindungen werden finalisiert.
 5. Erst danach erhalten Seiten und Archivobjekte den Status `Freigegeben`.
+
+## Offen nach dem Redesign (Oktober 2026)
+
+- Bildrechte, Fotografen und Quellen aller Bilder und des Filmmaterials (Platzhalter im Impressum unter „Quellen und Bildnachweise“).
+- Rückennummer, Position und Verein 2006 der Ur-HONAMAS (Felder im Backend unter Ur-HONAMAS, erscheinen automatisch).
+- Wer stand im Finalkader der WM 2006 (die Liste hat 21 Namen, ein WM-Kader meist 18).
+- Titel 2025 (Europameister) und 2026 (Weltmeister) fachlich bestätigen.
+- Hero-Video (`honamas-hero.mp4`, 30 MB) für den Live-Gang auf etwa 8–10 MB neu kodieren und in der Mediathek ersetzen.

@@ -249,6 +249,20 @@
         "page",
         "post"
       ]
+    },
+    {
+      "name": "gestaltet",
+      "title": "Gestaltete Seite (volle Breite)",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "kapitel",
+      "title": "Kapitel der Geschichte",
+      "postTypes": [
+        "page"
+      ]
     }
   ]
 }

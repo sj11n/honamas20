@@ -1,0 +1,83 @@
+{
+	"version": 1,
+	"pages": [
+		{
+			"slug": "start",
+			"title": "Start",
+			"template": "gestaltet",
+			"menu_order": 0,
+			"thumbnail": ""
+		},
+		{
+			"slug": "die-idee",
+			"title": "Die Idee",
+			"template": "kapitel",
+			"menu_order": 1,
+			"thumbnail": "kookaburras-schild.jpg"
+		},
+		{
+			"slug": "2006-von-der-idee-zur-umsetzung",
+			"title": "2006: Von der Idee zur Umsetzung",
+			"template": "kapitel",
+			"menu_order": 2,
+			"thumbnail": "team-2006.jpg"
+		},
+		{
+			"slug": "die-jahre-danach",
+			"title": "Die Jahre danach",
+			"template": "kapitel",
+			"menu_order": 3,
+			"thumbnail": "insta-2015.jpg"
+		},
+		{
+			"slug": "wie-aus-dem-namen-eine-marke-wurde",
+			"title": "Wie aus dem Namen eine Marke wurde",
+			"template": "kapitel",
+			"menu_order": 4,
+			"thumbnail": "reece-home.jpg"
+		},
+		{
+			"slug": "markenschutz-eine-spaete-anerkennung",
+			"title": "Markenschutz: eine späte Anerkennung",
+			"template": "kapitel",
+			"menu_order": 5,
+			"thumbnail": "logo-honamas.png"
+		},
+		{
+			"slug": "der-honama",
+			"title": "Der Honama",
+			"template": "gestaltet",
+			"menu_order": 0,
+			"thumbnail": "team-2006.jpg"
+		},
+		{
+			"slug": "die-ur-honamas",
+			"title": "Die Ur-HONAMAS",
+			"template": "gestaltet",
+			"menu_order": 0,
+			"thumbnail": "team-2006.jpg"
+		},
+		{
+			"slug": "erfolge",
+			"title": "Erfolge",
+			"template": "gestaltet",
+			"menu_order": 0,
+			"thumbnail": "gold-2012.jpg"
+		},
+		{
+			"slug": "der-film",
+			"title": "Der Film",
+			"template": "gestaltet",
+			"menu_order": 0,
+			"thumbnail": ""
+		}
+	],
+	"append": [
+		{
+			"slug": "impressum",
+			"file": "impressum-quellen.html",
+			"marker": "impressum-sources"
+		}
+	],
+	"front_page": "start"
+}
